@@ -130,13 +130,12 @@ const Join = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         setIsLoading(true); // 로딩 시작
-    
+        console.log(`${process.env.REACT_APP_API_URL}/loginProc`)
         try {
             const response = await axios.post(
-                `https://jbnucpu.co.kr/loginProc`,
+                `${process.env.REACT_APP_API_URL}/loginProc`,
                 { username, password }
             );
-    
             if (response.status === 200) {
                 alert("로그인 되었습니다.");
                 setIsAuthenticated(true);

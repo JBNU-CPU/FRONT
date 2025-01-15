@@ -190,7 +190,7 @@ const Join2 = () => {
             formData.append('nickName', nickName);
             formData.append('personName', personName);
             formData.append('email', email);
-        
+            console.log(`${process.env.REACT_APP_API_URL}/signup`)
             const response = await axios.post(`${process.env.REACT_APP_API_URL}/signup`, formData, {
                 withCredentials: true,
                 headers: {
