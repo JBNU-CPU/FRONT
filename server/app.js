@@ -1,6 +1,9 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const dotenv = require('dotenv')
+
+dotenv.config();
 
 // 환경 변수 기본값 설정
 const PORT = process.env.REACT_APP_PORT;
