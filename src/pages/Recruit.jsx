@@ -3,8 +3,8 @@ import { LuConstruction } from "react-icons/lu";
 import Header from "../components/Header";
 
 const Wrapper = styled.div`
-    width: calc(100%);
-    height: calc(100vh-60px);
+    width: 100vw;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
