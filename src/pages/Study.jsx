@@ -40,7 +40,7 @@ const MainTitle = styled.p`
 const RecuruitState = styled.p`
     width: 50px;
     height: 20px;
-    border: 1px solid #EA0079;
+    border: 1px solid #ab1a65;
     border-radius: 15px;
     color: white;
     font: 500 10px 'arial';
@@ -84,7 +84,7 @@ const ButtonContainer = styled.div`
 const ApplicateButton = styled.button`
     width: 100px;
     height: 35px;
-    background: #EA0079;
+    background: #ab1a65;
     border: none;
     color: white;
     margin: 0;

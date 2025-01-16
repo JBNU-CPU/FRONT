@@ -5,7 +5,7 @@ const Button  = styled.button`
     width: 70px;
     height: 30px;
     border-radius: 5px;
-    background: ${({isActive}) => (isActive ? '#ea0079' : '#6F7486')};
+    background: ${({isActive}) => (isActive ? '#ab1a65' : '#6F7486')};
     text-align: center;
     font : bold 12px 'arial';
     border : none;

@@ -56,12 +56,12 @@ const DayButton = styled.button`
     border-radius: 8px;
     border: none;
     cursor: pointer;
-    background-color: ${({ isSelected }) => (isSelected ? '#EA0079' : '#1E1E1E')};
+    background-color: ${({ isSelected }) => (isSelected ? '#ab1a65' : '#1E1E1E')};
     color: ${({ isSelected }) => (isSelected ? 'white' : '#BCC0CF')};
     transition: background-color 0.3s;
 
     &:hover {
-        background-color: ${({ isSelected }) => (isSelected ? '#C0005A' : '#6F7486')};
+        background-color: ${({ isSelected }) => (isSelected ? '#ab1a65' : '#6F7486')};
     }
 `;
 

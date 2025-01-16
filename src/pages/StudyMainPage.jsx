@@ -79,11 +79,11 @@ const Select = styled.li`
     margin: 0px;
     padding: 5px 10px;
     text-align: center;
-    border-bottom: 2px solid ${({ isActive }) => (isActive ? "#EA0079" : "transparent")};
+    border-bottom: 2px solid ${({ isActive }) => (isActive ? "#ab1a65" : "transparent")};
     &:hover {
         color: gray;
         cursor: pointer;
-        border-bottom: 2px solid #EA0079;
+        border-bottom: 2px solid #ab1a65;
     }
 `;
 

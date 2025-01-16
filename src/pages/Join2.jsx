@@ -116,14 +116,14 @@ const Quest = styled.p`
 
 const StyledLink = styled(Link)`
     background: none;
-    color: #ea0079;
+    color: #ab1a65;
     text-decoration: none;
     font: bold 12px 'arial';
 `
 
 const Wrong = styled.p`
     font: bold 10px 'arial';
-    color: red;
+    color: #ab1a65;
     background: transparent;
     padding-bottom: 15px;
 `
@@ -148,7 +148,7 @@ const spin = keyframes`
 
 const Spinner = styled.div`
     border: 5px solid rgba(255, 255, 255, 0.3);
-    border-top: 5px solid #ea0079;
+    border-top: 5px solid #ab1a65;
     border-radius: 50%;
     width: 50px;
     height: 50px;

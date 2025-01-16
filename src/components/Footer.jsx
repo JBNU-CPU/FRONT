@@ -8,7 +8,7 @@ import { FaRegCopyright } from "react-icons/fa";
 const Container = styled.div`
     width: 100%;
     height: 250px;
-    background: #ea0079;
+    background: #ab1a65;
     overflow-x: hidden;
     box-sizing: border-box;
     overflow-y: hidden;

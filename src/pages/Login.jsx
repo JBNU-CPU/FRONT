@@ -76,7 +76,7 @@ const JoinWrapper = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-    color: #ea0079;
+    color: #ab1a65;
     text-decoration: none;
     font: bold 12px "arial";
     background: transparent;
@@ -103,7 +103,7 @@ const spin = keyframes`
 
 const Spinner = styled.div`
     border: 5px solid rgba(255, 255, 255, 0.3);
-    border-top: 5px solid #ea0079;
+    border-top: 5px solid #ab1a65;
     border-radius: 50%;
     width: 50px;
     height: 50px;

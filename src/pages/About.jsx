@@ -39,9 +39,9 @@ const TabButton = styled.button`
   cursor: pointer;
   font: bold 17px 'arial';
   padding-bottom: 5px;
-  border-bottom: 2px solid ${({ isActive }) => (isActive ? '#ea0079' : 'transparent')};
+  border-bottom: 2px solid ${({ isActive }) => (isActive ? '#ab1a65' : 'transparent')};
   &:hover {
-    border-bottom: 2px solid #ea0079;
+    border-bottom: 2px solid #ab1a65;
   }
 `;
 

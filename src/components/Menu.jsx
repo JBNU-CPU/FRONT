@@ -54,7 +54,7 @@ const SubMenuWrapper = styled.div`
 
 const SubMenu = styled.ul`
     background: none;
-    border-top: 2px solid #EA0079;
+    border-top: 2px solid #ab1a65;
     list-style: none;
     padding: 0;
     margin: 0;
@@ -74,7 +74,7 @@ const LoginWrapper = styled.div`
 
 const Login = styled.button`
     align-items: center;
-    border: 1.5px solid #EA0079;
+    border: 1.5px solid #ab1a65;
     border-radius: 5px;
     background: none;
     font: bold 12px 'arial';

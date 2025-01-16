@@ -13,7 +13,7 @@ const Container = styled.div`
 
 const Title = styled.h1`
     color: white;
-    border-bottom: 2px solid #EA0079;
+    border-bottom: 2px solid #ab1a65;
     text-align: center;
     width: 120px;
 `;
@@ -46,7 +46,7 @@ const SubmitButton = styled.button`
     border-radius: 10px;
     color: white;
     font: 600 10px 'arial';
-    border: 1px solid #EA0079;
+    border: 1px solid #ab1a65;
     &:hover {
         color: gray;
         cursor: pointer;
@@ -74,7 +74,7 @@ const Content = styled.div`
     margin-bottom: 30px;
     background: #1B1B25;
     &:hover {
-        border: 1px solid #EA0079;
+        border: 1px solid #ab1a65;
     }
 `;
 
@@ -99,7 +99,7 @@ const RecruitState = styled.div`
     width: 50px;
     height: 20px;
     color: white;
-    border: 1px solid #EA0079;
+    border: 1px solid #ab1a65;
     border-radius: 15px;
     font: 500 10px 'arial';
     text-align: center;
@@ -134,7 +134,7 @@ const PaginationButton = styled.button`
     border: none;
     padding: 5px 12px;
     margin: 0 5px;
-    background-color: #ea0079;
+    background-color: #ab1a65;
     color: white;
     border-radius: 5px;
     cursor: pointer;

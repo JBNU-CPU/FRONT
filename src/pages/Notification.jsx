@@ -101,8 +101,8 @@ const SearchButton = styled.button`
   border: none;
   cursor: pointer;
   border-radius: 5px;
-  border: 1px solid #EA0079;
-  background: #EA0079;;
+  border: 1px solid #ab1a65;
+  background: #ab1a65;
   width: 80px;
   &:hover {
     background: gray;
@@ -148,7 +148,7 @@ const PageButton = styled.button`
   cursor: pointer;
   border-radius: 4px;
   font: bold 13px 'arial';
-  background: #EA0079;
+  background: #ab1a65;
   margin:20px 10px;
   margin-bottom: 40px;
   &:hover {
@@ -160,8 +160,8 @@ const PageButton = styled.button`
   }
   &.write{
     background: transparent;
-    border: 1px solid #EA0079;
-    background: #EA0079;
+    border: 1px solid #ab1a65;
+    background: #ab1a65;
     margin: 0;
     &:hover{
       cursor: pointer;

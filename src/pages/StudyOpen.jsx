@@ -55,12 +55,12 @@ const DayButton = styled.button`
     border-radius: 8px;
     border: none;
     cursor: pointer;
-    background-color: ${({ isSelected }) => (isSelected ? '#EA0079' : '#1E1E1E')};
+    background-color: ${({ isSelected }) => (isSelected ? '#ab1a65' : '#1E1E1E')};
     color: ${({ isSelected }) => (isSelected ? 'white' : '#BCC0CF')};
     transition: background-color 0.3s;
 
     &:hover {
-        background-color: ${({ isSelected }) => (isSelected ? '#C0005A' : '#6F7486')};
+        background-color: ${({ isSelected }) => (isSelected ? '#ab1a65' : '#6F7486')};
     }
 `;
 
@@ -89,7 +89,7 @@ const NumberInput = styled.input`
 const ApplicateButton = styled.button`
     width: 100px;
     height: 35px;
-    background: #EA0079;
+    background: #ab1a65;
     border: none;
     color: white;
     margin-top: 50px;

@@ -84,11 +84,11 @@ const StyledLinkWrapper = styled.div`
 const StyledLink = styled(Link)`
     font: 400 15px 'arial';
     text-decoration: none;
-    color: #3987EC;
+    color: #ab1a65;
 `
 
 const RightIcon = styled(FaChevronRight)`
-    color: #3987EC;
+    color: #ab1a65;
     position: relative;
     top: 2.5px;
 `
@@ -99,7 +99,7 @@ const Leave = styled.p`
     pad: 0;
     padding-top: 50px;
     font: bold 12px 'arial';
-    color: #FF0000;
+    color: #ab1a65;
     &:hover{
         cursor: pointer;
     }

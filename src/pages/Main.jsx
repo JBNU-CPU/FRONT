@@ -56,7 +56,7 @@ const MainWrap = styled.div`
 const Line = styled.div`
 	width : 40%;
 	height : 2px;
-	background-color : #EA0079;
+	background-color : #ab1a65;
 	margin : 10px;
 `
 const Button = styled.button`
@@ -65,7 +65,7 @@ const Button = styled.button`
     justify-content: center;
     border-radius: 5px;
 		border: none;
-    background: #EA0079;
+    background: #ab1a65;
     font: bold 12px 'arial';
     font-weight: 700;
     width: 100px;
