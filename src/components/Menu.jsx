@@ -44,7 +44,19 @@ const Menuli = styled.li`
     padding-top: 15px;
     padding-bottom: 15px;
     cursor: pointer;
+    transition: text-shadow 0.3s ease, transform 0.3s ease; /* 부드러운 전환 효과 추가 */
+
+    &:hover {
+        text-shadow: 0 0 10px #d1cecf; /* 글자 주변 빛나는 효과 */
+        transform: scale(1.05); /* 살짝 확대 */
+    }
+
+    &:active {
+        text-shadow: 0 0 15px #d1cecf; /* 클릭 시 빛나는 효과 강화 */
+        transform: scale(1); /* 클릭 시 원래 크기로 복귀 */
+    }
 `;
+
 
 const SubMenuWrapper = styled.div`
     display: flex;
@@ -82,16 +94,23 @@ const Login = styled.button`
     width: 70px;
     height: 30px;
     color: white;
+    transition: box-shadow 0.3s ease, transform 0.2s ease; /* 부드러운 전환 효과 */
+
+    &:hover {
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(171, 26, 101, 0.8); /* hover 시 희미하게 빛나는 효과 */
+        transform: scale(1); /* 살짝 확대 */
+        a{
+            color: gray;
+        }
+    }
 `;
+
 
 const StyledLink = styled(Link)`
     background: none;
     text-decoration: none;
     color: white;
-    &:hover {
-        cursor: pointer;
-        color: gray;
-    }
 `;
 
 const Mypage = styled.p`

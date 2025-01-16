@@ -12,11 +12,11 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 100vh;
+    width: 100vw;
 `
 
 const Container = styled.main`
-    margin-top: 100px;
-    margin-bottom: 100px;
     height: auto;
     background: black;
     display: flex;
@@ -84,13 +84,18 @@ const StyledInput = styled.input`
     width: 300px;
     height: 45px;
     background: #1B1B25;
-    border : none;
+    border : 2px solid transparent;
     border-radius: 14px;
     margin: 25px;
     margin-top: 0;
     color: white;
     padding-left: 20px;
     font: bold 14px 'arial';
+    outline: none; /* 기본 브라우저 outline 제거 */
+
+    &:focus {
+        border: 2px solid #ab1a65; /* 포커스 시 테두리 색상 변경 */
+    }
 `
 
 const CompleteWrapper = styled.div`
@@ -119,6 +124,9 @@ const StyledLink = styled(Link)`
     color: #ab1a65;
     text-decoration: none;
     font: bold 12px 'arial';
+    &.login:hover{
+        text-shadow: 0 0 10px rgba(171, 26, 101, 0.8); /* 글자 주변 희미한 빛 */
+    }
 `
 
 const Wrong = styled.p`
@@ -235,7 +243,7 @@ const Join2 = () => {
                         <Complete_Btn onClick = {onClick} isActive={isButtonActive}/>
                     </CompleteWrapper>
                     <QuestWrapper>
-                        <Quest>이미 계정이 있으신가요?</Quest><StyledLink to = '/login'>로그인</StyledLink>
+                        <Quest>이미 계정이 있으신가요?</Quest><StyledLink className="login" to = '/login'>로그인</StyledLink>
                     </QuestWrapper>
                 </Container>
             </Wrapper>
@@ -245,7 +253,6 @@ const Join2 = () => {
                     <LoadingText>회원가입 중..</LoadingText>
                 </Overlay>
             )}
-            <Footer/>
         </>
     );
 };

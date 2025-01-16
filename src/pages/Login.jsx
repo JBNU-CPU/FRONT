@@ -7,46 +7,58 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../AuthContext";
 import Footer from "../components/Footer";
 import { useLocation } from "react-router-dom";
+import logo from '../Picture/CPU_logo_full.jpeg'
+
 
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: 100px;
+    height: 100vh;
+    width: 100vw;
 `;
 
 const Container = styled.form`
-    margin-top: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(121, 120, 120, 0.1);
     backdrop-filter: blur(10px);
-    border-radius: 5px;
+    border-radius: 20px;
     padding: 40px 20px;
     width: 350px;
 `;
 
 const MainName = styled.p`
-    font: bold 30px "arial";
+    font: bold 20px "arial";
     color: white;
-    margin-bottom: 50px;
     background: transparent;
+    margin: 5px 0 20px 0;
+    &.year{
+        margin: 0;
+        font: bold 8px 'arial';
+    }
 `;
 
 const StyledInput = styled.input`
     width: 280px;
     height: 45px;
-    border: none;
+    border: 2px solid transparent;
     border-radius: 14px;
     margin-bottom: 20px;
     color: white;
-    background: #1e1e1e;
+    background: rgba(255, 255, 255, 0.1); /* 투명 배경 */
     padding-left: 15px;
     font: bold 14px "arial";
+    outline: none; /* 기본 브라우저 outline 제거 */
+
+    &:focus {
+        border: 2px solid #ab1a65; /* 포커스 시 테두리 색상 변경 */
+    }
 `;
+
 
 const LoginWrapper = styled.div`
     margin-top: 20px;
@@ -80,7 +92,11 @@ const StyledLink = styled(Link)`
     text-decoration: none;
     font: bold 12px "arial";
     background: transparent;
+    &.signup:hover {
+        text-shadow: 0 0 10px rgba(171, 26, 101, 0.8); /* 글자 주변 희미한 빛 */
+    }
 `;
+
 
 const Overlay = styled.div`
     position: fixed;
@@ -115,6 +131,12 @@ const LoadingText = styled.p`
     color: white;
     font-size: 16px;
     font-weight: bold;
+    margin: 0;
+`;
+
+const Logo = styled.img`
+    height: 70px;
+    width: 70px;
     margin: 0;
 `;
 
@@ -170,7 +192,8 @@ const Join = () => {
             <Header/>
             <Wrapper>
                 <Container onSubmit={handleLogin}>
-                    <MainName>Log in</MainName>
+                    <Logo src={logo}/>
+                    <MainName>CPU</MainName>
                     <StyledInput
                         type="text"
                         placeholder="아이디를 입력해주세요"
@@ -199,7 +222,7 @@ const Join = () => {
                         </Login_Btn>
                     </LoginWrapper>
                     <JoinWrapper>
-                        <StyledLink to="/join2">회원가입</StyledLink>
+                        <StyledLink className='signup' to="/join2">회원가입</StyledLink>
                     </JoinWrapper>
                 </Container>
             </Wrapper>
@@ -209,7 +232,6 @@ const Join = () => {
                     <LoadingText>로그인 중...</LoadingText>
                 </Overlay>
             )}
-            <Footer />
         </>
     );
 };
