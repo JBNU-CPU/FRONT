@@ -15,16 +15,18 @@ const Button = styled.button`
     width: 70px;
     height: 30px;
     color : white;
-    margin-top : 20px;
     margin-bottom : 50px;
-    &:hover{
+    transition: box-shadow 0.3s ease, color 0.3s ease; /* 부드러운 전환 효과 */
+    &:hover {
         cursor: pointer;
-        color:gray;
+        color: gray;
+        box-shadow: 0 0 10px rgba(171, 26, 101, 0.8); /* 희미하게 빛나는 효과 */
         & > svg {
             color: gray;
         }
     }
 `;
+
 
 const Arrow = styled(MdOutlineArrowForwardIos)`
     margin-left: 1px;
