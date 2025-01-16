@@ -130,12 +130,18 @@ const Join = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         setIsLoading(true); // 로딩 시작
-        console.log(`${process.env.REACT_APP_API_URL}/loginProc`)
         try {
             const response = await axios.post(
                 `${process.env.REACT_APP_API_URL}/loginProc`,
-                { username, password }
+                { username, password },
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true // 쿠키 포함
+                }
             );
+        
             if (response.status === 200) {
                 alert("로그인 되었습니다.");
                 setIsAuthenticated(true);
@@ -148,7 +154,7 @@ const Join = () => {
             alert("로그인 중 문제가 발생했습니다.");
         } finally {
             setIsLoading(false); // 로딩 종료
-        }
+        }        
     };
     
     useEffect(() => {
