@@ -80,10 +80,13 @@ const Select = styled.li`
     padding: 5px 10px;
     text-align: center;
     border-bottom: 2px solid ${({ isActive }) => (isActive ? "#ab1a65" : "transparent")};
+    transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     &:hover {
         color: gray;
         cursor: pointer;
-        border-bottom: 2px solid #ab1a65;
+        text-shadow: 0 0 10px #d1cecf; /* 텍스트 희미하게 빛나는 효과 */
+        transform: scale(1); /* 살짝 확대 */
+
     }
 `;
 

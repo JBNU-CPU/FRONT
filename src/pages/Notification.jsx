@@ -92,6 +92,10 @@ const SearchInput = styled.input`
   padding-left: 20px;
   padding-block: 6px;
   width: calc(60%);
+  outline: none; /* 기본 브라우저 outline 제거 */
+  &:focus {
+      border: 1px solid #ab1a65; /* 포커스 시 테두리 색상 변경 */
+  }
 `;
 
 const SearchButton = styled.button`
@@ -104,9 +108,10 @@ const SearchButton = styled.button`
   border: 1px solid #ab1a65;
   background: #ab1a65;
   width: 80px;
+  transition: box-shadow 0.3s ease, transform 0.2s ease; /* 부드러운 전환 효과 추가 */
   &:hover {
-    background: gray;
-    border: 1px solid gray;
+    box-shadow: 0 0 10px rgba(171, 26, 101, 0.8); /* hover 시 희미하게 빛나는 효과 */
+    transform: scale(1); /* 살짝 확대 */
   }
 `;
 
@@ -151,8 +156,10 @@ const PageButton = styled.button`
   background: #ab1a65;
   margin:20px 10px;
   margin-bottom: 40px;
-  &:hover {
-    background: #777;
+  transition: box-shadow 0.3s ease, transform 0.2s ease; /* 부드러운 전환 효과 추가 */
+  &:hover:not(:disabled) {
+    box-shadow: 0 0 10px rgba(171, 26, 101, 0.8); /* hover 시 희미하게 빛나는 효과 */
+    transform: scale(1); /* 살짝 확대 */
   }
   &:disabled {
     background: gray;
@@ -163,10 +170,10 @@ const PageButton = styled.button`
     border: 1px solid #ab1a65;
     background: #ab1a65;
     margin: 0;
-    &:hover{
-      cursor: pointer;
-      border: 1px solid gray;
-      background: gray;
+    transition: box-shadow 0.3s ease, transform 0.2s ease; /* 부드러운 전환 효과 추가 */
+    &:hover {
+      box-shadow: 0 0 10px rgba(171, 26, 101, 0.8); /* hover 시 희미하게 빛나는 효과 */
+      transform: scale(1); /* 살짝 확대 */
     }
   }
 `;

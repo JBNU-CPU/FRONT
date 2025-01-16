@@ -17,31 +17,76 @@ const Wrap = styled.div`
 	flex-direction : column;
 `
 const Button = styled.button`
-	display : flex;
-	flex-direction : column;
-	align-items : center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	width: calc(60%);
-  	border-radius: 5px;
-  	padding: 0;
-  	border: none;
-  	cursor: pointer;
-  	overflow: hidden;
+	border-radius: 5px;
+	padding: 0;
+	border: none;
+	cursor: pointer;
 	margin: 30px;
+	position: relative;
 
-	img{
-		width : 100%;
+	img {
+		width: 100%;
 		aspect-ratio: 5/3;
-		border-radius : 10px;
+		border-radius: 10px;
 		object-fit: cover;
-		margin-bottom : 10px;
-	}
-`
-const Text = styled.text`
-	color: ${props => props.color || '#F5F7FF'};
-	font: bold ${props => props.fontSize || '15px'} 'arial';
-	margin-top: 5px;
+		margin-bottom: 10px;
+		transition: transform 0.3s ease, box-shadow 0.3s ease; /* 부드러운 전환 효과 */
 
+		&:hover {
+			box-shadow: 0 0 7px #d1cecf; /* 테두리 희미하게 빛남 */
+			transform: scale(1.01); /* 이미지 살짝 확대 */
+		}
+	}
+
+	/* 텍스트와 이미지의 hover 효과 */
+	&:hover::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 0;
+		height: 2px;
+		background: #ab1a65;
+		transition: width 0.3s ease;
+	}
+
+	&:hover img::after,
+	&:hover span::after {
+		width: 100%; /* hover 시 border-bottom 전체 길이 */
+	}
 `;
+
+const Text = styled.span`
+	color: ${(props) => props.color || '#F5F7FF'};
+	font: bold ${(props) => props.fontSize || '15px'} 'arial';
+	margin-top: 5px;
+	position: relative;
+	&.title{
+		padding-inline: 5px;
+	}
+
+	&.title::after {
+		content: '';
+		position: absolute;
+		bottom: -2px;
+		left: 0;
+		width: 0;
+		height: 2px;
+		background: #ab1a65;
+		transition: width 0.3s ease;
+	}
+
+	&.title:hover::after {
+		width: 100%; /* hover 시 border-bottom 전체 길이 */
+	}
+`;
+
+
+
 const PageIndex = styled.div`
 	display : flex;
 	align-items : center;
@@ -117,7 +162,7 @@ const Gallery = () => {
 				{currentItem.map((item)=>(
 					<Button key={item.id} onClick={()=>handleDetail(item.id)}>
 						<img src={item.image[0]} alt={item.title}/>
-						<Text>{item.title}</Text>
+						<Text className="title">{item.title}</Text>
 						<Text color="#BCC0CF" fontSize="12px">{item.date}</Text>
 
 					</Button>

@@ -10,11 +10,11 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 40px;
 `;
 
 const Title = styled.h1`
     color: white;
-    border-bottom: 2px solid #ab1a65;
     text-align: center;
     width: 120px;
 `;
@@ -31,7 +31,7 @@ const SubmitWrapper = styled.div`
     flex-direction: row-reverse;
     align-items: flex-end;
     width: calc(90%);
-    border-bottom: 1.5px solid white;
+    border-bottom: 1.5px solid #ab1a65;
     margin: 0px;
     padding: 0px;
     margin-bottom: 40px;
@@ -40,16 +40,21 @@ const SubmitWrapper = styled.div`
 const SubmitButton = styled.button`
     position: relative;
     right: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     width: 70px;
     height: 25px;
     border-radius: 10px;
     color: white;
     font: 600 10px 'arial';
     border: 1px solid #ab1a65;
+    transition: box-shadow 0.3s ease, transform 0.2s ease; /* 부드러운 전환 효과 */
     &:hover {
-        color: gray;
         cursor: pointer;
+        box-shadow: 0 0 10px rgba(171, 26, 101, 0.8); /* hover 시 희미하게 빛나는 효과 */
+        transform: scale(1); /* 살짝 확대 */
+        a{
+            color: gray;
+        }
     }
 `;
 
@@ -73,8 +78,11 @@ const Content = styled.div`
     margin: 0;
     margin-bottom: 30px;
     background: #1B1B25;
+    transition: box-shadow 0.3s ease, transform 0.2s ease; /* 부드러운 전환 효과 */
     &:hover {
-        border: 1px solid #ab1a65;
+        cursor: pointer;
+        box-shadow: 0 0 10px rgba(171, 26, 101, 0.8); /* hover 시 희미하게 빛나는 효과 */
+        transform: scale(1); /* 살짝 확대 */
     }
 `;
 
@@ -131,19 +139,27 @@ const PaginationWrapper = styled.div`
 `;
 
 const PaginationButton = styled.button`
-    border: none;
-    padding: 5px 12px;
-    margin: 0 5px;
-    background-color: #ab1a65;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
+  border: none;
+  padding: 5px 12px;
+  margin: 0 5px;
+  background-color: #ab1a65;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font: bold 13px 'arial';
+  transition: box-shadow 0.3s ease, transform 0.2s ease; /* 부드러운 전환 효과 추가 */
 
-    &:disabled {
-        background-color: gray;
-        cursor: not-allowed;
-    }
+  &:hover:not(:disabled) {
+    box-shadow: 0 0 10px rgba(171, 26, 101, 0.8); /* hover 시 희미하게 빛나는 효과 */
+    transform: scale(1.05); /* 살짝 확대 */
+  }
+
+  &:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+  }
 `;
+
 
 // 샘플 데이터 생성
 const sampleData = Array.from({ length: 10 }, (_, index) => ({
