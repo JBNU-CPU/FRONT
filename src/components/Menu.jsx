@@ -3,6 +3,7 @@ import styled from "styled-components";
 import logo from './logo/CPU_logo_white.png';
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../AuthContext";
+import AdminContext from "../AdminContext";
 
 const Container = styled.div`
     width: calc(40%);
@@ -127,6 +128,7 @@ const Menu = () => {
     const [isStudyOpen, setIsStudyOpen] = useState(false);
     const [isBoardOpen, setIsBoardOpen] = useState(false);
     const {isAuthenticated,setIsAuthenticated} = useContext(AuthContext);
+    const {isAdmin,} = useContext(AdminContext);
 
     const handleStudyClick = () => {
         setIsStudyOpen(prev => !prev);
@@ -180,7 +182,9 @@ const Menu = () => {
                     </SubMenuWrapper>
                 )}
                 <Menuli><StyledLink to='/recruit'>Recruit</StyledLink></Menuli>
-                <Menuli><StyledLink to='/management'>Management</StyledLink></Menuli>
+                {isAdmin && ( // isAdmin이 true일 때만 Management 표시
+                    <Menuli><StyledLink to='/management'>Management</StyledLink></Menuli>
+                )}
             </MenuWrapper>
             <LoginWrapper>
                 {isAuthenticated?(<>

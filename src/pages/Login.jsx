@@ -172,11 +172,21 @@ const Join = () => {
                 alert("아이디, 비밀번호를 다시 확인해보세요.");
             }
         } catch (error) {
-            console.error("로그인 오류:", error);
+            // 디버깅용 로그 추가
+            if (error.response) {
+                console.error("응답 오류:", error.response.data);
+                console.error("응답 상태 코드:", error.response.status);
+                console.error("응답 헤더:", error.response.headers);
+            } else if (error.request) {
+                console.error("요청이 만들어졌으나 응답을 받지 못함:", error.request);
+            } else {
+                console.error("요청 설정 중 오류 발생:", error.message);
+            }
             alert("로그인 중 문제가 발생했습니다.");
         } finally {
             setIsLoading(false); // 로딩 종료
-        }        
+        }
+            
     };
     
     useEffect(() => {

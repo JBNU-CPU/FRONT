@@ -5,7 +5,6 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Slider from "../components/ImgSlider";
 import { MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from "react-icons/md";
-import AuthContext from "../AuthContext";
 import img from '../components/SliderImg/img1.png';
 import posts from '../posts/GalleryPosts';
 import { useContext } from "react";
@@ -122,7 +121,6 @@ const ArrowBack = styled(MdOutlineArrowBackIos)`
 `;
 
 const Gallery = () => {
-	const { isAuthenticated } = useContext(AuthContext);
 	const navigate = useNavigate();
 	const [currentPg, setCurrentPg] = useState(0); //현재 페이지
 	const itemsPerPg = 5; // 페이지당 나타낼 게시물 수
@@ -145,12 +143,7 @@ const Gallery = () => {
 
 	//게시물 접근
 	const handleDetail =(id) =>{
-		if(isAuthenticated){
-			navigate(`/galleryDetail/${id}`);
-		}else{
-			alert('비회원은 접근 불가합니다.')
-		}
-
+		navigate(`/galleryDetail/${id}`);
 	}
 
   return(

@@ -1,7 +1,6 @@
 import React,{useState,useRef,useEffect} from "react";
 import styled,{keyframes} from "styled-components";
 import Header from "../components/Header";
-import Footer from "../components/Footer";
 import Complete_Btn from "../components/Complete_Btn";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +13,8 @@ const Wrapper = styled.div`
     justify-content: center;
     height: 100vh;
     width: 100vw;
+    overflow-y: auto;
+    margin-block: 100px;
 `
 
 const Container = styled.main`
@@ -83,7 +84,7 @@ const RePasswordText = styled.p`
 const StyledInput = styled.input`
     width: 300px;
     height: 45px;
-    background: #1B1B25;
+    background: rgba(255, 255, 255, 0.1);
     border : 2px solid transparent;
     border-radius: 14px;
     margin: 25px;
@@ -171,6 +172,50 @@ const LoadingText = styled.p`
     margin: 0;
 `;
 
+const ModalBackground = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+`;
+
+const ModalBox = styled.div`
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+`;
+
+const ModalText = styled.p`
+    background: transparent;
+    font: bold 14px 'arial';
+    color: black;
+    margin-bottom: 20px; 
+`;
+
+const CloseButton = styled.button`
+    background: #ab1a65;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font: bold 12px 'arial';
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:hover {
+        background: #d12b7f;
+    }
+`;
+
 
 const Join2 = () => {
     const [nickName,setnickName] = useState("");
@@ -180,6 +225,7 @@ const Join2 = () => {
     const [repassword, setrepassword] = useState("");
     const [email, setemail] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(true);
     const CompleteNavigate= useNavigate();
     const firstInputRef = useRef(null);
 
@@ -188,6 +234,10 @@ const Join2 = () => {
             firstInputRef.current.focus();
         }
     },[]);
+
+    const closeModal = () =>{
+        setIsModalOpen(false);
+    };
 
     const onClick = async() => {
         setIsLoading(true);
@@ -223,6 +273,15 @@ const Join2 = () => {
     return(
         <>
             <Header/>
+            {isModalOpen && (
+                <ModalBackground>
+                    <ModalBox>
+                        <ModalText>CPU 부원이신 분들만 회원가입이 가능합니다! <br/> <br/>
+                        혹시 CPU 부원이지만 회원가입이 되지 않으시는 분들은 회장에게 연락해 주세요!</ModalText>
+                        <CloseButton onClick = {closeModal}>닫기</CloseButton>
+                    </ModalBox>
+                </ModalBackground>
+            )}
             <Wrapper>
                 <Container>
                     <MainName>Join</MainName>
