@@ -13,8 +13,7 @@ const Wrapper = styled.div`
     justify-content: center;
     height: 100vh;
     width: 100vw;
-    overflow-y: auto;
-    margin-block: 100px;
+    margin-block: 150px;
 `
 
 const Container = styled.main`
