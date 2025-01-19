@@ -37,7 +37,7 @@ const TabButton = styled.button`
   color: ${({ isActive }) => (isActive ? 'gray' : 'white')};
   font-size: 18px;
   cursor: pointer;
-  font: bold 17px 'arial';
+  font: bold 20px 'arial';
   padding-bottom: 5px;
   border-bottom: 2px solid ${({ isActive }) => (isActive ? '#ab1a65' : 'transparent')};
   &:hover {
@@ -146,7 +146,7 @@ const ManagementSection = () => (
         </tr>
         <tr>
             <TD>부회장</TD>
-            <TD>임정민</TD>
+            <TD>이진태</TD>
         </tr>
         <tr>
             <TD>총무</TD>
@@ -170,15 +170,15 @@ const ManagementSection = () => (
         </tr>
         <tr>
             <TD>부원</TD>
-            <TD>이진태</TD>
+            <TD></TD>
         </tr>
         <tr>
             <TD>부원</TD>
-            <TD>오예준</TD>
+            <TD></TD>
         </tr>
         <tr>
             <TD>부원</TD>
-            <TD>채민경</TD>
+            <TD></TD>
         </tr>
     </Table>
 
@@ -194,11 +194,11 @@ const ManagementSection = () => (
         </tr>
         <tr>
             <TD>부원</TD>
-            <TD>정유민</TD>
+            <TD></TD>
         </tr>
         <tr>
             <TD>부원</TD>
-            <TD>이시연</TD>
+            <TD></TD>
         </tr>
     </Table>
 
@@ -210,19 +210,19 @@ const ManagementSection = () => (
         </tr>
         <tr>
             <TD>부장</TD>
-            <TD>최유경</TD>
-        </tr>
-        <tr>
-            <TD>부원</TD>
             <TD>정서현</TD>
         </tr>
         <tr>
             <TD>부원</TD>
-            <TD>김락현</TD>
+            <TD>이동규</TD>
         </tr>
         <tr>
             <TD>부원</TD>
             <TD>신재희</TD>
+        </tr>
+        <tr>
+            <TD>부원</TD>
+            <TD></TD>
         </tr>
     </Table>
 
