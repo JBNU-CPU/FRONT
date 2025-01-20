@@ -147,45 +147,35 @@ const Join = () => {
     const firstInputRef = useRef(null);
     const navigate = useNavigate();
     const { setIsAuthenticated } = useContext(AuthContext);
-    const location = useLocation();
 
     const handleLogin = async (e) => {
         e.preventDefault();
         setIsLoading(true); // 로딩 시작
         try {
-            const response = await axios.post(
-                `${process.env.REACT_APP_API_URL}/loginProc`,
-                { username, password },
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    withCredentials: true // 쿠키 포함
-                }
-            );
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/loginProc`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include", // 쿠키 포함
+                body: JSON.stringify({ username: username, password: password })
+            });
         
-            if (response.status === 200) {
+            if (response.ok) {
                 alert("로그인 되었습니다.");
                 setIsAuthenticated(true);
                 navigate("/");
             } else {
-                alert("아이디, 비밀번호를 다시 확인해보세요.");
+                alert("로그인 실패!");
             }
         } catch (error) {
-            // 디버깅용 로그 추가
-            if (error.response) {
-                console.error("응답 오류:", error.response.data);
-                console.error("응답 상태 코드:", error.response.status);
-                console.error("응답 헤더:", error.response.headers);
-            } else if (error.request) {
-                console.error("요청이 만들어졌으나 응답을 받지 못함:", error.request);
-            } else {
-                console.error("요청 설정 중 오류 발생:", error.message);
-            }
+            console.error("요청 중 오류 발생:", error.message);
             alert("로그인 중 문제가 발생했습니다.");
         } finally {
             setIsLoading(false); // 로딩 종료
         }
+        
+        
             
     };
     
