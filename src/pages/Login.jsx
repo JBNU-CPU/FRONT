@@ -160,9 +160,10 @@ const Join = () => {
                 credentials: "include", // 쿠키 포함
                 body: JSON.stringify({ username: username, password: password })
             });
-        
+            console.log(response);
             if (response.ok) {
                 alert("로그인 되었습니다.");
+                console.log(document.cookie);
                 setIsAuthenticated(true);
                 navigate("/");
             } else {

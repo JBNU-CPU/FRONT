@@ -114,9 +114,14 @@ const Mypage = () => {
         // 데이터 가져오기
         const fetchData = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_API_URL}/mypage`);
-                console.log(response)
+                // Axios 요청에 쿠키 인증 정보를 포함하도록 설정
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/mypage`, {
+                    withCredentials: true, // 쿠키를 포함하기 위해 설정
+                });
+            
+                console.log(response);
                 const { personName, nickname, email } = response.data;
+            
                 setPersonName(personName || ""); // 이름 설정
                 setNickname(nickname || ""); // 닉네임 설정
                 setEmail(email || ""); // 이메일 설정
@@ -124,6 +129,7 @@ const Mypage = () => {
                 console.error("마이페이지 데이터 로드 오류:", error);
                 alert("마이페이지 정보를 불러오는 데 실패했습니다.");
             }
+            
         };
 
         fetchData();
