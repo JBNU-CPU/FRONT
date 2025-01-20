@@ -114,7 +114,7 @@ const Mypage = () => {
         // 데이터 가져오기
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://3.36.125.67:8080/mypage");
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/mypage`);
                 console.log(response)
                 const { personName, nickname, email } = response.data;
                 setPersonName(personName || ""); // 이름 설정

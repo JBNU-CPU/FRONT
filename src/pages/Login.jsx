@@ -173,10 +173,7 @@ const Join = () => {
             alert("로그인 중 문제가 발생했습니다.");
         } finally {
             setIsLoading(false); // 로딩 종료
-        }
-        
-        
-            
+        }    
     };
     
     useEffect(() => {
