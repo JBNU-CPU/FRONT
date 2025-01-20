@@ -1,13 +1,23 @@
 const express = require('express');
 const path = require('path');
-const app = express();
-const dotenv = require('dotenv')
+const https = require('https');
+const fs = require('fs');
+const dotenv = require('dotenv');
 
 dotenv.config();
 
 // 환경 변수 기본값 설정
-const PORT = process.env.REACT_APP_PORT;
-const URI = process.env.REACT_APP_URI;
+const PORT = process.env.REACT_APP_PORT || 443;
+const URI = process.env.REACT_APP_URI || 'localhost';
+
+// SSL 인증서 파일 경로
+const sslOptions = {
+    key: fs.readFileSync('/home/ubuntu/privkey.pem'), // 개인 키 파일 경로
+    cert: fs.readFileSync('/home/ubuntu/fullchain.pem') // 인증서 파일 경로
+};
+
+// Express 앱 설정
+const app = express();
 
 // React 정적 파일 제공
 const buildPath = path.join(__dirname, '..', 'build');
@@ -24,5 +34,7 @@ app.get('*', (req, res) => {
     });
 });
 
-// 서버 실행
-app.listen(PORT, () => console.log(`Server is running on http://${URI}:${PORT}`));
+// HTTPS 서버 실행
+https.createServer(sslOptions, app).listen(PORT, () => {
+    console.log(`HTTPS Server is running on https://${URI}:${PORT}`);
+});
