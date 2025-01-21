@@ -121,7 +121,6 @@ const Mypage = () => {
                     withCredentials: true, // 쿠키를 포함하기 위해 설정
                 });
             
-                console.log(response);
                 const { username, personName, nickName, email, role } = response.data;
             
                 setPersonName(personName || ""); // 이름 설정
@@ -147,6 +146,23 @@ const Mypage = () => {
 
         fetchData();
     }, [setIsAdmin]);
+
+    const handleWithdraw = async () => {
+        if (window.confirm("정말로 탈퇴하시겠습니까?")) {
+            try {
+                const response = await axios.delete(`${process.env.REACT_APP_API_URL}/mypage/withdraw`, {
+                    withCredentials: true, // 쿠키를 포함하여 인증
+                });
+                console.log("회원탈퇴 성공:", response.data);
+                alert("회원탈퇴가 성공적으로 처리되었습니다.");
+                // 탈퇴 후 초기 화면 또는 로그인 화면으로 이동
+                window.location.href = "/";
+            } catch (error) {
+                console.error("회원탈퇴 실패:", error);
+                alert("회원탈퇴 처리 중 오류가 발생했습니다.");
+            }
+        }
+    };
 
     return (
         <>
@@ -178,7 +194,7 @@ const Mypage = () => {
                         </StyledLink>
                     </StyledLinkWrapper>
                 </MenuWrapper>
-                <Leave>회원탈퇴</Leave>
+                <Leave onClick={handleWithdraw}>회원탈퇴</Leave>
             </Container>
         </>
     );

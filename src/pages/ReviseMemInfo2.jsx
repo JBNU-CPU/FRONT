@@ -101,33 +101,53 @@ const Wrong = styled.p`
 
 // ID자리에 api에서 가져온 id를 넣기 {id}
 const ReviseMemInfo2 = () => {
-    const firsInputRef = useRef(null);
-    const [name,setname] = useState("");
-    const [nickName, setnickName] =useState("");
-    const [email,setemail] = useState("");
-    const [password, setpassword] = useState("");
-    const [repassword, setrepassword] = useState("");
-    const navigate = useNavigate();
-    const storedUsername = localStorage.getItem("username");
+    const [name, setName] = useState("");
+    const [nickName, setNickName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [repassword, setRepassword] = useState("");
 
- 
+    const [currentName, setCurrentName] = useState("");
+    const [currentNickName, setCurrentNickName] = useState("");
+    const [currentEmail, setCurrentEmail] = useState("");
+
+    const navigate = useNavigate();
 
     useEffect(() => {
-        if(firsInputRef.current){
-            firsInputRef.current.focus();
-        }
-    },[]);
+        // 기존 정보 가져오기
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/mypage`, {
+                    withCredentials: true,
+                });
+                const { personName, nickName, email } = response.data;
 
-    const shouldShowPasswordError = password && repassword && password !== repassword;    
-    const isSave = password && repassword && (password === repassword);
-    const isSend = name || nickName || email || isSave;
+                // 기존 정보 상태에 저장
+                setCurrentName(personName || "");
+                setCurrentNickName(nickName || "");
+                setCurrentEmail(email || "");
+            } catch (error) {
+                console.error("기존 정보 로드 실패:", error);
+                alert("회원 정보를 불러오는 데 실패했습니다.");
+            }
+        };
+
+        fetchData();
+    }, []);
 
     const handleSave = async () => {
+        // 비밀번호 확인
+        if (password && password !== repassword) {
+            alert("비밀번호가 일치하지 않습니다.");
+            return;
+        }
+
+        // 수정할 데이터 생성
         const payload = {
-            nickName: nickName,
-            personName: name,
-            email:email,
-            password:password
+            nickName: nickName || currentNickName, // 입력값 없으면 기존 값 사용
+            personName: name || currentName,
+            email: email || currentEmail,
+            password: password || undefined, // 비밀번호는 선택적 필드
         };
 
         try {
@@ -140,42 +160,67 @@ const ReviseMemInfo2 = () => {
             );
             console.log("회원정보 수정 성공:", response.data);
             alert("회원정보가 성공적으로 수정되었습니다.");
-            navigate("/mypage");
+            navigate("/mypage"); // 마이페이지로 이동
         } catch (error) {
             console.error("회원정보 수정 실패:", error);
             alert("회원정보 수정 중 오류가 발생했습니다.");
         }
     };
-    return(
+
+    return (
         <>
-            <Header/>
+            <Header />
             <Container>
-                <TitleWrapper><Title>회원정보 수정</Title></TitleWrapper>
-                <IDWrapper><ID>아이디(학번)</ID><ApiId>{storedUsername}</ApiId></IDWrapper> 
-                <Line></Line>
+                <TitleWrapper>
+                    <Title>회원정보 수정</Title>
+                </TitleWrapper>
                 <Wrapper>
                     <Text>이름</Text>
-                    <StyledInput type='name' placeholder="이름을 입력해주세요" ref={firsInputRef} value={name} onChange ={(e) => {setname(e.target.value)}}/>
+                    <StyledInput
+                        type="text"
+                        placeholder={currentName || "이름을 입력해주세요"}
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
                 </Wrapper>
                 <Wrapper>
                     <Text>닉네임</Text>
-                    <StyledInput type='nickName' placeholder="닉네임을 입력해주세요" value={nickName} onChange ={(e) => {setnickName(e.target.value)}}/>
+                    <StyledInput
+                        type="text"
+                        placeholder={currentNickName || "닉네임을 입력해주세요"}
+                        value={nickName}
+                        onChange={(e) => setNickName(e.target.value)}
+                    />
                 </Wrapper>
                 <Wrapper>
                     <Text>이메일</Text>
-                    <StyledInput type='email' placeholder="이메일을 입력해주세요" value={email} onChange ={(e) => {setemail(e.target.value)}}/>
+                    <StyledInput
+                        type="email"
+                        placeholder={currentEmail || "이메일을 입력해주세요"}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                    />
                 </Wrapper>
                 <Wrapper>
                     <Text>비밀번호</Text>
-                    <StyledInput type='password' placeholder="비밀번호를 입력해주세요" value={password} onChange ={(e) => {setpassword(e.target.value)}}/>
+                    <StyledInput
+                        type="password"
+                        placeholder="비밀번호를 입력해주세요"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
                 </Wrapper>
                 <Wrapper>
                     <Text>비밀번호 확인</Text>
-                    <StyledInput type='password' placeholder="비밀번호를 입력해주세요" value={repassword} onChange ={(e) => {setrepassword(e.target.value)}}/>
+                    <StyledInput
+                        type="password"
+                        placeholder="비밀번호를 다시 입력해주세요"
+                        value={repassword}
+                        onChange={(e) => setRepassword(e.target.value)}
+                    />
                 </Wrapper>
-                {shouldShowPasswordError && <Wrong>비밀번호가 틀립니다</Wrong>}
                 <SaveWrapper>
-                    <Save isActive={isSend} onClick={handleSave}/>
+                    <Save isActive={true} onClick={handleSave} />
                 </SaveWrapper>
             </Container>
         </>
