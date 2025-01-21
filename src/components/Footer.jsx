@@ -141,14 +141,14 @@ const Footer = () => {
             <Main>
                 <StyledP style={{fontWeight:'700', paddingBottom:'5px'}}>CONTACT</StyledP>
                 <StyledP>회장 : 이다영 000-000-000</StyledP>
-                <StyledP style={{paddingBottom:'10px'}}>부회장 : 임정민 000-000-000</StyledP>
+                <StyledP style={{paddingBottom:'10px'}}>부회장 : 이진태 000-000-000</StyledP>
                 <StyledP style={{paddingBottom:'10px'}}>jbnucpu@gmail.com</StyledP>
                 <StyledP>전북 전주시 덕진동 1가 663</StyledP>
                 <StyledP>전북대학교 전주캠퍼스 제2학생회관 403호</StyledP>
                 <Line/>
                 <Bottom>
                     <Copyright>Copyright <Copy/> CPU All Rights Reserved.</Copyright>
-                    <Copyright>Created by 김동준, 백서영, 박도현, 안현</Copyright>
+                    <Copyright>Created by 김동준, 백서영, 박도현, 안현, 김지훈</Copyright>
                 </Bottom>
             </Main>
         </Container>

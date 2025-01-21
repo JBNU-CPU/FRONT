@@ -5,9 +5,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Slider from "../components/ImgSlider";
 import { MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from "react-icons/md";
-import img from '../components/SliderImg/img1.png';
 import posts from '../posts/GalleryPosts';
-import { useContext } from "react";
 
 const Wrap = styled.div`
 	width : calc(100%);

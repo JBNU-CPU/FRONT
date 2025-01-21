@@ -6,6 +6,8 @@ import Footer from "../components/Footer";
 import Slider from "../components/ImgSlider";
 import Detail_Btn from "../components/Detail_Btn";
 import studyImg from "../components/SliderImg/img1.png";
+import networkingimg from "../components/img/networking.jpg";
+import sectionimg from "../components/img/section.jpg";
 import { MdKeyboardArrowUp } from "react-icons/md";
 
 const Wrap = styled.div`
@@ -117,7 +119,8 @@ const Main = () => {
   const [isScrollVisible, setIsScrollVisible] = useState(false);
 
   const handleRecruit = () => {
-    navigate("/recruit");
+    window.location.href =
+      "https://docs.google.com/forms/d/e/1FAIpQLSdRVK-FqquWklAH8BZO69FnnGzRnioZ51jf3OpBXnUMGvDeUQ/viewform?usp=dialog";
   };
 
   const scrollToTop = () => {
@@ -149,19 +152,19 @@ const Main = () => {
         <h1>Study</h1>
         <img src={studyImg} alt="study" />
         <p>
-          부원들의 코딩 역량 향상을 위한 기본스터디와 자율스터디를 운영하고
+          부원들의 코딩 역량 향상을 위한 세션,스터디,프로젝트를 운영하고
           있습니다.
         </p>
         <Detail_Btn navigation="study" />
         <h1>Activity</h1>
-        <img src={studyImg} alt="study" />
+        <img src={networkingimg} alt="study" />
         <p>
           격주로 진행되는 세미나를 통해 부원들과 함께 소통하고 서로의 지식을
           공유하는 자리를 마련하고 있습니다.
         </p>
-        <img src={studyImg} alt="study" />
+        <img src={sectionimg} alt="study" />
         <p>
-          학기 말 CPU 데이를 개최하여 기본스터디와 자율스터디를 통해 이뤄낸
+          학기 말 CPU 데이를 개최하여 세션,스터디,프로젝트를 통해 이뤄낸
           부원들의 성과를 독려하는 시간을 갖고 있습니다.
         </p>
         <Detail_Btn navigation="gallery" />

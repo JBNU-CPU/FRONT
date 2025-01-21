@@ -181,7 +181,7 @@ const Menu = () => {
                         </SubMenu>
                     </SubMenuWrapper>
                 )}
-                <Menuli><StyledLink to='/recruit'>Recruit</StyledLink></Menuli>
+                <Menuli><a href="https://docs.google.com/forms/d/e/1FAIpQLSdRVK-FqquWklAH8BZO69FnnGzRnioZ51jf3OpBXnUMGvDeUQ/viewform?usp=dialog" style={{background:"none", textDecoration: "none", color : "white"}}>Recruit</a></Menuli>
                 {isAdmin && ( // isAdmin이 true일 때만 Management 표시
                     <Menuli><StyledLink to='/management'>Management</StyledLink></Menuli>
                 )}
