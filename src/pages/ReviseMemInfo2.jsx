@@ -1,10 +1,9 @@
 import React,{useState,useRef,useEffect} from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
-import Next_Btn from "../components/Next_Btn";
-import Certification from "../components/Certification";
 import Save from "../components/Save";
-import Resend_Btn from "../components/Resend_Btn";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     width: 100%;
@@ -66,12 +65,16 @@ const Wrapper = styled.div`
 const StyledInput = styled.input`
     width: 300px;
     height: 45px;
-    background: #1B1B25;
-    border : none;
+    background: rgba(255, 255, 255, 0.1);
+    border : 2px solid transparent;
     border-radius: 14px;
     color: white;
     padding-left: 20px;
     font: bold 14px 'arial';
+    outline: none; /* 기본 브라우저 outline 제거 */
+    &:focus {
+        border: 2px solid #ab1a65; /* 포커스 시 테두리 색상 변경 */
+    }
 `
 
 const Text = styled.p`
@@ -81,15 +84,7 @@ const Text = styled.p`
     color: white;
     font: bold 14px 'arial';
 `
-const CertiWrapper = styled.div`
-    margin: 0;
-    padding: 20px 0;
-    width: 320px;
-    height : auto;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-`
+
 const SaveWrapper = styled.div`
     padding: 0;
     margin: 0;
@@ -97,30 +92,11 @@ const SaveWrapper = styled.div`
     padding-bottom: 100px;
 `
 
-const CertiInput = styled.input`
-    width: 236px;
-    height: 45px;
-    background: #1B1B25;
-    border : none;
-    border-radius: 14px;
-    color: white;
-    padding-left: 20px;
-    font: bold 14px 'arial';
-`
-
-const Certibutton = styled.button`
-    width: 50px;
-    height: 45px;
-    margin: 0;
-    margin-left: 10px;
-    padding: 0;
-    background: ${({isActive}) => (isActive ? '#3987EC' : '#6F7486')};
-    color: white;
-    border-radius: 14px;
-    border: none;
-    &:hover{
-        cursor : ${({isActive}) => (isActive ? 'pointer' : 'default')};
-    }
+const Wrong = styled.p`
+    font: bold 10px 'arial';
+    color: #ab1a65;
+    background: transparent;
+    padding-bottom: 15px;
 `
 
 // ID자리에 api에서 가져온 id를 넣기 {id}
@@ -131,20 +107,10 @@ const ReviseMemInfo2 = () => {
     const [email,setemail] = useState("");
     const [password, setpassword] = useState("");
     const [repassword, setrepassword] = useState("");
-    const [certinum, setcertinum] = useState("");
-    const [IsCerti, setIsCerti] = useState(false);
-    const [showResend, setShowResend] = useState(false);
+    const navigate = useNavigate();
+    const storedUsername = localStorage.getItem("username");
 
-    const handleClick = () => {
-        if(isCertiButton){
-            setIsCerti(true);
-            setShowResend(true);
-        }
-    };
-
-    const handleResend = () => {
-        alert('인증번호가 재발송되었습니다.');
-    };
+ 
 
     useEffect(() => {
         if(firsInputRef.current){
@@ -152,16 +118,40 @@ const ReviseMemInfo2 = () => {
         }
     },[]);
 
-    const isCertiButton = name && nickName && email;
-    const isCertinum = isCertiButton && certinum;
-    const isSave = isCertiButton && password && repassword && (password === repassword);
+    const shouldShowPasswordError = password && repassword && password !== repassword;    
+    const isSave = password && repassword && (password === repassword);
+    const isSend = name || nickName || email || isSave;
 
+    const handleSave = async () => {
+        const payload = {
+            nickName: nickName,
+            personName: name,
+            email:email,
+            password:password
+        };
+
+        try {
+            const response = await axios.put(
+                `${process.env.REACT_APP_API_URL}/mypage`,
+                payload,
+                {
+                    withCredentials: true, // 인증 정보 포함
+                }
+            );
+            console.log("회원정보 수정 성공:", response.data);
+            alert("회원정보가 성공적으로 수정되었습니다.");
+            navigate("/mypage");
+        } catch (error) {
+            console.error("회원정보 수정 실패:", error);
+            alert("회원정보 수정 중 오류가 발생했습니다.");
+        }
+    };
     return(
         <>
             <Header/>
             <Container>
                 <TitleWrapper><Title>회원정보 수정</Title></TitleWrapper>
-                <IDWrapper><ID>아이디(학번)</ID><ApiId>200000000</ApiId></IDWrapper> 
+                <IDWrapper><ID>아이디(학번)</ID><ApiId>{storedUsername}</ApiId></IDWrapper> 
                 <Line></Line>
                 <Wrapper>
                     <Text>이름</Text>
@@ -175,10 +165,6 @@ const ReviseMemInfo2 = () => {
                     <Text>이메일</Text>
                     <StyledInput type='email' placeholder="이메일을 입력해주세요" value={email} onChange ={(e) => {setemail(e.target.value)}}/>
                 </Wrapper>
-                <CertiWrapper>
-                    {showResend ? (<Resend_Btn onClick={handleResend}/>) : (<Certification isActive={isCertiButton} onClick = {handleClick}/>)}
-                </CertiWrapper>
-                {IsCerti ? <><Wrapper><CertiInput placeholder="인증번호를 입력하세요" value={certinum} onChange={(e) => {setcertinum(e.target.value)}}></CertiInput><Certibutton  isActive={isCertinum}>인증</Certibutton></Wrapper></> : null}
                 <Wrapper>
                     <Text>비밀번호</Text>
                     <StyledInput type='password' placeholder="비밀번호를 입력해주세요" value={password} onChange ={(e) => {setpassword(e.target.value)}}/>
@@ -187,8 +173,9 @@ const ReviseMemInfo2 = () => {
                     <Text>비밀번호 확인</Text>
                     <StyledInput type='password' placeholder="비밀번호를 입력해주세요" value={repassword} onChange ={(e) => {setrepassword(e.target.value)}}/>
                 </Wrapper>
+                {shouldShowPasswordError && <Wrong>비밀번호가 틀립니다</Wrong>}
                 <SaveWrapper>
-                    <Save isActive={isSave}/>
+                    <Save isActive={isSend} onClick={handleSave}/>
                 </SaveWrapper>
             </Container>
         </>

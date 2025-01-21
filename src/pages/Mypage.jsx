@@ -122,12 +122,15 @@ const Mypage = () => {
                 });
             
                 console.log(response);
-                const { personName, nickName, email, role } = response.data;
+                const { username, personName, nickName, email, role } = response.data;
             
                 setPersonName(personName || ""); // 이름 설정
                 setnickName(nickName || ""); // 닉네임 설정
                 setEmail(email || ""); // 이메일 설정
-
+                
+                if (username) {
+                    localStorage.setItem("username", username);
+                }
                 if (role === "ROLE_ADMIN"){
                     setIsAdmin(true);
                     console.log("admin");
@@ -169,7 +172,7 @@ const Mypage = () => {
                         <Info>{email}</Info>
                     </InfoWrapper>
                     <StyledLinkWrapper>
-                        <StyledLink to="/revisememberinfo">
+                        <StyledLink to="/revisememberinfo2">
                             회원정보 수정
                             <RightIcon />
                         </StyledLink>
