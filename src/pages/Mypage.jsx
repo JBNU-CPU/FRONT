@@ -1,10 +1,11 @@
-import React,{useState, useRef, useEffect} from "react";
+import React,{useState, useRef, useEffect, useContext} from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { FaChevronRight } from "react-icons/fa6";
 import axios from "axios";
+import AdminContext from "../AdminContext";
 
 const Container = styled.div`
     width: 100%;
@@ -107,8 +108,9 @@ const Leave = styled.p`
 
 const Mypage = () => {
     const [personName, setPersonName] = useState("");
-    const [nickname, setNickname] = useState("");
+    const [nickName, setnickName] = useState("");
     const [email, setEmail] = useState("");
+    const {setIsAdmin} = useContext(AdminContext);
 
     useEffect(() => {
         // 데이터 가져오기
@@ -120,11 +122,19 @@ const Mypage = () => {
                 });
             
                 console.log(response);
-                const { personName, nickname, email } = response.data;
+                const { personName, nickName, email, role } = response.data;
             
                 setPersonName(personName || ""); // 이름 설정
-                setNickname(nickname || ""); // 닉네임 설정
+                setnickName(nickName || ""); // 닉네임 설정
                 setEmail(email || ""); // 이메일 설정
+
+                if (role === "ROLE_ADMIN"){
+                    setIsAdmin(true);
+                    console.log("admin");
+                }else{
+                    setIsAdmin(false);
+                    console.log("guest");
+                }
             } catch (error) {
                 console.error("마이페이지 데이터 로드 오류:", error);
                 alert("마이페이지 정보를 불러오는 데 실패했습니다.");
@@ -133,7 +143,7 @@ const Mypage = () => {
         };
 
         fetchData();
-    }, []);
+    }, [setIsAdmin]);
 
     return (
         <>
@@ -152,7 +162,7 @@ const Mypage = () => {
                     </InfoWrapper>
                     <InfoWrapper>
                         <InfoMenu>닉네임</InfoMenu>
-                        <Info>{nickname}</Info>
+                        <Info>{nickName}</Info>
                     </InfoWrapper>
                     <InfoWrapper>
                         <InfoMenu>이메일</InfoMenu>
