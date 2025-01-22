@@ -4,6 +4,7 @@ import logo from './logo/CPU_logo_white.png';
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../AuthContext";
 import AdminContext from "../AdminContext";
+import axios from "axios";
 
 const Container = styled.div`
     width: calc(40%);
@@ -127,8 +128,8 @@ const Menu = () => {
     const navigate = useNavigate();
     const [isStudyOpen, setIsStudyOpen] = useState(false);
     const [isBoardOpen, setIsBoardOpen] = useState(false);
-    const {isAuthenticated,setIsAuthenticated} = useContext(AuthContext);
-    const {isAdmin,} = useContext(AdminContext);
+    const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+    const { isAdmin } = useContext(AdminContext);
 
     const handleStudyClick = () => {
         setIsStudyOpen(prev => !prev);
@@ -144,15 +145,31 @@ const Menu = () => {
         navigate('/studymain', { state: { tab } });
     };
 
-    const handlemypage = () =>{
+    const handlemypage = () => {
         navigate('/mypage');
     };
 
-    const handleLogout = () => {
-        setIsAuthenticated(false);
-        localStorage.removeItem('username');
-        window.location.reload();
-    }
+    const handleLogout = async () => {
+        try {
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/logout`, {
+                withCredentials: true, // 쿠키 포함
+            });
+
+            if (response.status === 200) {
+                // 로그아웃 성공
+                alert("로그아웃 되었습니다.");
+                setIsAuthenticated(false);
+                localStorage.removeItem('username');
+                navigate('/'); // 홈으로 이동
+            } else {
+                console.error("로그아웃 실패:", response);
+                alert("로그아웃에 실패했습니다.");
+            }
+        } catch (error) {
+            console.error("로그아웃 요청 중 오류 발생:", error);
+            alert("로그아웃 중 문제가 발생했습니다.");
+        }
+    };
 
     return (
         <Container>
@@ -181,18 +198,19 @@ const Menu = () => {
                         </SubMenu>
                     </SubMenuWrapper>
                 )}
-                <Menuli><a href="https://docs.google.com/forms/d/e/1FAIpQLSdRVK-FqquWklAH8BZO69FnnGzRnioZ51jf3OpBXnUMGvDeUQ/viewform?usp=dialog" style={{background:"none", textDecoration: "none", color : "white"}}>Recruit</a></Menuli>
+                <Menuli><a href="https://docs.google.com/forms/d/e/1FAIpQLSdRVK-FqquWklAH8BZO69FnnGzRnioZ51jf3OpBXnUMGvDeUQ/viewform?usp=dialog" style={{ background: "none", textDecoration: "none", color: "white" }}>Recruit</a></Menuli>
                 {isAdmin && ( // isAdmin이 true일 때만 Management 표시
                     <Menuli><StyledLink to='/management'>Management</StyledLink></Menuli>
                 )}
             </MenuWrapper>
             <LoginWrapper>
-                {isAuthenticated?(<>
-                    <Login onClick={handleLogout}>
-                        <StyledLink to='/'>Log out</StyledLink>
-                    </Login>
-                    <Mypage onClick={handlemypage}>마이페이지</Mypage>
-                </>
+                {isAuthenticated ? (
+                    <>
+                        <Login onClick={handleLogout}>
+                            <StyledLink to='/'>Log out</StyledLink>
+                        </Login>
+                        <Mypage onClick={handlemypage}>마이페이지</Mypage>
+                    </>
                 ) : (
                     <Login>
                         <StyledLink to='/login'>Log in</StyledLink>

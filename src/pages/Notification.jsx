@@ -267,7 +267,7 @@ const Community = () => {
 
   const writeClick = () => {
     if (isAuthenticated) {
-      navigate("/write");
+      navigate("/notiwrite");
     } else {
       alert("비회원은 접근 불가합니다.");
     }
@@ -275,7 +275,7 @@ const Community = () => {
 
   const handleClick = (id) => {
     if (isAuthenticated) {
-      navigate("/content", {
+      navigate("/noticontent", {
         state: { id },
       });
     } else {
@@ -328,8 +328,8 @@ const Community = () => {
               {posts.map((post) => (
                 <TableRow key={post.id} onClick={() => handleClick(post.id)}>
                   <TableCell>{post.title}</TableCell>
-                  <TableCell>{post.author}</TableCell>
-                  <TableCell>{post.date}</TableCell>
+                  <TableCell>{post.nickName}</TableCell>
+                  <TableCell>{post.createDate.slice(0, 10)}</TableCell>
                 </TableRow>
               ))}
             </tbody>
