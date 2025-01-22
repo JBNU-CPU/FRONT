@@ -7,7 +7,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // 환경 변수 기본값 설정
-const PORT = process.env.REACT_APP_PORT || 443;
+const PORT = process.env.REACT_APP_PORT || 3000;
 const URI = process.env.REACT_APP_URI || 'localhost';
 
 // SSL 인증서 파일 경로

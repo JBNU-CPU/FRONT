@@ -5,67 +5,75 @@ import Save from "../components/Save";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
+const MainWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    margin-block: 50px;
+`;
+
 const Container = styled.div`
-    width: 100%;
-    height: 100%;
+    width: 500px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: rgba(121, 120, 120, 0.1);
+    border-radius: 20px;
+
 `
 
-const TitleWrapper = styled.div`
-    margin: 0%;
-    padding: 0;
-    padding-top: 63px;
-    padding-bottom: 30px;
-`
-
-const Title = styled.p`
-    color: white;
-    font: bold 30px 'arial';
-`
 const IDWrapper = styled.div`
     padding: 0;
-    margin: 0;
+    margin: 50px 0 0 0;
     width: 300px;
     height : 18px;
     display: flex;
     flex-direction: row;
+    background: transparent;
 `
 
 const Line = styled.div`
     padding: 0;
     margin: 0;
     width: 340px;
-    border-top: 1px solid gray;
+    border-top: 2px solid gray;
     margin-top: 15px;
 `
 
 const ID = styled.p`
     padding: 0;
     margin: 0;
-    font: 400 14px 'arial';
+    font: bold 14px 'arial';
     color: white;
     padding-right: 20px;
+    background: transparent;
+
 `
 const ApiId = styled.p`
     font: 400 14px 'arial';
     color : #878C9E;
     margin: 0;
     padding:0;
+    background: transparent;
+
 `
 const Wrapper = styled.div`
     margin: 10px 0;
     padding: 0;
     width: 320px;
     height : auto;
+    background: transparent;
+
 `
 
 const StyledInput = styled.input`
     width: 300px;
     height: 45px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.1); /* 투명 배경 */
     border : 2px solid transparent;
     border-radius: 14px;
     color: white;
@@ -83,13 +91,17 @@ const Text = styled.p`
     margin: 0;
     color: white;
     font: bold 14px 'arial';
+    background: transparent;
+
 `
 
 const SaveWrapper = styled.div`
     padding: 0;
     margin: 0;
     padding-top: 40px;
-    padding-bottom: 100px;
+    padding-bottom: 80px;
+    background: transparent;
+
 `
 
 const Wrong = styled.p`
@@ -112,6 +124,8 @@ const ReviseMemInfo2 = () => {
     const [currentEmail, setCurrentEmail] = useState("");
 
     const navigate = useNavigate();
+    const storedUsername = localStorage.getItem("username");
+    const shouldShowPasswordError = password && repassword && password !== repassword;    
 
     useEffect(() => {
         // 기존 정보 가져오기
@@ -136,12 +150,6 @@ const ReviseMemInfo2 = () => {
     }, []);
 
     const handleSave = async () => {
-        // 비밀번호 확인
-        if (password && password !== repassword) {
-            alert("비밀번호가 일치하지 않습니다.");
-            return;
-        }
-
         // 수정할 데이터 생성
         const payload = {
             nickName: nickName || currentNickName, // 입력값 없으면 기존 값 사용
@@ -170,59 +178,62 @@ const ReviseMemInfo2 = () => {
     return (
         <>
             <Header />
-            <Container>
-                <TitleWrapper>
-                    <Title>회원정보 수정</Title>
-                </TitleWrapper>
-                <Wrapper>
-                    <Text>이름</Text>
-                    <StyledInput
-                        type="text"
-                        placeholder={currentName || "이름을 입력해주세요"}
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                </Wrapper>
-                <Wrapper>
-                    <Text>닉네임</Text>
-                    <StyledInput
-                        type="text"
-                        placeholder={currentNickName || "닉네임을 입력해주세요"}
-                        value={nickName}
-                        onChange={(e) => setNickName(e.target.value)}
-                    />
-                </Wrapper>
-                <Wrapper>
-                    <Text>이메일</Text>
-                    <StyledInput
-                        type="email"
-                        placeholder={currentEmail || "이메일을 입력해주세요"}
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </Wrapper>
-                <Wrapper>
-                    <Text>비밀번호</Text>
-                    <StyledInput
-                        type="password"
-                        placeholder="비밀번호를 입력해주세요"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </Wrapper>
-                <Wrapper>
-                    <Text>비밀번호 확인</Text>
-                    <StyledInput
-                        type="password"
-                        placeholder="비밀번호를 다시 입력해주세요"
-                        value={repassword}
-                        onChange={(e) => setRepassword(e.target.value)}
-                    />
-                </Wrapper>
-                <SaveWrapper>
-                    <Save isActive={true} onClick={handleSave} />
-                </SaveWrapper>
-            </Container>
+            <MainWrapper>
+                <Container>
+                    <IDWrapper><ID>사용자 아이디(학번)</ID><ApiId>{storedUsername}</ApiId></IDWrapper>
+                    <Line></Line>
+                    <Wrapper>
+                        <Text>이름</Text>
+                        <StyledInput
+                            type="text"
+                            placeholder={currentName || "이름을 입력해주세요"}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                        />
+                    </Wrapper>
+                    <Wrapper>
+                        <Text>닉네임</Text>
+                        <StyledInput
+                            type="text"
+                            placeholder={currentNickName || "닉네임을 입력해주세요"}
+                            value={nickName}
+                            onChange={(e) => setNickName(e.target.value)}
+                        />
+                    </Wrapper>
+                    <Wrapper>
+                        <Text>이메일</Text>
+                        <StyledInput
+                            type="email"
+                            placeholder={currentEmail || "이메일을 입력해주세요"}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                    </Wrapper>
+                    <Wrapper>
+                        <Text>비밀번호</Text>
+                        <StyledInput
+                            type="password"
+                            placeholder="비밀번호를 입력해주세요"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                    </Wrapper>
+                    <Wrapper>
+                        <Text>비밀번호 확인</Text>
+                        <StyledInput
+                            type="password"
+                            placeholder="비밀번호를 다시 입력해주세요"
+                            value={repassword}
+                            onChange={(e) => setRepassword(e.target.value)}
+                        />
+                    </Wrapper>
+                    {shouldShowPasswordError && <Wrong>비밀번호가 틀립니다</Wrong>}
+                    <SaveWrapper>
+                        <Save isActive={true} onClick={handleSave} />
+                    </SaveWrapper>
+                </Container>
+            </MainWrapper>
+    
         </>
     );
 };
