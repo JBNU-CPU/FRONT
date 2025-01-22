@@ -330,7 +330,7 @@ const Community = () => {
       </ButtonWrapper>
 
       {isLoading ? (
-        <Spinner text="게시글 로딩 중..." />
+        <Spinner text="로딩 중..." />
       ) : (
         <>
           <Table>

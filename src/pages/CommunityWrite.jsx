@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // useNavigate 추가
 import styled from "styled-components";
-import Header from "../components/Header";
+import Spinner from "../components/Spinner";
 
 const Wrapper = styled.div`
     display: flex;
@@ -142,32 +142,38 @@ const CommunityWrite = () => {
 
     return (
         <>
-            <Wrapper>
-                <Container>
-                    <Form onSubmit={handleSubmit}>
-                        <SubWrapper>
-                            <Label htmlFor="title">제목</Label>
-                            <Input
-                                id="title"
-                                type="text"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
-                                required
-                            />
-                            <Label htmlFor="content" className="text">내용</Label>
-                            <Text
-                                id="content"
-                                value={content}
-                                onChange={(e) => setContent(e.target.value)}
-                                required
-                            ></Text>
-                        </SubWrapper>
-                        <Button type="submit" disabled={isSubmitting}>
-                            {isSubmitting ? "등록 중..." : "등록"}
-                        </Button>
-                    </Form>
-                </Container>
-            </Wrapper>
+            {isSubmitting ? (
+                <Spinner text="등록 중..." /> // 스피너 표시
+            ) : (
+                <Wrapper>
+                    <Container>
+                        <Form onSubmit={handleSubmit}>
+                            <SubWrapper>
+                                <Label htmlFor="title">제목</Label>
+                                <Input
+                                    id="title"
+                                    type="text"
+                                    value={title}
+                                    onChange={(e) => setTitle(e.target.value)}
+                                    required
+                                />
+                                <Label htmlFor="content" className="text">
+                                    내용
+                                </Label>
+                                <Text
+                                    id="content"
+                                    value={content}
+                                    onChange={(e) => setContent(e.target.value)}
+                                    required
+                                ></Text>
+                            </SubWrapper>
+                            <Button type="submit" disabled={isSubmitting}>
+                                등록
+                            </Button>
+                        </Form>
+                    </Container>
+                </Wrapper>
+            )}
         </>
     );
 };
