@@ -171,7 +171,7 @@ const Login = () => {
         
                 // 로컬스토리지에 userId 저장
                 localStorage.setItem("userId", userId);
-        
+                
                 // role에 따라 관리자 여부 설정
                 if (role === "ROLE_ADMIN") {
                     setIsAdmin(true);
