@@ -224,19 +224,30 @@ const Community = () => {
     const fetchPosts = async () => {
       setIsLoading(true); // 로딩 시작
       try {
+        // 서버에서 모든 데이터를 가져옴
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/post`, {
           params: {
-            page: currentPage - 1, // API의 페이지는 0부터 시작
-            size: postsPerPage,
+            size: 100, // 큰 값을 설정하여 전체 데이터를 가져옴
           },
           withCredentials: true,
         });
         console.log(response);
     
-        // isNotice: true인 데이터만 필터링
-        const filteredPosts = response.data.content.filter((post) => post.isNotice === true);
-        setPosts(filteredPosts);
-        setTotalPages(response.data.totalPages); // 전체 페이지 수
+        // isNotice: false인 데이터만 필터링
+        const allFilteredPosts = response.data.content.filter((post) => post.isNotice === true);
+    
+        // 페이지네이션 처리 (5개씩 나타내기)
+        const startIndex = (currentPage - 1) * postsPerPage;
+        const paginatedPosts = allFilteredPosts.slice(startIndex, startIndex + postsPerPage);
+    
+        if (paginatedPosts.length > 0) {
+          setPosts(paginatedPosts); // 현재 페이지의 게시글 설정
+          setTotalPages(Math.ceil(allFilteredPosts.length / postsPerPage)); // 총 페이지 수 설정
+        } else {
+          console.warn("필터링 결과가 빈 배열입니다."); // 경고 출력
+          setPosts([]); // 빈 배열 설정
+          setTotalPages(1); // 총 페이지 수를 1로 설정
+        }
       } catch (error) {
         console.error("게시글 데이터를 가져오는 중 오류 발생:", error);
       } finally {
@@ -244,7 +255,6 @@ const Community = () => {
       }
     };
     
-
     fetchPosts();
   }, [currentPage, postsPerPage]);
 

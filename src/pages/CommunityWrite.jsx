@@ -125,7 +125,7 @@ const CommunityWrite = () => {
             console.log("서버 응답:", response.data);
 
             // 성공 시 /notification 경로로 이동
-            navigate("/notification");
+            navigate("/community");
         } catch (error) {
             console.error("공지사항 등록 중 오류 발생:", error);
             alert("공지사항 등록에 실패했습니다.");
