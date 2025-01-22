@@ -7,13 +7,14 @@ import AuthContext from '../AuthContext';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Spinner from '../components/Spinner';
 
 // 전체 페이지를 감싸는 컨테이너
 const Container = styled.div`
   font-family: Arial, sans-serif;
   color: white;
   background: transparent;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -190,8 +191,8 @@ const PageButton = styled.button`
       transform: scale(1); /* 살짝 확대 */
     }
     @media screen and (max-width : 375px) {
-      width: 50px;
-      font: bold 10px 'arial';
+    width: 50px;
+    font: bold 10px 'arial';
     }
   }
   @media screen and (max-width : 375px) {
@@ -207,7 +208,7 @@ const ButtonWrapper = styled.div`
   margin: 20px 0; /* 상하 여백 설정 */
 `
 
-const Notification = () => {
+const Community = () => {
   const { isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
   const [searchType, setSearchType] = useState("title");
@@ -216,10 +217,12 @@ const Notification = () => {
   const postsPerPage = 5;
   const [posts, setPosts] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
+  const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
 
   // 게시글 데이터 가져오기
   useEffect(() => {
     const fetchPosts = async () => {
+      setIsLoading(true); // 로딩 시작
       try {
         const response = await axios.get(`${process.env.REACT_APP_API_URL}/post`, {
           params: {
@@ -233,6 +236,8 @@ const Notification = () => {
         setTotalPages(response.data.totalPages); // 전체 페이지 수
       } catch (error) {
         console.error("게시글 데이터를 가져오는 중 오류 발생:", error);
+      } finally {
+        setIsLoading(false); // 로딩 종료
       }
     };
 
@@ -240,6 +245,7 @@ const Notification = () => {
   }, [currentPage, postsPerPage]);
 
   const handleSearch = async () => {
+    setIsLoading(true); // 로딩 시작
     console.log(`검색 유형: ${searchType}, 검색어: ${searchTerm}`);
     try {
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/post`, {
@@ -254,6 +260,8 @@ const Notification = () => {
       setTotalPages(response.data.totalPages);
     } catch (error) {
       console.error("검색 중 오류 발생:", error);
+    } finally {
+      setIsLoading(false); // 로딩 종료
     }
   };
 
@@ -297,43 +305,51 @@ const Notification = () => {
         />
         <SearchButton onClick={handleSearch}>검색</SearchButton>
       </SearchSection>
+
       <ButtonWrapper>
         <PageButton className="write" onClick={writeClick}>
           글쓰기
         </PageButton>
       </ButtonWrapper>
-      <Table>
-        <thead>
-          <tr>
-            <TableHead scope="col">제목</TableHead>
-            <TableHead scope="col">작성자</TableHead>
-            <TableHead scope="col">작성일</TableHead>
-          </tr>
-        </thead>
-        <tbody>
-          {posts.map((post) => (
-            <TableRow key={post.id} onClick={() => handleClick(post.id)}>
-              <TableCell>{post.title}</TableCell>
-              <TableCell>{post.author}</TableCell>
-              <TableCell>{post.date}</TableCell>
-            </TableRow>
-          ))}
-        </tbody>
-      </Table>
 
-      <Pagination>
-        <PageButton onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
-          이전
-        </PageButton>
-        {currentPage} / {totalPages}
-        <PageButton onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
-          다음
-        </PageButton>
-      </Pagination>
+      {isLoading ? (
+        <Spinner text="게시글 로딩 중..." />
+      ) : (
+        <>
+          <Table>
+            <thead>
+              <tr>
+                <TableHead scope="col">제목</TableHead>
+                <TableHead scope="col">작성자</TableHead>
+                <TableHead scope="col">작성일</TableHead>
+              </tr>
+            </thead>
+            <tbody>
+              {posts.map((post) => (
+                <TableRow key={post.id} onClick={() => handleClick(post.id)}>
+                  <TableCell>{post.title}</TableCell>
+                  <TableCell>{post.author}</TableCell>
+                  <TableCell>{post.date}</TableCell>
+                </TableRow>
+              ))}
+            </tbody>
+          </Table>
+
+          <Pagination>
+            <PageButton onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+              이전
+            </PageButton>
+            {currentPage} / {totalPages}
+            <PageButton onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
+              다음
+            </PageButton>
+          </Pagination>
+        </>
+      )}
 
       <Footer />
     </Container>
   );
 };
 
-export default Notification;
+export default Community;
