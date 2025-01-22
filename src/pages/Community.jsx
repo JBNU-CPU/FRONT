@@ -141,6 +141,7 @@ const TableHead = styled.th`
   border-bottom: 2px solid #444;
   color: #aaa;
   font: bold 14px 'arial';
+  background: #3d3d3d;
 `;
 
 const TableRow = styled.tr`

@@ -22,27 +22,12 @@ const Container = styled.div`
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     padding: 20px 30px;
     margin: 20px auto;
-    animation: fadeIn 0.5s ease-in-out;
 
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+    @media screen and (max-width : 765px) {
+        width: calc(80%)
+  }
 `;
 
-const Title = styled.h1`
-    font-size: 24px;
-    font-weight: bold;
-    color: #fff;
-    margin-bottom: 20px;
-    text-align: center;
-`;
 
 const Label = styled.p`
     font-size: 18px;
@@ -101,7 +86,6 @@ const NotiContent = () => {
         <>
             <Wrapper>
                 <Container>
-                    <Title>Notification Content</Title>
                     {content ? (
                         <>
                             <Label>제목</Label>

@@ -161,17 +161,31 @@ const Login = () => {
                 credentials: "include", // 쿠키 포함
                 body: JSON.stringify({ username: username, password: password })
             });
-            console.log(response);
+        
             if (response.ok) {
+                // JSON 데이터로 변환
+                const data = await response.json();
+        
+                // role과 userId 가져오기
+                const { role, userId } = data;
+        
+                // 로컬스토리지에 userId 저장
+                localStorage.setItem("userId", userId);
+        
+                // role에 따라 관리자 여부 설정
+                if (role === "ROLE_ADMIN") {
+                    setIsAdmin(true);
+                } else {
+                    setIsAdmin(false);
+                }
+        
                 alert("로그인 되었습니다.");
-                console.log(document.cookie);
                 setIsAuthenticated(true);
-    
-                // 로그인 성공 후 추가 데이터 가져오기
-                fetchData(); // useEffect에서 사용된 fetchData 호출
-    
+
+                // 홈으로 이동
                 navigate("/");
             } else {
+                console.error("Response error:", response.status, response.statusText);
                 alert("로그인 실패!");
             }
         } catch (error) {
@@ -180,35 +194,10 @@ const Login = () => {
         } finally {
             setIsLoading(false); // 로딩 종료
         }
+        
     };
     
-    // useEffect 밖으로 fetchData 함수 추출
-    const fetchData = async () => {
-        try {
-            // Axios 요청에 쿠키 인증 정보를 포함하도록 설정
-            const response = await axios.get(`${process.env.REACT_APP_API_URL}/mypage`, {
-                withCredentials: true, // 쿠키를 포함하기 위해 설정
-            });
-    
-            const { role } = response.data;
-    
-            if (role === "ROLE_ADMIN") {
-                setIsAdmin(true);
-                console.log("admin");
-            } else {
-                setIsAdmin(false);
-                console.log("guest");
-            }
-        } catch (error) {
-            console.error("마이페이지 데이터 로드 오류:", error);
-        }
-    };
-    
-    // useEffect를 사용하여 마운트 시 fetchData 호출
-    useEffect(() => {
-        fetchData();
-    }, [setIsAdmin]);
-    
+
     
     useEffect(() => {
         if (firstInputRef.current) {

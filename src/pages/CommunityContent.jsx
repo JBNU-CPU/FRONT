@@ -14,7 +14,9 @@ const Wrapper = styled.div`
 `;
 
 const Container = styled.div`
-    width: 90%;
+    @media screen and (max-width : 765px) {
+        width: calc(80%)
+  }
     max-width: 600px;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
@@ -22,15 +24,6 @@ const Container = styled.div`
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     padding: 20px 30px;
     margin: 20px auto;
-`;
-
-const Title = styled.h1`
-    font-size: 24px;
-    font-weight: bold;
-    color: #fff;
-    margin-bottom: 20px;
-    text-align: center;
-    background: transparent;
 `;
 
 const Label = styled.p`
@@ -90,7 +83,6 @@ const CommunityContent = () => {
         <>
             <Wrapper>
                 <Container>
-                    <Title>Notification Content</Title>
                     {content ? (
                         <>
                             <Label>제목</Label>
