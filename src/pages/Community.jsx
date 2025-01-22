@@ -232,7 +232,10 @@ const Community = () => {
           withCredentials: true,
         });
         console.log(response);
-        setPosts(response.data.content); // 데이터의 `content` 부분 사용
+    
+        // isNotice: true인 데이터만 필터링
+        const filteredPosts = response.data.content.filter((post) => post.isNotice === false);
+        setPosts(filteredPosts);
         setTotalPages(response.data.totalPages); // 전체 페이지 수
       } catch (error) {
         console.error("게시글 데이터를 가져오는 중 오류 발생:", error);
@@ -240,6 +243,7 @@ const Community = () => {
         setIsLoading(false); // 로딩 종료
       }
     };
+    
 
     fetchPosts();
   }, [currentPage, postsPerPage]);

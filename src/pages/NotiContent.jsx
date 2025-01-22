@@ -10,7 +10,7 @@ const Wrapper = styled.div`
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    background: linear-gradient(to bottom, #1f1f1f, #333);
+    background: transparent;
 `;
 
 const Container = styled.div`
@@ -49,6 +49,7 @@ const Label = styled.p`
     font-weight: bold;
     color: #fff;
     margin-bottom: 10px;
+    background: transparent;
 `;
 
 const Content = styled.div`
@@ -57,23 +58,9 @@ const Content = styled.div`
     line-height: 1.6;
     margin-bottom: 20px;
     white-space: pre-wrap; /* 줄바꿈 및 공백 유지 */
+    background: transparent;
 `;
 
-const Button = styled.button`
-    padding: 10px 20px;
-    font-size: 16px;
-    color: white;
-    background: #ab1a65;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-
-    &:hover {
-        background: #7b2ff7;
-        box-shadow: 0 0 10px rgba(123, 47, 247, 0.8);
-    }
-`;
 
 const NotiContent = () => {
     const location = useLocation();
@@ -118,13 +105,13 @@ const NotiContent = () => {
                     <Title>Notification Content</Title>
                     {content ? (
                         <>
-                            <Label>제목:</Label>
+                            <Label>제목</Label>
                             <Content>{content.title}</Content>
-                            <Label>작성자:</Label>
+                            <Label>작성자</Label>
                             <Content>{content.nickName}</Content>
-                            <Label>작성일:</Label>
+                            <Label>작성일</Label>
                             <Content>{content.createDate.slice(0, 10)}</Content>
-                            <Label>내용:</Label>
+                            <Label>내용</Label>
                             <Content>{content.content}</Content>
                         </>
                     ) : (
