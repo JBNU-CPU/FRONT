@@ -61,6 +61,9 @@ const Input = styled.input`
     width: calc(80%);
     height: 30px;
     outline: none; /* 기본 브라우저 outline 제거 */
+    padding-left: 10px;
+    color: white;
+    font: bold 15px 'arial';
     &:focus {
         border: 2px solid #ab1a65; /* 포커스 시 테두리 색상 변경 */
     }
@@ -73,6 +76,9 @@ const Text = styled.textarea`
     height: 300px;
     outline: none; /* 기본 브라우저 outline 제거 */
     border: 2px solid transparent;
+    padding-left: 10px;
+    color: white;
+    font: bold 15px 'arial';
     &:focus {
         border: 2px solid #ab1a65; /* 포커스 시 테두리 색상 변경 */
     }

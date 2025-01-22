@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
+import Spinner from '../components/Spinner'; // 스피너 컴포넌트 임포트
 
 const Wrapper = styled.div`
     display: flex;
@@ -21,7 +22,10 @@ const Container = styled.div`
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     padding: 20px 30px;
     margin: 20px auto;
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     @media screen and (max-width: 765px) {
         width: calc(80%);
     }
@@ -33,18 +37,18 @@ const Label = styled.p`
     color: #fff;
     margin-bottom: 5px;
     background: transparent;
-    padding-left: 10px;
+    text-align: left;
+    width: 100%;
 `;
 
 const Content = styled.textarea`
+    width: 100%;
     font-size: 16px;
     color: #ddd;
     line-height: 1.6;
-    margin: 0 auto;
     margin-bottom: 5px;
     white-space: pre-wrap;
     background: transparent;
-    width: calc(90%);
     border: ${(props) => (props.editable ? "1px solid #ab1a65" : "1px solid transparent")};
     border-radius: 5px;
     resize: none;
@@ -52,13 +56,11 @@ const Content = styled.textarea`
 `;
 
 const Input = styled.input`
+    width: 100%;
     font-size: 16px;
     color: #ddd;
-    line-height: 1.6;
-    margin: 0 auto;
     margin-bottom: 5px;
     background: transparent;
-    width: calc(90%);
     border: ${(props) => (props.editable ? "1px solid #ab1a65" : "1px solid transparent")};
     border-radius: 5px;
     padding: 10px;
@@ -133,6 +135,7 @@ const NotiContent = () => {
 
     const handleDelete = async () => {
         if (window.confirm("정말 삭제하시겠습니까?")) {
+            setIsLoading(true); // 삭제 작업 중 로딩 표시
             try {
                 const response = await axios.delete(`${process.env.REACT_APP_API_URL}/post/${id}`, {
                     withCredentials: true,
@@ -143,12 +146,15 @@ const NotiContent = () => {
             } catch (err) {
                 console.error("삭제 요청 오류:", err);
                 alert("게시글 삭제에 실패했습니다.");
+            } finally {
+                setIsLoading(false);
             }
         }
     };
 
     const handleEdit = async () => {
         if (window.confirm("수정 내용을 저장하시겠습니까?")) {
+            setIsLoading(true); // 수정 작업 중 로딩 표시
             try {
                 const response = await axios.put(`${process.env.REACT_APP_API_URL}/post/${id}`, {
                     title: editedTitle,
@@ -167,11 +173,14 @@ const NotiContent = () => {
             } catch (err) {
                 console.error("수정 요청 오류:", err);
                 alert("게시글 수정에 실패했습니다.");
+            } finally {
+                setIsLoading(false);
             }
         }
     };
 
-    if (isLoading) return <Wrapper><Container><p>로딩 중...</p></Container></Wrapper>;
+    if (isLoading) return <Spinner text="로딩 중..." />; // 스피너 표시
+
     if (error) return <Wrapper><Container><p>{error}</p></Container></Wrapper>;
 
     return (
