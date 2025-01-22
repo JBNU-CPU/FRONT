@@ -29,7 +29,6 @@ const Text = styled.p`
 const Recruit = () => {
     return(
         <>
-            <Header/>
             <Wrapper>
                 <Icon/>
                 <Text>잠시 공사중 !</Text>

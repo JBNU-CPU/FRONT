@@ -182,7 +182,6 @@ const Mypage = () => {
 
     return (
         <>
-            <Header />
             <Wrapper>
                 <Container>
                     <TitleWrapper>

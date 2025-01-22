@@ -177,7 +177,6 @@ const ReviseMemInfo2 = () => {
 
     return (
         <>
-            <Header />
             <MainWrapper>
                 <Container>
                     <IDWrapper><ID>사용자 아이디(학번)</ID><ApiId>{storedUsername}</ApiId></IDWrapper>

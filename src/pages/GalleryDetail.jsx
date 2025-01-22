@@ -167,7 +167,6 @@ const GalleryDetail=()=>{
 
   return(
     <>
-    <Header/>
     <Container>
       <MainWrap>
         <Title>{post.title}</Title>

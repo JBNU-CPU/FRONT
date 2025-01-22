@@ -107,7 +107,6 @@ const Study = () => {
 
     return (
         <Container>
-            <Header />
             <PictureWrapper>
                 <Img src={MainPicture} alt="pic" />
                 <Title>Study</Title>

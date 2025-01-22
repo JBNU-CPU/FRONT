@@ -8,6 +8,7 @@ import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
+import AdminContext from '../AdminContext';
 
 // 전체 페이지를 감싸는 컨테이너
 const Container = styled.div`
@@ -218,6 +219,8 @@ const Community = () => {
   const [posts, setPosts] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
+  const { isAdmin } = useContext(AdminContext);
+
 
   // 게시글 데이터 가져오기
   useEffect(() => {
@@ -299,7 +302,6 @@ const Community = () => {
 
   return (
     <Container>
-      <Header />
       <PictureWrapper>
         <HeaderImg src={MainPicture} alt="pic" />
         <Title>공지사항</Title>
@@ -321,9 +323,9 @@ const Community = () => {
       </SearchSection>
 
       <ButtonWrapper>
-        <PageButton className="write" onClick={writeClick}>
+        {isAdmin?<PageButton className="write" onClick={writeClick}>
           글쓰기
-        </PageButton>
+        </PageButton>:null}
       </ButtonWrapper>
 
       {isLoading ? (

@@ -220,7 +220,6 @@ const Login = () => {
 
     return (
         <>
-            <Header/>
             <Wrapper>
                 <Container onSubmit={handleLogin}>
                     <Logo src={logo}/>

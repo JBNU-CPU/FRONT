@@ -136,7 +136,6 @@ const CommunityWrite = () => {
 
     return (
         <>
-            <Header/>
             <Wrapper>
                 <Container>
                     <Form onSubmit={handleSubmit}>

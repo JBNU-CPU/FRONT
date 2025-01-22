@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom"; // useNavigate 추가
 import styled from "styled-components";
@@ -136,7 +136,6 @@ const NotiWrite = () => {
 
     return (
         <>
-            <Header/>
             <Wrapper>
                 <Container>
                     <Form onSubmit={handleSubmit}>

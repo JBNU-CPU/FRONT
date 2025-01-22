@@ -73,7 +73,6 @@ const ReviseMemInfo = () => {
 
     return(
         <>
-            <Header/>
             <Container>
                 <TitleWrapper><Title>회원정보 수정</Title></TitleWrapper>
                 <SubtitleWrapper><Subtitle>회원정보 확인</Subtitle><p style={{color:'#878C9E', font:'400 12px arial'}}>정보 보호를 위해 비밀번호를 다시 입력해주세요</p></SubtitleWrapper>

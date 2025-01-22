@@ -121,7 +121,6 @@ const SectionOpen = () => {
 
     return (
         <>
-            <Header />
             <Container>
                 <Subtitle>세션 개설</Subtitle>
 

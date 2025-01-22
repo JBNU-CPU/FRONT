@@ -99,7 +99,6 @@ const NotiContent = () => {
 
     return (
         <>
-            <Header />
             <Wrapper>
                 <Container>
                     <Title>Notification Content</Title>

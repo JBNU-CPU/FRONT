@@ -299,7 +299,6 @@ const Community = () => {
 
   return (
     <Container>
-      <Header />
       <PictureWrapper>
         <HeaderImg src={MainPicture} alt="pic" />
         <Title>커뮤니티</Title>
@@ -342,8 +341,8 @@ const Community = () => {
               {posts.map((post) => (
                 <TableRow key={post.id} onClick={() => handleClick(post.id)}>
                   <TableCell>{post.title}</TableCell>
-                  <TableCell>{post.author}</TableCell>
-                  <TableCell>{post.date}</TableCell>
+                  <TableCell>{post.nickName}</TableCell>
+                  <TableCell>{post.createDate.slice(0,10)}</TableCell>
                 </TableRow>
               ))}
             </tbody>

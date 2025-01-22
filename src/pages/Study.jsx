@@ -98,7 +98,6 @@ const ApplicateButton = styled.button`
 const Study = () => {
     return(
         <>
-            <Header/>
             <Container>
                 <Subtitle>세션</Subtitle>
                 <HeadWrapper>

@@ -74,7 +74,6 @@ const WritePost = ({ navigateBack }) => {
 
   return (
     <Container>
-      <Header />
       <Title>글쓰기</Title>
       <Input
         type="text"

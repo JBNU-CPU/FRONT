@@ -121,7 +121,6 @@ const ProjectOpen = () => {
 
     return (
         <>
-            <Header />
             <Container>
                 <Subtitle>프로젝트 개설</Subtitle>
 

@@ -146,7 +146,6 @@ const Join = () => {
 
     return(
         <>
-            <Header/>
             <Wrapper>
                 <Container>
                     <MainName>Join</MainName>

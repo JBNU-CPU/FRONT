@@ -22,18 +22,6 @@ const Container = styled.div`
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     padding: 20px 30px;
     margin: 20px auto;
-    animation: fadeIn 0.5s ease-in-out;
-
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
 `;
 
 const Title = styled.h1`
@@ -42,6 +30,7 @@ const Title = styled.h1`
     color: #fff;
     margin-bottom: 20px;
     text-align: center;
+    background: transparent;
 `;
 
 const Label = styled.p`
@@ -99,7 +88,6 @@ const CommunityContent = () => {
 
     return (
         <>
-            <Header />
             <Wrapper>
                 <Container>
                     <Title>Notification Content</Title>

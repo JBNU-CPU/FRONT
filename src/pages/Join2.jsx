@@ -271,7 +271,6 @@ const Join2 = () => {
     const isButtonActive = nickName && username && passwordRight && personName && email;
     return(
         <>
-            <Header/>
             {isModalOpen && (
                 <ModalBackground>
                     <ModalBox>

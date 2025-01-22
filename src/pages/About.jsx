@@ -248,7 +248,6 @@ const App = () => {
 
   return (
     <>
-      <Header />
       <Slider title="CPU" content="전북대학교 중앙 컴퓨터동아리  CPU"/>
       <Container>
         <TabContainer>

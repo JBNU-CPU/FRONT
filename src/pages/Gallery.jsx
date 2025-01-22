@@ -146,7 +146,6 @@ const Gallery = () => {
 
   return(
 		<>
-		<Header/>
 		<Slider title='갤러리' content='CPU 활동사진들을 기록하는 공간입니다.'/>
 			
     	<Wrap>

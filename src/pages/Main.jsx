@@ -138,7 +138,6 @@ const Main = () => {
 
   return (
     <Wrap>
-      <Header />
       <Slider title="CPU" content="전북대학교 중앙 컴퓨터동아리  CPU" />
       <MainWrap>
         <h1>CPU</h1>

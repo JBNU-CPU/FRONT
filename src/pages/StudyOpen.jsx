@@ -120,7 +120,6 @@ const StudyOpen = () => {
 
     return (
         <>
-            <Header />
             <Container>
                 <Subtitle>스터디 개설</Subtitle>
 
