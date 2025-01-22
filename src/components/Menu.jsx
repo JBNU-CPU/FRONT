@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef,  useEffect} from "react";
 import styled from "styled-components";
 import logo from './logo/CPU_logo_white.png';
 import { Link, useNavigate } from "react-router-dom";
@@ -124,12 +124,13 @@ const Mypage = styled.p`
     }
 `
 
-const Menu = () => {
+const Menu = ({closeMenu}) => {
     const navigate = useNavigate();
     const [isStudyOpen, setIsStudyOpen] = useState(false);
     const [isBoardOpen, setIsBoardOpen] = useState(false);
     const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
     const { isAdmin } = useContext(AdminContext);
+    const menuRef = useRef(null);
 
     const handleStudyClick = () => {
         setIsStudyOpen(prev => !prev);
@@ -171,8 +172,21 @@ const Menu = () => {
         }
     };
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (menuRef.current && !menuRef.current.contains(event.target)) {
+                closeMenu(); // 메뉴 닫기 함수 호출
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [closeMenu]);
+
     return (
-        <Container>
+        <Container ref={menuRef}>
             <LogoWrapper>
                 <Logo src={logo} />
             </LogoWrapper>

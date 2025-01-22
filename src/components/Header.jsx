@@ -74,22 +74,32 @@ const Hamburger = styled(GiHamburgerMenu)`
 
 // to경로 메인 페이지로 이동하도록 설정하기
 const Header = () => {
-    const [MenuOpen, setMenuOpen] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
     const navigate = useNavigate();
 
-    const ToggleMenu = () => {
-        setMenuOpen(prevState => !prevState);
+    // Menu 열기/닫기 토글
+    const toggleMenu = () => {
+        setMenuOpen((prevState) => !prevState);
     };
 
-    const Click = () => {
-        navigate('/');
-    }
+    // Menu 닫기 함수
+    const closeMenu = () => {
+        setMenuOpen(false);
+    };
 
-    return(
-        <MainHeader>
-            <ImgLink to = '/'><Img src={logo} alt="cpu_white_logo"/></ImgLink><Text onClick={Click}>C P U</Text> 
-            <Hamburger onClick = {ToggleMenu}/>{MenuOpen && <Menu/>}
-        </MainHeader>
+    const handleClickLogo = () => {
+        navigate('/');
+    };
+
+    return (
+        <>
+            <MainHeader>
+                <ImgLink to="/"><Img src={logo} alt="cpu_white_logo" /></ImgLink>
+                <Text onClick={handleClickLogo}>C P U</Text>
+                <Hamburger onClick={toggleMenu} />
+            </MainHeader>
+            {menuOpen && <Menu closeMenu={closeMenu} />}
+        </>
     );
 };
 
