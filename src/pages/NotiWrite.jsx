@@ -76,7 +76,7 @@ const Text = styled.textarea`
     height: 300px;
     outline: none; /* 기본 브라우저 outline 제거 */
     border: 2px solid transparent;
-    padding-left: 10px;
+    padding: 10px;
     color: white;
     font: bold 15px 'arial';
     &:focus {
