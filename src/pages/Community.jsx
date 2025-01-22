@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header'; // 헤더 컴포넌트 임포트
 import Footer from '../components/Footer'; // 푸터 컴포넌트 임포트
-import MainPitcture from './Pic/StudyMain.png';
+import MainPicture from './Pic/StudyMain.png';
 import AuthContext from '../AuthContext';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 // 전체 페이지를 감싸는 컨테이너
 const Container = styled.div`
@@ -20,7 +21,7 @@ const Container = styled.div`
 
 const HeaderImg = styled.img`
   width: 100%;
-  height: 250px;
+  height: 300px;
   opacity: 0.5;
   @media screen and (min-width : 768px) {
       height: 400px;
@@ -29,7 +30,7 @@ const HeaderImg = styled.img`
 
 const PictureWrapper = styled.div`
   width: 100%;
-  height: 250px;
+  height: 300px;
   position: relative;
   margin-bottom: 30px;
   @media screen and (min-width : 768px) {
@@ -41,7 +42,7 @@ const Title = styled.h1`
   text-align: center;
   color: white;
   position: absolute;
-  top: 50px;
+  top: 100px;
   left: 0;
   right: 0;
   background: none;
@@ -55,7 +56,7 @@ const Summary = styled.p`
   color: white;
   text-align: center;
   position: absolute;
-  top: 120px;
+  top: 190px;
   left: 0;
   right: 0;
   background: none;
@@ -73,6 +74,9 @@ const SearchSection = styled.div`
   gap: 10px;
   margin-top: 20px;
   width: calc(60%);
+  @media screen and (max-width : 375px) {
+    width: calc(85%);
+  }
 `;
 
 const Select = styled.select`
@@ -81,6 +85,9 @@ const Select = styled.select`
   color: white;
   border: 1px solid #555;
   border-radius: 4px;
+  @media screen and (max-width : 375px) {
+    font: bold 10px 'arial';
+  }
 `;
 
 const SearchInput = styled.input`
@@ -96,6 +103,9 @@ const SearchInput = styled.input`
   &:focus {
       border: 1px solid #ab1a65; /* 포커스 시 테두리 색상 변경 */
   }
+  @media screen and (max-width : 375px) {
+    font: bold 10px 'arial';
+  }
 `;
 
 const SearchButton = styled.button`
@@ -107,11 +117,15 @@ const SearchButton = styled.button`
   border-radius: 5px;
   border: 1px solid #ab1a65;
   background: #ab1a65;
-  width: 80px;
+  width: 60px;
   transition: box-shadow 0.3s ease, transform 0.2s ease; /* 부드러운 전환 효과 추가 */
   &:hover {
     box-shadow: 0 0 10px rgba(171, 26, 101, 0.8); /* hover 시 희미하게 빛나는 효과 */
     transform: scale(1); /* 살짝 확대 */
+  }
+  @media screen and (max-width : 375px) {
+    width: 45px;
+    font: bold 11px 'arial';
   }
 `;
 
@@ -175,6 +189,14 @@ const PageButton = styled.button`
       box-shadow: 0 0 10px rgba(171, 26, 101, 0.8); /* hover 시 희미하게 빛나는 효과 */
       transform: scale(1); /* 살짝 확대 */
     }
+    @media screen and (max-width : 375px) {
+    width: 50px;
+    font: bold 10px 'arial';
+    }
+  }
+  @media screen and (max-width : 375px) {
+    width: 40px;
+    font: bold 10px 'arial';
   }
 `;
 
@@ -188,51 +210,68 @@ const ButtonWrapper = styled.div`
 const Community = () => {
   const { isAuthenticated } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [searchType, setSearchType] = useState('title');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchType, setSearchType] = useState("title");
+  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const postsPerPage = 5;
+  const [posts, setPosts] = useState([]);
+  const [totalPages, setTotalPages] = useState(1);
 
-  const posts = [
-    { id: 1, title: '스테이크 맛있게 굽는 방법', author: '김동준', date: '24.08.31' },
-    { id: 2, title: 'React 기본 사용법', author: '김동준', date: '24.09.01' },
-    { id: 3, title: 'Node.js 서버 구축', author: '김동준', date: '24.09.02' },
-    { id: 4, title: 'CSS Flexbox 이해하기', author: '김동준', date: '24.09.03' },
-    { id: 5, title: 'Redux 사용법', author: '박도현', date: '24.09.04' },
-    { id: 6, title: 'Firebase와 연동하기', author: '박도현', date: '24.09.05' },
-    { id: 7, title: 'GraphQL 시작하기', author: '박도현', date: '24.09.06' },
-    { id: 8, title: 'Docker 기본 사용법', author: '박도현', date: '24.09.07' },
-    { id: 9, title: 'GitHub Actions 활용', author: '박도현', date: '24.09.08' },
-    { id: 10, title: 'Vue.js와 Vuex', author: '박도현', date: '24.09.09' },
-  ];
+  // 게시글 데이터 가져오기
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/post`, {
+          params: {
+            page: currentPage - 1, // API의 페이지는 0부터 시작
+            size: postsPerPage,
+          },
+          withCredentials: true,
+        });
+        console.log(response);
+        setPosts(response.data.content); // 데이터의 `content` 부분 사용
+        setTotalPages(response.data.totalPages); // 전체 페이지 수
+      } catch (error) {
+        console.error("게시글 데이터를 가져오는 중 오류 발생:", error);
+      }
+    };
 
-  const handleSearch = () => {
+    fetchPosts();
+  }, [currentPage, postsPerPage]);
+
+  const handleSearch = async () => {
     console.log(`검색 유형: ${searchType}, 검색어: ${searchTerm}`);
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/post`, {
+        params: {
+          [searchType]: searchTerm, // 제목 또는 작성자로 검색
+          page: currentPage - 1,
+          size: postsPerPage,
+        },
+        withCredentials: true,
+      });
+      setPosts(response.data.content);
+      setTotalPages(response.data.totalPages);
+    } catch (error) {
+      console.error("검색 중 오류 발생:", error);
+    }
   };
 
-  // 현재 페이지의 포스트 목록
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-
-  // 총 페이지 수 계산
-  const totalPages = Math.ceil(posts.length / postsPerPage);
-
   const writeClick = () => {
-    if(isAuthenticated){
-      navigate('/write');
-    }else{
+    if (isAuthenticated) {
+      navigate("/write");
+    } else {
       alert("비회원은 접근 불가합니다.");
     }
   };
 
   const handleClick = (id) => {
     if (isAuthenticated) {
-        navigate('/content',{
-          state:{id}
-        });
+      navigate("/content", {
+        state: { id },
+      });
     } else {
-        alert('비회원은 접근 불가합니다.');
+      alert("비회원은 접근 불가합니다.");
     }
   };
 
@@ -240,7 +279,7 @@ const Community = () => {
     <Container>
       <Header />
       <PictureWrapper>
-        <HeaderImg src={MainPitcture} alt="pic" />
+        <HeaderImg src={MainPicture} alt="pic" />
         <Title>커뮤니티</Title>
         <Summary>부원들과 소통하는 공간입니다.</Summary>
       </PictureWrapper>
@@ -259,7 +298,9 @@ const Community = () => {
         <SearchButton onClick={handleSearch}>검색</SearchButton>
       </SearchSection>
       <ButtonWrapper>
-        <PageButton className='write' onClick={writeClick}>글쓰기</PageButton>
+        <PageButton className="write" onClick={writeClick}>
+          글쓰기
+        </PageButton>
       </ButtonWrapper>
       <Table>
         <thead>
@@ -270,8 +311,8 @@ const Community = () => {
           </tr>
         </thead>
         <tbody>
-          {currentPosts.map((post) => (
-            <TableRow key={post.id} onClick={handleClick}>
+          {posts.map((post) => (
+            <TableRow key={post.id} onClick={() => handleClick(post.id)}>
               <TableCell>{post.title}</TableCell>
               <TableCell>{post.author}</TableCell>
               <TableCell>{post.date}</TableCell>

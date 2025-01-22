@@ -134,7 +134,6 @@ const Mypage = () => {
     const [personName, setPersonName] = useState("");
     const [nickName, setnickName] = useState("");
     const [email, setEmail] = useState("");
-    const {setIsAdmin} = useContext(AdminContext);
 
     useEffect(() => {
         // 데이터 가져오기
@@ -145,7 +144,7 @@ const Mypage = () => {
                     withCredentials: true, // 쿠키를 포함하기 위해 설정
                 });
             
-                const { username, personName, nickName, email, role } = response.data;
+                const { username, personName, nickName, email } = response.data;
             
                 setPersonName(personName || ""); // 이름 설정
                 setnickName(nickName || ""); // 닉네임 설정
@@ -153,13 +152,6 @@ const Mypage = () => {
                 
                 if (username) {
                     localStorage.setItem("username", username);
-                }
-                if (role === "ROLE_ADMIN"){
-                    setIsAdmin(true);
-                    console.log("admin");
-                }else{
-                    setIsAdmin(false);
-                    console.log("guest");
                 }
             } catch (error) {
                 console.error("마이페이지 데이터 로드 오류:", error);
@@ -169,7 +161,7 @@ const Mypage = () => {
         };
 
         fetchData();
-    }, [setIsAdmin]);
+    }, []);
 
     const handleWithdraw = async () => {
         if (window.confirm("정말로 탈퇴하시겠습니까?")) {

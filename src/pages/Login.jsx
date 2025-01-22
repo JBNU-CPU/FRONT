@@ -8,7 +8,7 @@ import AuthContext from "../AuthContext";
 import Footer from "../components/Footer";
 import { useLocation } from "react-router-dom";
 import logo from '../Picture/CPU_logo_full.jpeg'
-
+import AdminContext from "../AdminContext";
 
 const Wrapper = styled.div`
     display: flex;
@@ -140,13 +140,14 @@ const Logo = styled.img`
     margin: 0;
 `;
 
-const Join = () => {
+const Login = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false); // 로딩 상태 추가
     const firstInputRef = useRef(null);
     const navigate = useNavigate();
     const { setIsAuthenticated } = useContext(AuthContext);
+    const {setIsAdmin} = useContext(AdminContext);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -165,6 +166,10 @@ const Join = () => {
                 alert("로그인 되었습니다.");
                 console.log(document.cookie);
                 setIsAuthenticated(true);
+    
+                // 로그인 성공 후 추가 데이터 가져오기
+                fetchData(); // useEffect에서 사용된 fetchData 호출
+    
                 navigate("/");
             } else {
                 alert("로그인 실패!");
@@ -174,8 +179,37 @@ const Join = () => {
             alert("로그인 중 문제가 발생했습니다.");
         } finally {
             setIsLoading(false); // 로딩 종료
-        }    
+        }
     };
+    
+    // useEffect 밖으로 fetchData 함수 추출
+    const fetchData = async () => {
+        try {
+            // Axios 요청에 쿠키 인증 정보를 포함하도록 설정
+            const response = await axios.get(`${process.env.REACT_APP_API_URL}/mypage`, {
+                withCredentials: true, // 쿠키를 포함하기 위해 설정
+            });
+    
+            const { role } = response.data;
+    
+            if (role === "ROLE_ADMIN") {
+                setIsAdmin(true);
+                console.log("admin");
+            } else {
+                setIsAdmin(false);
+                console.log("guest");
+            }
+        } catch (error) {
+            console.error("마이페이지 데이터 로드 오류:", error);
+            alert("마이페이지 정보를 불러오는 데 실패했습니다.");
+        }
+    };
+    
+    // useEffect를 사용하여 마운트 시 fetchData 호출
+    useEffect(() => {
+        fetchData();
+    }, [setIsAdmin]);
+    
     
     useEffect(() => {
         if (firstInputRef.current) {
@@ -234,4 +268,4 @@ const Join = () => {
     );
 };
 
-export default Join;
+export default Login;

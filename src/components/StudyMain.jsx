@@ -5,18 +5,21 @@ import { useContext } from "react";
 import AuthContext from "../AuthContext";
 
 const Container = styled.div`
-    width: 100%;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-bottom: 40px;
+    @media screen and (min-width : 375px) {
+      margin-inline: 20px;
+    }
 `;
 
 const Title = styled.h1`
     color: white;
     text-align: center;
-    width: 120px;
+    width: 100%;
 `;
 
 const Summary = styled.p`
@@ -24,6 +27,9 @@ const Summary = styled.p`
     font: 400 14px 'arial';
     text-align: center;
     padding-bottom: 20px;
+    @media screen and (min-width : 375px) {
+      width:calc(80%);
+    }
 `;
 
 const SubmitWrapper = styled.div`
@@ -94,6 +100,9 @@ const Head = styled.div`
     margin: 15px 20px 5px 30px;
     align-items: center;
     background: none;
+    @media screen and (min-width : 375px) {
+      margin: 10px 15px 5px 25px;
+    }
 `;
 
 const Icon = styled.img`
@@ -122,6 +131,9 @@ const StudyName = styled.p`
     margin: 0;
     margin-left: 30px;
     background: none;
+    @media screen and (min-width : 375px) {
+      margin-left:25px;
+    }
 `;
 
 const Teacher = styled.p`
@@ -130,6 +142,9 @@ const Teacher = styled.p`
     padding: 0;
     margin: 5px 0px 15px 30px;
     background: none;
+    @media screen and (min-width : 375px) {
+      margin: 5px 0 0 25px;
+    }
 `;
 
 const PaginationWrapper = styled.div`
