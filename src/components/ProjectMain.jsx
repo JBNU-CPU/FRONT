@@ -20,6 +20,12 @@ const Title = styled.h1`
   color: white;
   text-align: center;
   width: 100%;
+  margin-top: 30px;
+  font: bold 40px 'arial';
+  @media screen and (max-width : 700px) {
+      font-size: 30px;
+      margin-bottom : 10px;
+    }
 `;
 
 const Summary = styled.p`

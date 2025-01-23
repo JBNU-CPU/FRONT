@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Link } from "react-router-dom";
 import Menu from "./Menu";
 import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 
 const MainHeader = styled.header`
     width : 100%;  
@@ -78,7 +79,8 @@ const Header = () => {
     const navigate = useNavigate();
 
     // Menu 열기/닫기 토글
-    const toggleMenu = () => {
+    const toggleMenu = (e) => {
+        e.stopPropagation();
         setMenuOpen((prevState) => !prevState);
     };
 
@@ -96,9 +98,9 @@ const Header = () => {
             <MainHeader>
                 <ImgLink to="/"><Img src={logo} alt="cpu_white_logo" /></ImgLink>
                 <Text onClick={handleClickLogo}>C P U</Text>
-                <Hamburger onClick={toggleMenu} />
+                <Hamburger onClick={toggleMenu} className="hamburger-icon"/>
             </MainHeader>
-            {menuOpen && <Menu closeMenu={closeMenu} />}
+            {menuOpen && <Menu closeMenu={closeMenu}/>}
         </>
     );
 };

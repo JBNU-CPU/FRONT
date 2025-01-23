@@ -55,18 +55,26 @@ const TitleWrap = styled.div`
   align-items : center;
   text-align : center;
   cursor : default;
+  @media screen and (max-width : 700px) {
+      top : 60%;
+    }
   h1{
     margin : 0;
     font-size : 50px;
     background-color : rgba(0,0,0,0);
     text-shadow : 1px 1px 5px rgba(0, 0, 0, 0.7);
+    @media screen and (max-width : 700px) {
+      font-size: 30px;
+    }
   }
   p{
     margin : 0;
     font-size : 16px;
     background-color : rgba(0,0,0,0);
     text-shadow : 1px 1px 5px rgba(0, 0, 0, 0.7);
-
+    @media screen and (max-width : 700px) {
+      font-size: 14px;
+    }
   }
 `
 

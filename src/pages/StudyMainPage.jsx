@@ -7,61 +7,12 @@ import SectionMain from "../components/SectionMain";
 import StudyMain from "../components/StudyMain";
 import ProjectMain from "../components/ProjectMain";
 import MainPicture from './Pic/StudyMain.png';
+import Slider from '../components/ImgSlider';
 
 const Container = styled.div`
     width: 100%;
     margin: 0px;
     padding: 0px;
-`;
-
-const Img = styled.img`
-    width: 100%;
-    height: 250px;
-    opacity: 0.5;
-    @media screen and (min-width: 768px) {
-        height: 400px;
-    }
-`;
-
-const PictureWrapper = styled.div`
-    width: 100%;
-    height: 250px;
-    position: relative;
-    padding: 0;
-    margin: 0;
-    margin-bottom: 30px;
-    @media screen and (min-width: 768px) {
-        height: 400px;
-    }
-`;
-
-const Title = styled.h1`
-    text-align: center;
-    color: white;
-    position: absolute;
-    top: 50px;
-    left: 0;
-    right: 0;
-    background: none;
-    font-family: 'arial';
-    @media screen and (min-width: 768px) {
-        top: 140px;
-    }
-`;
-
-const Summary = styled.p`
-    color: white;
-    text-align: center;
-    position: absolute;
-    top: 120px;
-    left: 0;
-    right: 0;
-    background: none;
-    font-family: 'arial';
-    font-weight: 700;
-    @media screen and (min-width: 768px) {
-        top: 210px;
-    }
 `;
 
 const SelectWrapper = styled.ul`
@@ -70,7 +21,7 @@ const SelectWrapper = styled.ul`
     display: flex;
     justify-content: center;
     padding: 0;
-    margin: 0;
+    margin: 20px 0 0 0;
 `;
 
 const Select = styled.li`
@@ -107,11 +58,7 @@ const Study = () => {
 
     return (
         <Container>
-            <PictureWrapper>
-                <Img src={MainPicture} alt="pic" />
-                <Title>Study</Title>
-                <Summary>세션 / 스터디 / 프로젝트</Summary>
-            </PictureWrapper>
+            <Slider title="Study" content="세션 / 스터디 / 프로젝트"/>
             <SelectWrapper>
                 <Select isActive={activeTab === "section"} onClick={() => setActiveTab("section")}>
                     세션

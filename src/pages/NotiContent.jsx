@@ -18,7 +18,8 @@ const Container = styled.div`
     align-items: center;
     justify-content: center;
     @media screen and (max-width: 765px) {
-        width: calc(80%);
+        padding: 20px 10px;
+        width: 90%;
     }
 `;
 
@@ -45,30 +46,25 @@ const Content = styled.textarea`
     border-radius: 5px;
     padding: 10px;
     outline: none; /* 기본 클릭 시 테두리 제거 */
-    
-    &:focus {
-        outline: ${(props) => (props.editable ? "2px solid #ab1a65" : "none")}; /* 수정 모드에서만 테두리 */
-    }
+    margin-top: 20px;
 `;
 
 const Input = styled.input`
     font-size: 16px;
     color: #ddd;
     background: transparent;
-    border-bottom: ${(props) => (props.editable ? "1px solid #ab1a65" : "1px solid transparent")};
-    border-radius: 5px;
+    border: 1px solid transparent;
     padding: 10px;
     outline: none; /* 기본 클릭 시 테두리 제거 */
     
-    &:focus {
-        outline: ${(props) => (props.editable ? "2px solid #ab1a65" : "none")}; /* 수정 모드에서만 테두리 */
-    }
-
     &.title {
         font: bold 20px 'arial';
+        margin-bottom: 20px;
         color: white;
         text-align: center;
         width: auto;
+        border: none; /* 기본적으로 border를 제거 */
+        border-bottom: ${(props) => (props.editable ? "1px solid #ab1a65" : "none")}; /* 수정 모드에서만 border-bottom */
     }
 
     &.info {

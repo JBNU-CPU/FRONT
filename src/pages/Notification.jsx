@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
 import AdminContext from '../AdminContext';
+import Slider from '../components/ImgSlider';
 
 // 전체 페이지를 감싸는 컨테이너
 const Container = styled.div`
@@ -74,9 +75,9 @@ const SearchSection = styled.div`
   align-items: center;
   justify-content: center;
   gap: 10px;
-  margin-top: 20px;
+  margin-top: 40px;
   width: calc(60%);
-  @media screen and (max-width : 375px) {
+  @media screen and (max-width : 765px) {
     width: calc(85%);
   }
 `;
@@ -87,7 +88,8 @@ const Select = styled.select`
   color: white;
   border: 1px solid #555;
   border-radius: 4px;
-  @media screen and (max-width : 375px) {
+  font-size : 13px;
+  @media screen and (max-width : 765px) {
     font: bold 10px 'arial';
   }
 `;
@@ -102,10 +104,11 @@ const SearchInput = styled.input`
   padding-block: 6px;
   width: calc(60%);
   outline: none; /* 기본 브라우저 outline 제거 */
+  font-size : 13px;
   &:focus {
       border: 1px solid #ab1a65; /* 포커스 시 테두리 색상 변경 */
   }
-  @media screen and (max-width : 375px) {
+  @media screen and (max-width : 765px) {
     font: bold 10px 'arial';
   }
 `;
@@ -125,7 +128,7 @@ const SearchButton = styled.button`
     box-shadow: 0 0 10px rgba(171, 26, 101, 0.8); /* hover 시 희미하게 빛나는 효과 */
     transform: scale(1); /* 살짝 확대 */
   }
-  @media screen and (max-width : 375px) {
+  @media screen and (max-width : 765px) {
     width: 45px;
     font: bold 11px 'arial';
   }
@@ -138,8 +141,7 @@ const Table = styled.table`
 `;
 
 const TableHead = styled.th`
-  padding: 10px;
-  border-bottom: 2px solid #444;
+  padding: 5px;
   color: #aaa;
   font: bold 14px 'arial';
   background: #3d3d3d;
@@ -155,7 +157,10 @@ const TableRow = styled.tr`
 const TableCell = styled.td`
   padding: 10px;
   border-bottom: 1px solid #444;
-  font: bold 14px 'arial';
+  font: bold 12px 'arial';
+  @media screen and (min-width : 700px) {
+    font: bold 14px 'arial';
+  }
 `;
 
 const Pagination = styled.div`
@@ -192,7 +197,7 @@ const PageButton = styled.button`
       box-shadow: 0 0 10px rgba(171, 26, 101, 0.8); /* hover 시 희미하게 빛나는 효과 */
       transform: scale(1); /* 살짝 확대 */
     }
-    @media screen and (max-width : 375px) {
+    @media screen and (max-width : 765px) {
     width: 50px;
     font: bold 10px 'arial';
     }
@@ -204,7 +209,7 @@ const PageButton = styled.button`
 `;
 
 const ButtonWrapper = styled.div`
-  width: calc(70%); /* 부모 컨테이너의 전체 너비를 차지 */
+  width: calc(80%); /* 부모 컨테이너의 전체 너비를 차지 */
   display: flex;
   justify-content: flex-end; /* 오른쪽으로 정렬 */
   margin: 20px 0; /* 상하 여백 설정 */
@@ -303,12 +308,7 @@ const Community = () => {
 
   return (
     <Container>
-      <PictureWrapper>
-        <HeaderImg src={MainPicture} alt="pic" />
-        <Title>공지사항</Title>
-        <Summary>각종 CPU 활동 공지가 올라가는 페이지입니다.</Summary>
-      </PictureWrapper>
-
+      <Slider title="공지사항" content="각종 CPU 활동 공지가 올라가는 페이지입니다."/>
       <SearchSection>
         <Select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
           <option value="title">제목</option>

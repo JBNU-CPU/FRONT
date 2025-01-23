@@ -43,6 +43,9 @@ const TabButton = styled.button`
   &:hover {
     border-bottom: 2px solid #ab1a65;
   }
+  @media screen and (max-width : 700px) {
+    font-size: 15px;
+    }
 `;
 
 // 이미지와 텍스트 스타일
@@ -61,6 +64,11 @@ const Image = styled.img`
   max-width: 400px;
   border-radius: 5px;
   margin: 10px 0;
+  &.logo{
+    @media screen and (max-width : 700px) {
+      width: calc(60%);
+    }
+  }
 `;
 
 const Text = styled.p`
@@ -74,6 +82,9 @@ const SectionHeader = styled.h2`
   text-align: center;
   font: bold 30px 'arial';
   margin-bottom: 20px;
+  @media screen and (max-width : 700px) {
+    font-size: 25px;
+  }
 `;
 
 const Table = styled.table`
@@ -108,7 +119,7 @@ const H2 = styled.h2`
 // 섹션 컴포넌트
 const AboutSection = () => (
   <Section>
-    <Image src={logo}/>
+    <Image src={logo} className='logo'/>
     <SectionHeader>Creative Personal computer User Club</SectionHeader>
     <Text>
       CPU는 전북대학교와 주도적인 개인 컴퓨터 사용자 모임으로써 지역 활성화에 힘쓰는 동아리로, 전북 지역 사회의 Computer Mind 가치 확산에 기여하고 있습니다.

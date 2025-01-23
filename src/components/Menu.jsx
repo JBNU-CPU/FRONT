@@ -7,7 +7,7 @@ import AdminContext from "../AdminContext";
 import axios from "axios";
 
 const Container = styled.div`
-    width: calc(40%);
+    width: calc(30%);
     height: 100%;
     background: #1b1d25;
     position: fixed;
@@ -16,6 +16,9 @@ const Container = styled.div`
     flex-direction: column;
     z-index: 1001;
     top: 60px;
+    @media screen and (max-width : 700px) {
+        width: calc(40%);
+    }
 `;
 
 const LogoWrapper = styled.div`
@@ -29,15 +32,23 @@ const Logo = styled.img`
     background: none;
     width: 90px;
     height: 90px;
+    margin-top: 50px;
+    @media screen and (max-width : 700px) {
+        width: 50px;
+        height: auto;
+    }
 `;
 
 const MenuWrapper = styled.ul`
     list-style: none;
     background: none;
-    font: bold 20px 'arial';
+    font: bold 25px 'arial';
     text-align: center;
     margin: 0;
     padding: 0;
+    @media screen and (max-width : 700px) {
+       font-size: 13px;
+    }
 `;
 
 const Menuli = styled.li`
@@ -73,7 +84,11 @@ const SubMenu = styled.ul`
     padding: 0;
     margin: 0;
     width: 150px;
-    font: bold 15px 'arial';
+    font: bold 20px 'arial';
+    @media screen and (max-width : 700px) {
+       font-size: 11px;
+       width: calc(70%);
+    }
 `;
 
 const LoginWrapper = styled.div`
@@ -81,7 +96,7 @@ const LoginWrapper = styled.div`
     display: flex;
     justify-content: center;
     position: relative;
-    top: 100px;
+    top: 30px;
     flex-direction: column;
     align-items: center;
 `;
@@ -106,6 +121,11 @@ const Login = styled.button`
             color: gray;
         }
     }
+    @media screen and (max-width : 700px) {
+        width: 50px;
+        height: 20px;
+        font-size: 9px;
+    }
 `;
 
 
@@ -121,6 +141,9 @@ const Mypage = styled.p`
     font: bold 13px 'arial';
     &:hover{
         cursor: pointer;
+    }
+    @media screen and (max-width : 700px) {
+        font-size: 9px;
     }
 `
 
@@ -174,7 +197,9 @@ const Menu = ({closeMenu}) => {
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (menuRef.current && !menuRef.current.contains(event.target)) {
+            const hamburgerButton = document.querySelector('.hamburger-icon');
+            if ((menuRef.current && !menuRef.current.contains(event.target)) ||
+            (hamburgerButton && hamburgerButton.contains(event.target))){
                 closeMenu(); // 메뉴 닫기 함수 호출
             }
         };
