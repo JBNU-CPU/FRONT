@@ -24,6 +24,7 @@ import NotiContent from '../pages/NotiContent';
 import NotiWrite from '../pages/NotiWrite';
 import CommunityContent from '../pages/CommunityContent';
 import CommunityWrite from '../pages/CommunityWrite';
+import Test from '../pages/Test';
 
 const AppRoutes = () => {
     return (
@@ -52,6 +53,7 @@ const AppRoutes = () => {
             <Route path='/notiwrite' element={<NotiWrite/>}/>
             <Route path='/write' element={<CommunityWrite/>}/>
             <Route path='/content' element={<CommunityContent/>}/>
+            <Route path='/test' element={<Test/>}/>
         </Routes>
     );
 };

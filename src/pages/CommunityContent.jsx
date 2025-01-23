@@ -4,24 +4,15 @@ import axios from "axios";
 import styled from "styled-components";
 import Spinner from '../components/Spinner'; // 스피너 컴포넌트 임포트
 
-const Wrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background: transparent;
-`;
-
 const Container = styled.div`
-    width: 90%;
-    max-width: 600px;
+    width: 70%;
+    height: auto;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
     border-radius: 15px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     padding: 20px 30px;
-    margin: 20px auto;
+    margin: 100px auto 20px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -32,39 +23,63 @@ const Container = styled.div`
 `;
 
 const Label = styled.p`
-    font-size: 18px;
+    font-size: 13px;
     font-weight: bold;
     color: #fff;
-    margin-bottom: 5px;
     background: transparent;
-    text-align: left;
-    width: 100%;
+    text-align: center;
+    width: auto;
+    padding: 0;
+    margin:  5px 0;
 `;
 
 const Content = styled.textarea`
-    width: 100%;
+    width: calc(90%);
+    height: auto;
     font-size: 16px;
     color: #ddd;
     line-height: 1.6;
-    margin-bottom: 5px;
     white-space: pre-wrap;
     background: transparent;
     border: ${(props) => (props.editable ? "1px solid #ab1a65" : "1px solid transparent")};
     border-radius: 5px;
-    resize: none;
     padding: 10px;
+    outline: none; /* 기본 클릭 시 테두리 제거 */
+    
+    &:focus {
+        outline: ${(props) => (props.editable ? "2px solid #ab1a65" : "none")}; /* 수정 모드에서만 테두리 */
+    }
 `;
 
 const Input = styled.input`
-    width: 100%;
     font-size: 16px;
     color: #ddd;
-    margin-bottom: 5px;
     background: transparent;
-    border: ${(props) => (props.editable ? "1px solid #ab1a65" : "1px solid transparent")};
+    border-bottom: ${(props) => (props.editable ? "1px solid #ab1a65" : "1px solid transparent")};
     border-radius: 5px;
     padding: 10px;
+    outline: none; /* 기본 클릭 시 테두리 제거 */
+    
+    &:focus {
+        outline: ${(props) => (props.editable ? "2px solid #ab1a65" : "none")}; /* 수정 모드에서만 테두리 */
+    }
+
+    &.title {
+        font: bold 20px 'arial';
+        color: white;
+        text-align: center;
+        width: auto;
+    }
+
+    &.info {
+        margin: 0;
+        padding: 0 10px;
+        width: auto;
+        min-width: 50px;
+        max-width: 100px;
+    }
 `;
+
 
 const ButtonWrapper = styled.div`
     display: flex;
@@ -75,10 +90,10 @@ const ButtonWrapper = styled.div`
 `;
 
 const Button = styled.button`
-    padding: 10px 20px;
+    padding: 5px 15px;
     border: none;
     border-radius: 5px;
-    font: bold 14px 'arial';
+    font: bold 13px 'arial';
     cursor: pointer;
     color: white;
     background: ${(props) => (props.danger ? "#ab1a65" : "#4CAF50")};
@@ -92,6 +107,15 @@ const Button = styled.button`
         background: ${(props) => (props.danger ? "#8b0037" : "#3d8b40")};
     }
 `;
+
+const SubWrapper = styled.div`
+    background: transparent;   
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: end;
+    align-self: flex-end;
+`
 
 const NotiContent = () => {
     const location = useLocation();
@@ -182,31 +206,35 @@ const NotiContent = () => {
 
     if (isLoading) return <Spinner text="로딩 중..." />; // 스피너 표시
 
-    if (error) return <Wrapper><Container><p>{error}</p></Container></Wrapper>;
+    if (error) return <Container><p>{error}</p></Container>;
 
     return (
-        <Wrapper>
             <Container>
                 {content ? (
                     <>
-                        <Label>제목</Label>
                         <Input
                             editable={isEditing}
                             readOnly={!isEditing}
                             value={editedTitle}
                             onChange={(e) => setEditedTitle(e.target.value)}
+                            className="title"
                         />
-                        <Label>작성자</Label>
-                        <Input
-                            readOnly
-                            value={content.nickName}
-                        />
-                        <Label>작성일</Label>
-                        <Input
-                            readOnly
-                            value={content.createDate.slice(0, 10)}
-                        />
-                        <Label>내용</Label>
+                        <SubWrapper>
+                            <Label>작성자</Label>
+                            <Input
+                                readOnly
+                                value={content.nickName}
+                                className="info"
+                            />
+                        </SubWrapper>
+                        <SubWrapper>
+                            <Label>작성일</Label>
+                            <Input
+                                readOnly
+                                value={content.createDate.slice(0, 10)}
+                                className="info"
+                            />
+                        </SubWrapper>
                         <Content
                             editable={isEditing}
                             readOnly={!isEditing}
@@ -228,7 +256,6 @@ const NotiContent = () => {
                     <p>데이터가 없습니다.</p>
                 )}
             </Container>
-        </Wrapper>
     );
 };
 
