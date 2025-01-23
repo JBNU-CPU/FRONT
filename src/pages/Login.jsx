@@ -17,6 +17,7 @@ const Wrapper = styled.div`
     justify-content: center;
     height: 100vh;
     width: 100vw;
+    overflow-x: hidden;
 `;
 
 const Container = styled.form`
@@ -27,7 +28,6 @@ const Container = styled.form`
     background: rgba(121, 120, 120, 0.1);
     backdrop-filter: blur(10px);
     border-radius: 20px;
-    padding: 40px 20px;
     width: 350px;
 `;
 
@@ -83,6 +83,7 @@ const FindPass = styled.p`
 
 const JoinWrapper = styled.div`
     margin-top: 20px;
+    margin-bottom: 30px;
     text-align: center;
     background: transparent;
 `;
@@ -137,7 +138,7 @@ const LoadingText = styled.p`
 const Logo = styled.img`
     height: 70px;
     width: 70px;
-    margin: 0;
+    margin: 30px 0 0 0;
 `;
 
 const Login = () => {

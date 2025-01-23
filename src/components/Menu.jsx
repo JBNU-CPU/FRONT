@@ -17,7 +17,7 @@ const Container = styled.div`
     z-index: 1001;
     top: 60px;
     @media screen and (max-width : 700px) {
-        width: calc(40%);
+        width: calc(50%);
     }
 `;
 
@@ -34,7 +34,7 @@ const Logo = styled.img`
     height: 90px;
     margin-top: 50px;
     @media screen and (max-width : 700px) {
-        width: 50px;
+        width: 80px;
         height: auto;
     }
 `;
@@ -42,12 +42,12 @@ const Logo = styled.img`
 const MenuWrapper = styled.ul`
     list-style: none;
     background: none;
-    font: bold 25px 'arial';
+    font: bold 23px 'arial';
     text-align: center;
     margin: 0;
     padding: 0;
     @media screen and (max-width : 700px) {
-       font-size: 13px;
+       font-size: 18px;
     }
 `;
 
@@ -84,9 +84,9 @@ const SubMenu = styled.ul`
     padding: 0;
     margin: 0;
     width: 150px;
-    font: bold 20px 'arial';
+    font: bold 17px 'arial';
     @media screen and (max-width : 700px) {
-       font-size: 11px;
+       font-size: 15px;
        width: calc(70%);
     }
 `;
@@ -122,9 +122,9 @@ const Login = styled.button`
         }
     }
     @media screen and (max-width : 700px) {
-        width: 50px;
-        height: 20px;
-        font-size: 9px;
+        width: 60px;
+        height: 25px;
+        font-size: 12px;
     }
 `;
 
@@ -137,13 +137,13 @@ const StyledLink = styled(Link)`
 
 const Mypage = styled.p`
     color: white;
-    margin: 30px 0;
+    margin: 20px 0 0 0;
     font: bold 13px 'arial';
     &:hover{
         cursor: pointer;
     }
     @media screen and (max-width : 700px) {
-        font-size: 9px;
+        font-size: 12px;
     }
 `
 
