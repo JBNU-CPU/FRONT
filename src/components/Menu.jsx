@@ -7,8 +7,7 @@ import AdminContext from "../AdminContext";
 import axios from "axios";
 
 const Container = styled.div`
-    width: calc(30%);
-    height: 100%;
+    width: calc(40%);
     background: #1b1d25;
     position: fixed;
     right: 0;
@@ -16,16 +15,28 @@ const Container = styled.div`
     flex-direction: column;
     z-index: 1001;
     top: 60px;
-    @media screen and (max-width : 700px) {
-        width: calc(50%);
+    @media screen and (max-width : 480px) {
+        width: calc(70%);
+    }
+    @media screen and (max-width : 1023px) {
+        height: 100%;
+    }
+    @media screen and (min-width : 1024px) {
+        width: 80%;
+        top: 0;
+        min-height: 80px;
     }
 `;
 
-const LogoWrapper = styled.div`
+
+const LogoWrapper = styled(Link)`
     display: flex;
     justify-content: center;
     background: none;
     padding: 10px;
+    @media screen and (min-width: 1024px){
+        display: none;
+    }
 `;
 
 const Logo = styled.img`
@@ -37,6 +48,9 @@ const Logo = styled.img`
         width: 80px;
         height: auto;
     }
+    @media screen and (min-width: 1024px){
+        display: none;
+    }
 `;
 
 const MenuWrapper = styled.ul`
@@ -46,8 +60,25 @@ const MenuWrapper = styled.ul`
     text-align: center;
     margin: 0;
     padding: 0;
+    font-size: 18px;
     @media screen and (max-width : 700px) {
        font-size: 18px;
+    }
+    @media screen and (min-width: 1024px) {
+        display: flex;
+        position: absolute;
+        width:90%;
+        bottom:0;
+        right : 10%;
+        justify-content: end;
+    }
+`;
+const MenuBox = styled.div`
+    @media screen and (min-width: 1024px) {
+        margin: 0 10px 0 10px;
+        text-align: center;
+        width:160px;
+        justify-content: center;
     }
 `;
 
@@ -58,7 +89,13 @@ const Menuli = styled.li`
     padding-bottom: 15px;
     cursor: pointer;
     transition: text-shadow 0.3s ease, transform 0.3s ease; /* 부드러운 전환 효과 추가 */
-
+    @media screen and (min-width: 1024px) {
+        align-self: end;
+        white-space: nowrap;
+        justify-content:center;
+        padding-top: 0px;
+        padding-bottom: 10px;
+    }
     &:hover {
         text-shadow: 0 0 10px #d1cecf; /* 글자 주변 빛나는 효과 */
         transform: scale(1.05); /* 살짝 확대 */
@@ -75,6 +112,13 @@ const SubMenuWrapper = styled.div`
     display: flex;
     justify-content: center;
     background: none;
+    @media screen and (min-width: 1024px) {
+        display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+        position: absolute;  /* 헤더 내부에서 드롭다운을 띄우기 위한 absolute */
+        top: 100%;  /* 헤더 바로 아래로 위치하도록 top을 100%로 설정 */
+        background: rgba(0,0,0,0.3);
+        z-index: 1002;  /* 드롭다운 메뉴가 다른 요소 위로 보이도록 z-index 설정 */
+    }
 `;
 
 const SubMenu = styled.ul`
@@ -86,8 +130,13 @@ const SubMenu = styled.ul`
     width: 150px;
     font: bold 17px 'arial';
     @media screen and (max-width : 700px) {
-       font-size: 15px;
-       width: calc(70%);
+        font-size: 15px;
+        width: calc(70%);
+    }
+    @media screen and (min-width : 1024px) {
+        width:160px;
+        padding-top:10px;
+        justify-content: center;
     }
 `;
 
@@ -96,9 +145,17 @@ const LoginWrapper = styled.div`
     display: flex;
     justify-content: center;
     position: relative;
-    top: 30px;
     flex-direction: column;
     align-items: center;
+    margin-top:10px;
+    @media screen and (min-width: 1024px) {
+        position: absolute;
+        top:0;
+        right:0;
+        flex-direction: row;
+        align-self:start;
+        margin: 15px 25px 0 0;
+    }
 `;
 
 const Login = styled.button`
@@ -126,6 +183,11 @@ const Login = styled.button`
         height: 25px;
         font-size: 12px;
     }
+    @media screen and (min-width: 1024px) {
+        font: normal 13px 'arial';
+        width: 60px;
+        height: 25px;
+    }    
 `;
 
 
@@ -137,7 +199,7 @@ const StyledLink = styled(Link)`
 
 const Mypage = styled.p`
     color: white;
-    margin: 20px 0 0 0;
+    margin: 20px 0 20px 0;
     font: bold 13px 'arial';
     &:hover{
         cursor: pointer;
@@ -145,32 +207,42 @@ const Mypage = styled.p`
     @media screen and (max-width : 700px) {
         font-size: 12px;
     }
+    @media screen and (min-width: 1024px) {
+        align-self:center;
+        margin: 0 10px 0 0;
+        white-space: nowrap;
+        font: normal 13px 'arial';
+    }    
 `
 
 const Menu = ({closeMenu}) => {
     const navigate = useNavigate();
-    const [isStudyOpen, setIsStudyOpen] = useState(false);
-    const [isBoardOpen, setIsBoardOpen] = useState(false);
+    const [openMenu, setOpenMenu] = useState(null);
     const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
     const { isAdmin } = useContext(AdminContext);
     const menuRef = useRef(null);
+    //화면 사이즈 (데스크탑)
+    const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024)
 
-    const handleStudyClick = () => {
-        setIsStudyOpen(prev => !prev);
-        setIsBoardOpen(false);
-    };
+    useEffect(()=>{
+        const handleResize = () => setIsDesktop(window.innerWidth>=1024); //사이즈 감지
+        window.addEventListener("resize",handleResize); //창 크기 변경 시 발생
+        return ()=> window.removeEventListener("resize",handleResize);
+    },[]);
 
-    const handleBoardClick = () => {
-        setIsBoardOpen(prev => !prev);
-        setIsStudyOpen(false);
+    // 상위 메뉴 클릭 시
+    const toggleMenu = (menuName) => {
+        setOpenMenu((prevMenu) => (prevMenu === menuName ? null : menuName));
     };
 
     const handleSubMenuClick = (tab) => {
         navigate('/studymain', { state: { tab } });
+        closeMenu();
     };
 
     const handlemypage = () => {
         navigate('/mypage');
+        closeMenu();
     };
 
     const handleLogout = async () => {
@@ -209,50 +281,76 @@ const Menu = ({closeMenu}) => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [closeMenu]);
+    
 
     return (
         <Container ref={menuRef}>
-            <LogoWrapper>
+            <LogoWrapper to="/" onClick={() => closeMenu()}>
                 <Logo src={logo} />
             </LogoWrapper>
             <MenuWrapper>
-                <Menuli><StyledLink to='/about'>About CPU</StyledLink></Menuli>
-                <Menuli onClick={handleStudyClick}>Study</Menuli>
-                {isStudyOpen && (
-                    <SubMenuWrapper>
+                <MenuBox>
+                <Menuli><StyledLink to='/about' onClick={() => closeMenu()}>About CPU</StyledLink></Menuli>
+                </MenuBox>
+                <MenuBox>
+                <Menuli
+                    onClick={!isDesktop? () => toggleMenu("study") : undefined}
+                    onMouseEnter={isDesktop ? () => setOpenMenu("study") : undefined}
+                    onMouseLeave={isDesktop ? () => setOpenMenu(null) : undefined}
+                >
+                    Study
+                </Menuli>
+                {openMenu === "study" && (
+                    <SubMenuWrapper 
+                        onMouseEnter={isDesktop ? () => setOpenMenu("study") : undefined}
+                        onMouseLeave={isDesktop ? () => setOpenMenu(null) : undefined}
+                        isOpen={openMenu === "study"}>
                         <SubMenu>
-                            <Menuli style={{ color: '#C0C0C0' }} onClick={() => handleSubMenuClick('section')}>세션</Menuli>
-                            <Menuli style={{ color: '#C0C0C0' }} onClick={() => handleSubMenuClick('study')}>스터디</Menuli>
-                            <Menuli style={{ color: '#C0C0C0' }} onClick={() => handleSubMenuClick('project')}>프로젝트</Menuli>
+                            <Menuli style={{ color: '#ffffff' }} onClick={() => handleSubMenuClick('section')}>세션</Menuli>
+                            <Menuli style={{ color: '#ffffff' }} onClick={() => handleSubMenuClick('study')}>스터디</Menuli>
+                            <Menuli style={{ color: '#ffffff' }} onClick={() => handleSubMenuClick('project')}>프로젝트</Menuli>
                         </SubMenu>
                     </SubMenuWrapper>
                 )}
-                <Menuli onClick={handleBoardClick}>Board</Menuli>
-                {isBoardOpen && (
-                    <SubMenuWrapper>
+                </MenuBox>
+                <MenuBox>
+                <Menuli
+                    onClick={!isDesktop? () => toggleMenu("board") : undefined}
+                    onMouseEnter={isDesktop ? () => setOpenMenu("board") : undefined}
+                    onMouseLeave={isDesktop ? () => setOpenMenu(null) : undefined}
+                >
+                    Board
+                </Menuli>
+                {openMenu === "board" && (
+                    <SubMenuWrapper 
+                        onMouseEnter={isDesktop ? () => setOpenMenu("board") : undefined}
+                        onMouseLeave={isDesktop ? () => setOpenMenu(null) : undefined}
+                        isOpen={openMenu === "board"}
+                    >
                         <SubMenu>
-                            <Menuli style={{ color: '#C0C0C0' }}><StyledLink to='/notification'>공지사항</StyledLink></Menuli>
-                            <Menuli style={{ color: '#C0C0C0' }}><StyledLink to='/community'>커뮤니티</StyledLink></Menuli>
-                            <Menuli style={{ color: '#C0C0C0' }}><StyledLink to='/gallery'>갤러리</StyledLink></Menuli>
+                            <Menuli style={{ color: '#C0C0C0' }}><StyledLink to='/notification' onClick={() => closeMenu()}>공지사항</StyledLink></Menuli>
+                            <Menuli style={{ color: '#C0C0C0' }}><StyledLink to='/community' onClick={() => closeMenu()}>커뮤니티</StyledLink></Menuli>
+                            <Menuli style={{ color: '#C0C0C0' }}><StyledLink to='/gallery' onClick={() => closeMenu()}>갤러리</StyledLink></Menuli>
                         </SubMenu>
                     </SubMenuWrapper>
                 )}
-                <Menuli><a href="https://docs.google.com/forms/d/e/1FAIpQLSdRVK-FqquWklAH8BZO69FnnGzRnioZ51jf3OpBXnUMGvDeUQ/viewform?usp=dialog" style={{ background: "none", textDecoration: "none", color: "white" }}>Recruit</a></Menuli>
+                </MenuBox>
+                <MenuBox><Menuli><a href="https://docs.google.com/forms/d/e/1FAIpQLSdRVK-FqquWklAH8BZO69FnnGzRnioZ51jf3OpBXnUMGvDeUQ/viewform?usp=dialog" style={{ background: "none", textDecoration: "none", color: "white" }}>Recruit</a></Menuli></MenuBox>
                 {isAdmin && ( // isAdmin이 true일 때만 Management 표시
-                    <Menuli><StyledLink to='/management'>Management</StyledLink></Menuli>
+                    <MenuBox><Menuli><StyledLink to='/management' onClick={() => closeMenu()}>Management</StyledLink></Menuli></MenuBox>
                 )}
             </MenuWrapper>
             <LoginWrapper>
                 {isAuthenticated ? (
                     <>
+                        <Mypage onClick={handlemypage}>마이페이지</Mypage>
                         <Login onClick={handleLogout}>
                             <StyledLink to='/'>Log out</StyledLink>
                         </Login>
-                        <Mypage onClick={handlemypage}>마이페이지</Mypage>
                     </>
                 ) : (
                     <Login>
-                        <StyledLink to='/login'>Log in</StyledLink>
+                        <StyledLink to='/login' onClick={() => closeMenu()}>Log in</StyledLink>
                     </Login>
                 )}
             </LoginWrapper>
