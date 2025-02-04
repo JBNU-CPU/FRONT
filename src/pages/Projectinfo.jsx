@@ -2,18 +2,17 @@ import React,{useState} from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { useParams } from "react-router-dom";
 // 그냥 서버에서 바로가져오는게 나을듯? 아니면 prop로 value들 넘겨주기
 
 const Container = styled.div`
     width: 60%;
-    height: 100%;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0;
+    margin: 100px auto 50px auto;
     padding: 0;
-    margin-left: 20%;
-    margin-right: 20%;
 `
 
 const Subtitle = styled.div`
@@ -95,10 +94,14 @@ const ApplicateButton = styled.button`
     margin-bottom: 100px;
 `
     
-const Study = () => {
+const Projectinfo = () => {
+    const {id} = useParams();
+
+
     return(
         <>
             <Container>
+                <h1 style={{color:"white"}}>{id}</h1>
                 <Subtitle>세션</Subtitle>
                 <HeadWrapper>
                     <MainTitle>C언어 스터디</MainTitle>
@@ -160,4 +163,4 @@ const Study = () => {
     );
 };
 
-export default Study;
+export default Projectinfo;

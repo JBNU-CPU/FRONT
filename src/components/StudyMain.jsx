@@ -199,7 +199,7 @@ const StudyMain = () => {
   const handleClick = (id) => {
     if (isAuthenticated) {
         console.log(`move to ${id}`);
-        navigate(`/project/${id}`);
+        navigate(`/studyinfo/${id}`);
     } else {
         alert('비회원은 접근 불가합니다.');
     }

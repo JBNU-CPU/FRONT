@@ -73,6 +73,7 @@ const Menuli = styled.li`
 
 const SubMenuWrapper = styled.div`
     display: flex;
+    
     justify-content: center;
     background: none;
 `;

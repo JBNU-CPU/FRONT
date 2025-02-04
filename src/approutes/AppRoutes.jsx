@@ -25,6 +25,9 @@ import NotiWrite from '../pages/NotiWrite';
 import CommunityContent from '../pages/CommunityContent';
 import CommunityWrite from '../pages/CommunityWrite';
 import Test from '../pages/Test';
+import Studyinfo from '../pages/Studyinfo';
+import Sectioninfo from '../pages/Sectioninfo';
+import Projectinfo from '../pages/Projectinfo';
 
 const AppRoutes = () => {
     return (
@@ -40,7 +43,7 @@ const AppRoutes = () => {
             <Route path='/notification' element={<Notification />} />
             <Route path='/recruit' element={<Recruit />} />
             <Route path='/management' element={<Management />} />
-            <Route path = '/mypage' element={<Mypage/>}/>
+            <Route path ='/mypage' element={<Mypage/>}/>
             <Route path='/findpassword' element={<FindPassword/>}/>
             <Route path='/revisememberinfo' element={<ReviseMemInfo/>}/>
             <Route path='/revisememberinfo2' element={<ReviseMemInfo2/>}/>
@@ -54,6 +57,9 @@ const AppRoutes = () => {
             <Route path='/write' element={<CommunityWrite/>}/>
             <Route path='/content' element={<CommunityContent/>}/>
             <Route path='/test' element={<Test/>}/>
+            <Route path='/studyinfo/:id' element={<Studyinfo/>}/>
+            <Route path='/sectioninfo/:id' element={<Sectioninfo/>}/>
+            <Route path='/projectinfo/:id' element={<Projectinfo/>}/>
         </Routes>
     );
 };

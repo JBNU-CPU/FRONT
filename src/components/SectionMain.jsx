@@ -199,7 +199,7 @@ const SectionMain = () => {
   const handleClick = (id) => {
       if (isAuthenticated) {
           console.log(`move to ${id}`);
-          navigate(`/project/${id}`);
+          navigate(`/sectioninfo/${id}`);
       } else {
           alert('비회원은 접근 불가합니다.');
       }
