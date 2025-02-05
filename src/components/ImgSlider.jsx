@@ -14,8 +14,12 @@ const Slider = styled.div`
   height : 300px;
   overflow : hidden;
   @media screen and (min-width : 768px) {
+    height : 450px;
+  }
+  @media screen and (min-width : 1024px) {
     height : 500px;
   }
+    
 `;
 const Images = styled.div`
   position : absolute;
@@ -43,7 +47,7 @@ const Images = styled.div`
 `
 const TitleWrap = styled.div`
   position : absolute;
-  top : 50%;
+  top : 55%;
   left : 50%;
   transform : translate(-50%, -50%);
   color : #F5F7FF;
@@ -55,7 +59,7 @@ const TitleWrap = styled.div`
   align-items : center;
   text-align : center;
   cursor : default;
-  @media screen and (max-width : 700px) {
+  @media screen and (max-width : 768px) {
       top : 60%;
     }
   h1{
@@ -63,7 +67,7 @@ const TitleWrap = styled.div`
     font-size : 50px;
     background-color : rgba(0,0,0,0);
     text-shadow : 1px 1px 5px rgba(0, 0, 0, 0.7);
-    @media screen and (max-width : 700px) {
+    @media screen and (max-width : 768px) {
       font-size: 30px;
     }
   }
@@ -72,7 +76,7 @@ const TitleWrap = styled.div`
     font-size : 16px;
     background-color : rgba(0,0,0,0);
     text-shadow : 1px 1px 5px rgba(0, 0, 0, 0.7);
-    @media screen and (max-width : 700px) {
+    @media screen and (max-width : 768px) {
       font-size: 14px;
     }
   }

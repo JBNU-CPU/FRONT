@@ -12,6 +12,11 @@ const Wrap = styled.div`
 	display : flex;
 	align-items : center;
 	flex-direction : column;
+	@media screen and (min-width: 767px){
+		flex-direction : row;
+		flex-wrap: wrap;
+		justify-content : center;
+	}
 `
 const Button = styled.button`
 	display: flex;
@@ -24,6 +29,12 @@ const Button = styled.button`
 	cursor: pointer;
 	margin: 30px;
 	position: relative;
+	@media screen and (min-width: 767px) {
+        width: calc(40%);
+  }
+	@media screen and (min-width: 1024px) {
+        width: calc(25%);
+  }
 
 	img {
 		width: 100%;
@@ -121,7 +132,7 @@ const ArrowBack = styled(MdOutlineArrowBackIos)`
 const Gallery = () => {
 	const navigate = useNavigate();
 	const [currentPg, setCurrentPg] = useState(0); //현재 페이지
-	const itemsPerPg = 5; // 페이지당 나타낼 게시물 수
+	const itemsPerPg = 9; // 페이지당 나타낼 게시물 수
 
 	const totalPg = Math.ceil(posts.length/itemsPerPg); // 전체 페이지 계산
 
@@ -157,13 +168,12 @@ const Gallery = () => {
 
 					</Button>
 				))}
-				<PageIndex>
+    	</Wrap>
+			<PageIndex>
 					<PageBtn onClick={prevPg} disabled={currentPg===0}><ArrowBack disabled={currentPg===0}/></PageBtn>
 					<p style={{font:'bold 13px "arial"'}}>{currentPg+1} / {totalPg}</p>
 					<PageBtn onClick={nextPg} disabled={currentPg===totalPg-1}><ArrowForward disabled={currentPg===totalPg-1}/></PageBtn>
 				</PageIndex>
-
-    	</Wrap>
 			<Footer/>
 	</>
 	);
