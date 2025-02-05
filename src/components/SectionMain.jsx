@@ -216,7 +216,7 @@ const SectionMain = () => {
   const handleClick = (id) => {
     if (isAuthenticated) {
       console.log(`move to ${id}`);
-      navigate(`/studyinfo/${id}`);
+      navigate(`/sectioninfo/${id}`);
     } else {
       alert("비회원은 접근 불가합니다.");
     }
@@ -224,7 +224,7 @@ const SectionMain = () => {
 
   const OpenClick = () => {
     if (isAuthenticated) {
-      navigate("/studyopen");
+      navigate("/sectionopen");
     } else {
       alert("비회원은 개설할 수 없습니다.");
     }
