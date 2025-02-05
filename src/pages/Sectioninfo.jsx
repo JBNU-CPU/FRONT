@@ -110,6 +110,7 @@ const Studyinfo = () => {
                 });
                 console.log('info');
                 console.log(userId, response.data.memberId);
+                console.log(response.data);
                 setStudyInfo(response.data);
             } catch (err) {
                 setError("스터디 정보를 불러오는 중 오류가 발생했습니다.");
@@ -131,6 +132,19 @@ const Studyinfo = () => {
             alert("스터디 삭제 중 오류가 발생했습니다.");
         }
     };
+
+    const handleApply = async() => {
+        try{
+            const response = await axios.post(
+                `https://api.jbnucpu.co.kr/study/${id}/apply`,
+                {},
+                {withCredentials: true}
+            );
+            alert('스터디 신청이 완료되었습니다');
+        }catch(err){
+            alert('스터디 신청 중 오류 ㅂ라생')
+        }
+    }
 
     if (loading) {
         return <p style={{ color: "white", textAlign: "center" }}>스터디 정보를 불러오는 중...</p>;
@@ -180,7 +194,7 @@ const Studyinfo = () => {
                 {studyInfo && (Number(userId) === studyInfo.memberId ? 
                         (<DeleteButton onClick={handleDelete}>삭제하기</DeleteButton>) 
                         : 
-                        (<ApplicateButton>신청하기</ApplicateButton>)
+                        (<ApplicateButton onClick={handleApply}>신청하기</ApplicateButton>)
                     )}
                 </ButtonContainer> 
             </Container>
