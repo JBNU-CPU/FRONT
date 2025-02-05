@@ -104,21 +104,11 @@ const Head = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 0;
-    margin: 15px 20px 5px 30px;
+    padding: 20px 10px 10px 30px;
     align-items: center;
     background: none;
-    @media screen and (min-width : 375px) {
-      margin: 10px 15px 5px 25px;
-    }
 `;
 
-const Icon = styled.img`
-    background: white;
-    width: 12px;
-    height: 12px;
-    background: none;
-`;
 
 const RecruitState = styled.div`
     width: 50px;
@@ -134,25 +124,22 @@ const RecruitState = styled.div`
 
 const StudyName = styled.p`
     font: 500 14px 'arial';
-    color: white;
+    color: #ab1a65;
     padding: 0;
     margin: 0;
-    margin-left: 30px;
     background: none;
-    @media screen and (min-width : 375px) {
-      margin-left:25px;
-    }
 `;
 
 const Teacher = styled.p`
     font: 500 10px 'arial';
     color: white;
-    padding: 0;
-    margin: 5px 0px 15px 30px;
     background: none;
-    padding-left: 5px;
-    @media screen and (min-width : 375px) {
-      margin: 5px 0 0 25px;
+    margin: 0;
+    margin-left: 35px;
+    padding: 0 5px;
+    &.wrapper{
+      margin: 0;
+      padding: 0 5px;
     }
 `;
 
@@ -186,6 +173,10 @@ const PaginationButton = styled.button`
 
 const Wrapper = styled.div`
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px 0 0 35px;
+  height: 18px;
 `
 
 const StudyMain = () => {
@@ -251,10 +242,9 @@ const StudyMain = () => {
           <ContentWrapper key={item.id} onClick={() => handleClick(item.id)}>
             <Content>
               <Head>
-                <Icon />
+                <StudyName>{item.studyName || "스터디 이름 없음"}</StudyName>
                 <RecruitState>{item.state || "모집중"}</RecruitState>
               </Head>
-              <StudyName>{item.studyName || "스터디 이름 없음"}</StudyName>
                 <Teacher >{item.teacher || "팀장 정보 없음"}</Teacher>
               <Wrapper>
                 <Teacher className="wrapper">
@@ -262,7 +252,7 @@ const StudyMain = () => {
                     ? ` ${item.studyDays.join(", ")}`
                     : "스터디 일정 없음"}
                 </Teacher>
-                <p>/</p>    
+                <p style={{color:"white"}}>/</p>    
                 <Teacher className="wrapper">{item.location}</Teacher>
               </Wrapper>
             </Content>
