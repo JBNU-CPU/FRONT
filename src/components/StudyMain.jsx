@@ -254,7 +254,7 @@ const StudyMain = () => {
                 <RecruitState>{item.state || "모집중"}</RecruitState>
               </Head>
               <StudyName>{item.studyName || "스터디 이름 없음"}</StudyName>
-                <Teacher >{item.teacher || "세션장 정보 없음"}</Teacher>
+                <Teacher >{item.teacher || "팀장 정보 없음"}</Teacher>
               <Wrapper>
                 <Teacher className="wrapper">
                   {item.studyDays && item.studyDays.length > 0

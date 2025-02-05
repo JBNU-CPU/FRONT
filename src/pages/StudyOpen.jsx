@@ -181,7 +181,7 @@ const StudyOpen = () => {
                 <Subtitle>스터디 개설</Subtitle>
 
                 <IntroWrapper>
-                    <IntroTitle>세션 명</IntroTitle>
+                    <IntroTitle>스터디 명</IntroTitle>
                     <IntroInput
                         value={sectionName}
                         onChange={(e) => setSectionName(e.target.value)}
