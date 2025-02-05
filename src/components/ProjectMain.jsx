@@ -199,7 +199,7 @@ const ProjectMain = () => {
     const fetchStudies = async () => {
       try {
         const response = await axios.get(
-          `https://api.jbnucpu.co.kr/study?page=${currentPage - 1}&size=${itemsPerPage}&type=study`, {
+          `https://api.jbnucpu.co.kr/study/project?page=${currentPage - 1}&size=${itemsPerPage}&type=study`, {
             withCredentials: true,
           }
         );

@@ -28,6 +28,7 @@ import Test from '../pages/Test';
 import Studyinfo from '../pages/Studyinfo';
 import Sectioninfo from '../pages/Sectioninfo';
 import Projectinfo from '../pages/Projectinfo';
+import Event from '../pages/Event';
 
 const AppRoutes = () => {
     return (
@@ -60,6 +61,7 @@ const AppRoutes = () => {
             <Route path='/studyinfo/:id' element={<Studyinfo/>}/>
             <Route path='/sectioninfo/:id' element={<Sectioninfo/>}/>
             <Route path='/projectinfo/:id' element={<Projectinfo/>}/>
+            <Route path='/event' element={<Event/>}/>
         </Routes>
     );
 };
