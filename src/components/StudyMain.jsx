@@ -191,20 +191,21 @@ const Wrapper = styled.div`
 const StudyMain = () => {
   const [studyData, setStudyData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   const navigate = useNavigate();
   const { isAuthenticated } = useContext(AuthContext);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const fetchStudies = async () => {
       try {
         const response = await axios.get(
-          `https://api.jbnucpu.co.kr/study/study?page=${currentPage - 1}&size=${itemsPerPage}&type=study`, {
+          `https://api.jbnucpu.co.kr/study?studyType=study&page=${currentPage - 1}&size=${itemsPerPage}`, {
             withCredentials: true,
           }
         );
         setStudyData(response.data.content || []); // content 속성에서 스터디 목록 가져오기
-        console.log(response.data.content);
+        setTotalPages(response.data.totalPages || 1);
       } catch (error) {
         console.error("스터디 목록을 불러오는 중 오류 발생:", error);
       }
@@ -231,7 +232,7 @@ const StudyMain = () => {
   };
 
   const handlePageChange = (page) => {
-    if (page >= 1) {
+    if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
     }
   };
@@ -268,7 +269,7 @@ const StudyMain = () => {
           </ContentWrapper>
         ))
       ) : (
-        <p>스터디 목록을 불러오는 중...</p>
+        <p style={{color:"white", font:"bold 15px arial"}}>현재 등록된 스터디가 없습니다.</p>
       )}
       <PaginationWrapper>
         <PaginationButton
@@ -277,8 +278,12 @@ const StudyMain = () => {
         >
           이전
         </PaginationButton>
+        <span style={{ color: "white", fontWeight: "bold", margin: "0 10px" }}>
+          {currentPage} / {totalPages}
+        </span>
         <PaginationButton
           onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage >= totalPages}
         >
           다음
         </PaginationButton>

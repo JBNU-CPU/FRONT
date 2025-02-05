@@ -191,20 +191,22 @@ const Wrapper = styled.div`
 const ProjectMain = () => {
   const [studyData, setStudyData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   const navigate = useNavigate();
   const { isAuthenticated } = useContext(AuthContext);
+  const [totalPages, setTotalPages] = useState(1);
+  
 
   useEffect(() => {
     const fetchStudies = async () => {
       try {
-        const response = await axios.get(
-          `https://api.jbnucpu.co.kr/study/project?page=${currentPage - 1}&size=${itemsPerPage}&type=study`, {
+        const response = await axios.get( 
+          `https://api.jbnucpu.co.kr/study?studyType=project&page=${currentPage - 1}&size=${itemsPerPage}`, {
             withCredentials: true,
           }
         );
         setStudyData(response.data.content || []); // content 속성에서 스터디 목록 가져오기
-        console.log(response.data.content);
+        setTotalPages(response.data.totalPages || 1);
       } catch (error) {
         console.error("프로젝트 목록을 불러오는 중 오류 발생:", error);
       }
@@ -231,7 +233,7 @@ const ProjectMain = () => {
   };
 
   const handlePageChange = (page) => {
-    if (page >= 1) {
+    if (page >= 1&& page <= totalPages) {
       setCurrentPage(page);
     }
   };
@@ -269,17 +271,21 @@ const ProjectMain = () => {
           </ContentWrapper>
         ))
       ) : (
-        <p>프로젝트 목록을 불러오는 중...</p>
+        <p style={{color:"white", font:"bold 15px arial"}}>현재 등록된 프로젝트가 없습니다.</p>
       )}
-      <PaginationWrapper>
+       <PaginationWrapper>
         <PaginationButton
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
           이전
         </PaginationButton>
+        <span style={{ color: "white", fontWeight: "bold", margin: "0 10px" }}>
+          {currentPage} / {totalPages}
+        </span>
         <PaginationButton
           onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage >= totalPages}
         >
           다음
         </PaginationButton>
