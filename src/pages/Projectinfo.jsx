@@ -112,7 +112,8 @@ const Studyinfo = () => {
                     withCredentials: true,
                 });
                 console.log('info');
-                console.log(userId, response.data.memberId);
+                console.log(response.data.members)
+                console.log(userId, response.data.leaderId);
                 setStudyInfo(response.data);
             } catch (err) {
                 setError("스터디 정보를 불러오는 중 오류가 발생했습니다.");
@@ -185,14 +186,14 @@ const Studyinfo = () => {
                 </IntroWrapper>
                 <IntroWrapper>
                     <IntroTitle>세션장</IntroTitle>
-                    <IntroContent>{studyInfo?.memberId ? `ID: ${studyInfo.memberId}` : "미정"}</IntroContent>
+                    <IntroContent>{studyInfo?.leaderId ? `ID: ${studyInfo.leaderId}` : "미정"}</IntroContent>
                 </IntroWrapper>
                 <IntroWrapper>
                     <IntroTitle>기타</IntroTitle>
                     <IntroContent>{studyInfo?.etc || "없음"}</IntroContent>
                 </IntroWrapper>
                 <ButtonContainer>
-                {studyInfo && (((Number(userId) === studyInfo.memberId)||isAdmin) ? 
+                {studyInfo && (((Number(userId) === studyInfo.leaderId)||isAdmin) ? 
                         (<DeleteButton onClick={handleDelete}>삭제하기</DeleteButton>) 
                         : 
                         (<ApplicateButton onClick={handleApply}>신청하기</ApplicateButton>)
