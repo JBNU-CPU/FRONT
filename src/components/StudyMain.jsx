@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import AuthContext from "../AuthContext";
+import axios from "axios";
+
 
 const Container = styled.div`
     width: 100vw;
@@ -83,7 +85,7 @@ const Content = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     width: calc(90);
-    height: 95px;
+    height: 105px;
     border-radius: 15px;
     border: 1px solid #424755;
     padding: 0;
@@ -102,21 +104,11 @@ const Head = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    padding: 0;
-    margin: 15px 20px 5px 30px;
+    padding: 20px 10px 10px 30px;
     align-items: center;
     background: none;
-    @media screen and (min-width : 375px) {
-      margin: 10px 15px 5px 25px;
-    }
 `;
 
-const Icon = styled.img`
-    background: white;
-    width: 12px;
-    height: 12px;
-    background: none;
-`;
 
 const RecruitState = styled.div`
     width: 50px;
@@ -132,24 +124,22 @@ const RecruitState = styled.div`
 
 const StudyName = styled.p`
     font: 500 14px 'arial';
-    color: white;
+    color: #ab1a65;
     padding: 0;
     margin: 0;
-    margin-left: 30px;
     background: none;
-    @media screen and (min-width : 375px) {
-      margin-left:25px;
-    }
 `;
 
 const Teacher = styled.p`
     font: 500 10px 'arial';
     color: white;
-    padding: 0;
-    margin: 5px 0px 15px 30px;
     background: none;
-    @media screen and (min-width : 375px) {
-      margin: 5px 0 0 25px;
+    margin: 0;
+    margin-left: 35px;
+    padding: 0 5px;
+    &.wrapper{
+      margin: 0;
+      padding: 0 5px;
     }
 `;
 
@@ -181,63 +171,96 @@ const PaginationButton = styled.button`
   }
 `;
 
-
-// 샘플 데이터 생성
-const sampleData = Array.from({ length: 10 }, (_, index) => ({
-  id: index + 1,
-  studyName: `스터디 ${index + 1}`,
-  teacher: `세션장: 박도현 / 요일: 화, 목`,
-  state: index % 2 === 0 ? "모집중" : "모집완료",
-}));
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5px 0 0 35px;
+  height: 18px;
+`
 
 const StudyMain = () => {
+  const [studyData, setStudyData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   const navigate = useNavigate();
-  const {isAuthenticated} = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
+  const [totalPages, setTotalPages] = useState(1);
+
+  useEffect(() => {
+    const fetchStudies = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.jbnucpu.co.kr/study?studyType=study&page=${currentPage - 1}&size=${itemsPerPage}`, {
+            withCredentials: true,
+          }
+        );
+        setStudyData(response.data.content || []); // content 속성에서 스터디 목록 가져오기
+        setTotalPages(response.data.totalPages || 1);
+      } catch (error) {
+        console.error("스터디 목록을 불러오는 중 오류 발생:", error);
+      }
+    };
+
+    fetchStudies();
+  }, [currentPage]);
 
   const handleClick = (id) => {
     if (isAuthenticated) {
-        console.log(`move to ${id}`);
-        navigate(`/studyinfo/${id}`);
+      console.log(`move to ${id}`);
+      navigate(`/studyinfo/${id}`);
     } else {
-        alert('비회원은 접근 불가합니다.');
+      alert("비회원은 접근 불가합니다.");
     }
-};
+  };
 
-const OpenClick = () => {
-    if(isAuthenticated){
-        navigate('/studyopen');
-    }else{
-        alert('비회원은 개설할 수 없습니다.')
+  const OpenClick = () => {
+    if (isAuthenticated) {
+      navigate("/studyopen");
+    } else {
+      alert("비회원은 개설할 수 없습니다.");
     }
-};
-  const handlePageChange = (page) => setCurrentPage(page);
+  };
 
-  // 현재 페이지에 표시할 데이터 슬라이스
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = sampleData.slice(indexOfFirstItem, indexOfLastItem);
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   return (
     <Container>
       <Title>스터디</Title>
       <Summary>다양한 IT 분야 중 원하는 분야를 자율적으로 선택하여 공부하는 활동입니다.</Summary>
       <SubmitWrapper>
-        <SubmitButton type="button" onClick={OpenClick}>개설 신청</SubmitButton>
+        <SubmitButton type="button" onClick={OpenClick}>
+          개설 신청
+        </SubmitButton>
       </SubmitWrapper>
-      {currentItems.map((item) => (
-        <ContentWrapper key={item.id} onClick={() => handleClick(item.id)}>
-          <Content>
-            <Head>
-              <Icon />
-              <RecruitState>{item.state}</RecruitState>
-            </Head>
-            <StudyName>{item.studyName}</StudyName>
-            <Teacher>{item.teacher}</Teacher>
-          </Content>
-        </ContentWrapper>
-      ))}
+      {studyData.length > 0 ? (
+        studyData.map((item) => (
+          <ContentWrapper key={item.id} onClick={() => handleClick(item.id)}>
+            <Content>
+              <Head>
+                <StudyName>{item.studyName || "스터디 이름 없음"}</StudyName>
+                <RecruitState>{item.state || "모집중"}</RecruitState>
+              </Head>
+                <Teacher >{item.teacher || "팀장 정보 없음"}</Teacher>
+              <Wrapper>
+                <Teacher className="wrapper">
+                  {item.studyDays && item.studyDays.length > 0
+                    ? ` ${item.studyDays.join(", ")}`
+                    : "스터디 일정 없음"}
+                </Teacher>
+                <p style={{color:"white"}}>/</p>    
+                <Teacher className="wrapper">{item.location}</Teacher>
+              </Wrapper>
+            </Content>
+          </ContentWrapper>
+        ))
+      ) : (
+        <p style={{color:"white", font:"bold 15px arial"}}>현재 등록된 스터디가 없습니다.</p>
+      )}
       <PaginationWrapper>
         <PaginationButton
           onClick={() => handlePageChange(currentPage - 1)}
@@ -245,9 +268,12 @@ const OpenClick = () => {
         >
           이전
         </PaginationButton>
+        <span style={{ color: "white", fontWeight: "bold", margin: "0 10px" }}>
+          {currentPage} / {totalPages}
+        </span>
         <PaginationButton
           onClick={() => handlePageChange(currentPage + 1)}
-          disabled={currentPage === Math.ceil(sampleData.length / itemsPerPage)}
+          disabled={currentPage >= totalPages}
         >
           다음
         </PaginationButton>

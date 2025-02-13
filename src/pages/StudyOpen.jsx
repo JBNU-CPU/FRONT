@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Header from "../components/Header";
 import Footer from "../components/Footer";
+import axios from "axios";
 
 const Container = styled.div`
     width: calc(100%);
@@ -42,10 +42,9 @@ const IntroTitle = styled.p`
 
 const IntroWrapper = styled.div`
     margin-top: 40px;
-    width: 100%; /* calc 제거 */
-    box-sizing: border-box; /* 패딩과 보더를 포함한 너비 계산 */
-    padding: 0 20px; /* 양쪽 여백 추가 */
-    
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 20px;
 `;
 
 const IntroInput = styled.textarea`
@@ -75,10 +74,10 @@ const NumberInput = styled.input`
     border-radius: 8px;
     resize: none;
     height: 60px;
-    width: 100%; /* 부모의 100% 너비를 따름 */
-    box-sizing: border-box; /* padding과 border가 width에 포함됨 */
-    margin: 0; /* 외부 여백 제거 */
-    text-align: center; /* 숫자가 중앙에 정렬되도록 설정 */
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    text-align: center;
 `;
 
 const ApplicateButton = styled.button`
@@ -91,6 +90,7 @@ const ApplicateButton = styled.button`
     font: 500 15px 'arial';
     border-radius: 12px;
     margin-bottom: 100px;
+    cursor: pointer;
 `;
 const TimeSelectTitle = styled.div`
     display : flex;
@@ -178,6 +178,9 @@ const StudyOpen = () => {
     const [maxMembers, setMaxMembers] = useState("");
     const [leader, setLeader] = useState("");
     const [etc, setEtc] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null);
 
     const days = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"];
 
@@ -208,14 +211,67 @@ const StudyOpen = () => {
         const index = timeOptions.indexOf(startTime);
         return timeOptions[index + 1] || startTime; // 다음 시간 선택, 없으면 유지
     };
+    // 요일을 영어로 변환하는 함수
+    const convertDaysToEnglish = (days) => {
+        const dayMapping = {
+            "월요일": "MON",
+            "화요일": "TUE",
+            "수요일": "WED",
+            "목요일": "THU",
+            "금요일": "FRI",
+            "토요일": "SAT",
+            "일요일": "SUN",
+        };
+        return days.map((day) => dayMapping[day] || day);
+    };
 
-    
+    // 스터디 개설 요청
+    const handleSubmit = async () => {
+        setLoading(true);
+        setError(null);
+        setSuccess(null);
+
+        const requestData = {
+            id: 0,
+            memberId: 0,
+            studyName: sectionName,
+            studyType: "study", // 필요에 따라 수정
+            maxMembers: parseInt(maxMembers, 10),
+            studyDescription: activityIntro,
+            techStack: techStack,
+            studyDays: convertDaysToEnglish(schedule),
+            location: location,
+            etc: etc,
+        };
+
+        try {
+            const response = await axios.post(
+                `${process.env.REACT_APP_API_URL}/study`,
+                requestData,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    withCredentials: true,
+                }
+            );
+            
+            console.log("스터디 개설 성공:", response.data);
+            setSuccess("스터디가 성공적으로 개설되었습니다!");
+        } catch (err) {
+            console.error("스터디 개설 중 오류 발생:", err);
+            setError("스터디 개설 중 오류가 발생했습니다.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <>
             <Container>
                 <Subtitle>스터디 개설</Subtitle>
                 <IntroWrapper>
-                    <IntroTitle>세션 명</IntroTitle>
+                    <IntroTitle>스터디 명</IntroTitle>
                     <IntroInput
                         value={sectionName}
                         onChange={(e) => setSectionName(e.target.value)}
@@ -322,7 +378,13 @@ const StudyOpen = () => {
                         placeholder="예) 노트북 필수!"
                     />
                 </IntroWrapper>
-                <ApplicateButton>개설하기</ApplicateButton>
+                {loading && <p style={{ color: "white" }}>스터디 개설 중...</p>}
+                {error && <p style={{ color: "red" }}>{error}</p>}
+                {success && <p style={{ color: "green" }}>{success}</p>}
+
+                <ApplicateButton onClick={handleSubmit} disabled={loading}>
+                    개설하기
+                </ApplicateButton>
             </Container>
             <Footer />
         </>
