@@ -138,7 +138,7 @@ const Main = () => {
 
   return (
     <Wrap>
-      <Slider title="CPU" content="전북대학교 중앙 컴퓨터동아리  CPU" />
+      <Slider title={"Creative Personal computer\nUser Club"} content="전북대학교 중앙 컴퓨터동아리  CPU" isMain={true} />
       <MainWrap>
         <h1>CPU</h1>
         <p>

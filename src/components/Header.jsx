@@ -22,25 +22,9 @@ const MainHeader = styled.header`
     left: 0; /* 왼쪽부터 채움 */
     right: 0; /* 오른쪽까지 채움 */
     z-index: 1000; /* 다른 요소 위로 보이도록 z-index 설정 */
-    @media screen and (min-width : 768px) {
-        justify-content: flex-start;
-        height:80px;
-    }
-`;
-
-const Text = styled.p`
-    display: none;
-    color: white;
-    background: none;
-    padding-left: 10px;
-    font: bold 20px 'arial';
-    margin : 0;
-    margin-left: 20px;
-    @media screen and (min-width: 768px){
-        display: inline;
-    }
-    &:hover{
-        cursor: pointer;
+    
+    @media screen and ( min-width : 1024px ){
+        display : none;
     }
 `;
 
@@ -49,9 +33,6 @@ const Img = styled.img`
     height: 100%;
     padding: 0;
     margin: 0;
-    @media screen and (min-width : 768px) {
-        padding-left: 20px;
-    }
 `
 
 const ImgLink = styled(Link)`
@@ -96,7 +77,6 @@ const CloseIcon = styled(AiOutlineClose)`
 // to경로 메인 페이지로 이동하도록 설정하기
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const navigate = useNavigate();
 
     //화면 사이즈 (태블릿&데스크탑)
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024)
@@ -118,17 +98,12 @@ const Header = () => {
         setMenuOpen(false);
     };
 
-    const handleClickLogo = () => {
-        navigate('/');
-    };
-
     return (
         <>
             <MainHeader>
                 {!menuOpen && (
                     <>
                     <ImgLink to="/"><Img src={logo} alt="cpu_white_logo" /></ImgLink>
-                    <Text onClick={handleClickLogo}>C P U</Text>
                     </>
                 )}
                 {!isDesktop && (
