@@ -29,6 +29,10 @@ import Studyinfo from '../pages/Studyinfo';
 import Sectioninfo from '../pages/Sectioninfo';
 import Projectinfo from '../pages/Projectinfo';
 import Event from '../pages/Event';
+import UserManage from '../pages/UserManage';
+import SectionManage from '../pages/SectionManage';
+import StudyManage from '../pages/StudyManage';
+import ProjectManage from '../pages/ProjectManage';
 
 const AppRoutes = () => {
     return (
@@ -62,6 +66,11 @@ const AppRoutes = () => {
             <Route path='/sectioninfo/:id' element={<Sectioninfo/>}/>
             <Route path='/projectinfo/:id' element={<Projectinfo/>}/>
             <Route path='/event' element={<Event/>}/>
+            <Route path='/usermanage' element={<UserManage/>}/>
+            <Route path='/sectionmanage' element={<SectionManage/>}/>
+            <Route path='/studymanage' element={<StudyManage/>}/>
+            <Route path='/projectmanage' element={<ProjectManage/>}/>
+
         </Routes>
     );
 };

@@ -1,12 +1,8 @@
 import React, { useState, useRef, useEffect, useContext } from "react";
 import styled, { keyframes } from "styled-components";
-import Header from "../components/Header";
-import axios from "axios";
 import Login_Btn from "../components/Login_Btn";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../AuthContext";
-import Footer from "../components/Footer";
-import { useLocation } from "react-router-dom";
 import logo from '../Picture/CPU_logo_full.jpeg'
 import AdminContext from "../AdminContext";
 

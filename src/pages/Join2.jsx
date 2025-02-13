@@ -274,8 +274,8 @@ const Join2 = () => {
             {isModalOpen && (
                 <ModalBackground>
                     <ModalBox>
-                        <ModalText>CPU 부원이신 분들만 회원가입이 가능합니다! <br/> <br/>
-                        혹시 CPU 부원이지만 회원가입이 되지 않으시는 분들은 회장에게 연락해 주세요!</ModalText>
+                        <ModalText>CPU 부원이신 분들만 회원가입이 가능합니다! <br/> <br/> CPU 부원 확인 후 승인 절차를 통해 회원가입이 이루어집니다! <br/> <br/>
+                        혹시 회원가입하셨지만 3일 이내에 승인이 되지 않으신 분들은 오픈카톡으로 문의해주세요!</ModalText>
                         <CloseButton onClick = {closeModal}>닫기</CloseButton>
                     </ModalBox>
                 </ModalBackground>

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Footer from "../components/Footer";
+import AdminContext from "../AdminContext";
 
 const Container = styled.div`
     width: 60%;
@@ -101,6 +102,8 @@ const Studyinfo = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const userId = localStorage.getItem("userId");
+
+    const {isAdmin} = useContext(AdminContext);
     
     useEffect(() => {
         const fetchStudyInfo = async () => {
@@ -136,12 +139,11 @@ const Studyinfo = () => {
         try{
             const response = await axios.post(
                 `https://api.jbnucpu.co.kr/study/${id}/apply`,
-                {},
                 {withCredentials: true}
             );
             alert('스터디 신청이 완료되었습니다');
         }catch(err){
-            alert('스터디 신청 중 오류 ㅂ라생')
+            alert('스터디 신청 중 오류 발생')
         }
     }
 
@@ -190,7 +192,7 @@ const Studyinfo = () => {
                     <IntroContent>{studyInfo?.etc || "없음"}</IntroContent>
                 </IntroWrapper>
                 <ButtonContainer>
-                {studyInfo && (Number(userId) === studyInfo.memberId ? 
+                {studyInfo && (((Number(userId) === studyInfo.memberId)||isAdmin) ? 
                         (<DeleteButton onClick={handleDelete}>삭제하기</DeleteButton>) 
                         : 
                         (<ApplicateButton onClick={handleApply}>신청하기</ApplicateButton>)

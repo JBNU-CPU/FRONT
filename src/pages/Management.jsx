@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { HiChevronRight } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.div`
     width: 100%;
@@ -51,16 +52,26 @@ const Content = styled.button`
 `;
 
 const Management = () => {
+    const navigate = useNavigate();
+
     return(
         <>
             <Wrapper>
                 <Title>Management</Title>
-                    <Content>
+                    <Content onClick={() => navigate('/usermanage')}>
                         유저관리
                         <HiChevronRight />
                     </Content>
-                    <Content>
+                    <Content onClick={() => navigate('/sectionmanage')}>
                         세션 신청 관리
+                        <HiChevronRight />
+                    </Content>
+                    <Content onClick={() => navigate('/studymanage')}>
+                        스터디 신청 관리
+                        <HiChevronRight />
+                    </Content>
+                    <Content onClick={() => navigate('/projectmanage')}>
+                        프로젝트 신청 관리
                         <HiChevronRight />
                     </Content>
                     <Content>
