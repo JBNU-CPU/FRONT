@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import Footer from "../components/Footer";
+import AdminContext from "../AdminContext";
 
 const Container = styled.div`
     width: 60%;
@@ -102,6 +103,8 @@ const Studyinfo = () => {
     const [error, setError] = useState(null);
     const userId = localStorage.getItem("userId");
     
+    const {isAdmin} = useContext(AdminContext);
+
     useEffect(() => {
         const fetchStudyInfo = async () => {
             try {
@@ -191,7 +194,7 @@ const Studyinfo = () => {
                     <IntroContent>{studyInfo?.etc || "없음"}</IntroContent>
                 </IntroWrapper>
                 <ButtonContainer>
-                {studyInfo && (Number(userId) === studyInfo.memberId ? 
+                {studyInfo && (((Number(userId) === studyInfo.memberId)||isAdmin) ? 
                         (<DeleteButton onClick={handleDelete}>삭제하기</DeleteButton>) 
                         : 
                         (<ApplicateButton onClick={handleApply}>신청하기</ApplicateButton>)

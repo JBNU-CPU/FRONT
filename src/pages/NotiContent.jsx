@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 import Spinner from '../components/Spinner'; // 스피너 컴포넌트 임포트
+import AdminContext from "../AdminContext";
 
 const Container = styled.div`
     width: 70%;
@@ -127,6 +128,8 @@ const NotiContent = () => {
     const [editedTitle, setEditedTitle] = useState("");
     const [editedContent, setEditedContent] = useState("");
 
+    const {isAdmin} = useContext(AdminContext);
+
     useEffect(() => {
         if (!id) {
             setError("ID가 없습니다.");
@@ -237,7 +240,7 @@ const NotiContent = () => {
                             value={editedContent}
                             onChange={(e) => setEditedContent(e.target.value)}
                         />
-                        {userid === Number(localUserId) && (
+                        {(userid === Number(localUserId) || isAdmin)  && (
                             <ButtonWrapper>
                                 {isEditing ? (
                                     <Button onClick={handleEdit}>저장</Button>
