@@ -222,7 +222,11 @@ const StudyOpen = () => {
             "토요일": "SAT",
             "일요일": "SUN",
         };
-        return days.map((day) => dayMapping[day] || day);
+        return schedule.map(slot => ({
+            day: dayMapping[slot.day] || slot.day, // 요일 변환
+            startTime: slot.startTime,
+            endTime: slot.endTime
+        }));
     };
 
     // 스터디 개설 요청

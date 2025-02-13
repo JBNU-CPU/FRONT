@@ -174,7 +174,7 @@ const Studyinfo = () => {
                 </IntroWrapper>
                 <IntroWrapper>
                     <IntroTitle>진행요일</IntroTitle>
-                    <IntroContent>{studyInfo?.studyDays?.join(" / ") || "미정"}</IntroContent>
+                    <IntroContent>{studyInfo?.studyDays || "미정"}</IntroContent>
                 </IntroWrapper>
                 <IntroWrapper>
                     <IntroTitle>진행장소</IntroTitle>

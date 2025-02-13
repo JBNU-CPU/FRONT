@@ -285,6 +285,7 @@ const Menu = ({closeMenu}) => {
                 setIsAuthenticated(false);
                 localStorage.removeItem('username');
                 navigate('/'); // 홈으로 이동
+                window.location.reload();
             } else {
                 console.error("로그아웃 실패:", response);
                 alert("로그아웃에 실패했습니다.");
