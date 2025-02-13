@@ -4,26 +4,40 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 const Container = styled.div`
-    width: calc(60%);
+    width: calc(100%);
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-    margin-top: 60px;
+    margin-top: 100px;
+    @media screen and (min-width : 700px) {
+      width : calc(80%);
+    }
+    @media screen and (min-width : 1024px) {
+      width : calc(60%);
+    }
 `;
 
 const Subtitle = styled.div`
-    color: #BCC0CF;
-    font: 700 50px 'arial';
+    color: #F5F7FF;
+    font: 700 30px 'arial';
+    margin: 60px 0 30px 0;
+    @media screen and (min-width : 700px) {
+      font: 700 50px 'arial';
+    }
 `;
 
 const IntroTitle = styled.p`
-    color: white;
+    color: #F5F7FF;
     font: 700 14px 'arial';
-    margin: 0 20px 10px 20px;
+    margin: 0 20px 10px 0;
     padding-left: 10px;
+    cursor : default;
+    @media screen and (min-width : 1024px) {
+      font-size : 18px;
+    }
 `;
 
 const IntroWrapper = styled.div`
@@ -31,6 +45,7 @@ const IntroWrapper = styled.div`
     width: 100%; /* calc 제거 */
     box-sizing: border-box; /* 패딩과 보더를 포함한 너비 계산 */
     padding: 0 20px; /* 양쪽 여백 추가 */
+    
 `;
 
 const IntroInput = styled.textarea`
@@ -41,34 +56,14 @@ const IntroInput = styled.textarea`
     border: 1px solid #6F7486;
     border-radius: 8px;
     resize: none;
-    height: 60px;
+    height: 130px;
     width: 100%; /* 부모의 100% 너비를 따름 */
     box-sizing: border-box; /* padding과 border가 width에 포함됨 */
     margin: 0; /* 외부 여백 제거 */
-`;
-
-
-const DayButton = styled.button`
-    font: 400 12px 'arial';
-    margin: 5px 25px;
-    padding: 8px 12px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    background-color: ${({ isSelected }) => (isSelected ? '#ab1a65' : '#1E1E1E')};
-    color: ${({ isSelected }) => (isSelected ? 'white' : '#BCC0CF')};
-    transition: background-color 0.3s;
-
-    &:hover {
-        background-color: ${({ isSelected }) => (isSelected ? '#ab1a65' : '#6F7486')};
+    @media screen and (min-width : 700px) {
+      font-size : 14px;
+      min-height : 120px;
     }
-`;
-
-const ButtonContainer = styled.div`
-    margin-top: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
 `;
 
 const NumberInput = styled.input`
@@ -97,32 +92,128 @@ const ApplicateButton = styled.button`
     border-radius: 12px;
     margin-bottom: 100px;
 `;
+const TimeSelectTitle = styled.div`
+    display : flex;
+    flex-direction : row;
+    align-items : center;
+`
+const TimeBlock = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding :20px 0 20px 0;
+    border-bottom: 1px solid #424755;
+`;
+
+const Select = styled.select`
+    padding: 5px;
+    cursor : pointer;
+    color : #BCC0CF;
+    width : auto;
+    align-items : center;
+    border-radius : 15px;
+    background-color : #1E1E1E;
+    font-size: 10px;
+    @media screen and (min-width : 700px) {
+        font-size : 14px;
+        height : 35px;
+        margin: 5px 0 5px 0;
+    }
+    &:hover {
+        border: 1px solid #F5F7FF;;
+    }    
+`;
+
+const Button = styled.button`
+  cursor: pointer;
+  padding : 5px 10px;
+`;
+
+const AddButton = styled(Button)`
+  background-color: #ab1a65;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  margin: 10px 0 0 10px;
+  &:hover {
+    background-color: #8c1453; /* hover 시 어두운 색으로 변경 */
+    color : #BCC0CF;
+    transform: scale(0.95);
+  }
+`;
+
+const RemoveButton = styled(Button)`
+  background-color: #6f7486;
+  color: white;
+  border: none;
+  border-radius: 30px;
+  margin: 0 10px 0 10px;
+  font-weight : bold;
+  &:hover {
+    background-color: #424755; /* hover 시 어두운 색으로 변경 */
+    color : white;
+    transform: scale(0.95);
+  }
+`;
+
+//00:00 ~ 23:30, 30분 단위로 시간 생성 함수
+const generateTimeOptions = () => {
+    const times = [];
+    for (let hour = 0; hour < 24; hour++) {
+      for (let minute of ["00", "30"]) {
+        times.push(`${hour.toString().padStart(2, "0")}:${minute}`);
+      }
+    }
+    return times;
+  };
 
 const StudyOpen = () => {
     // State 관리
     const [sectionName, setSectionName] = useState("");
     const [activityIntro, setActivityIntro] = useState("");
     const [techStack, setTechStack] = useState("");
-    const [schedule, setSchedule] = useState([]); // 선택된 요일을 저장
     const [location, setLocation] = useState("");
     const [maxMembers, setMaxMembers] = useState("");
     const [leader, setLeader] = useState("");
     const [etc, setEtc] = useState("");
 
-    // 요일 선택 핸들러
-    const toggleDay = (day) => {
-        setSchedule((prev) => 
-            prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
-        );
-    };
-
     const days = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"];
 
+    const [schedule, setSchedule] = useState([]); // 요일, 시작시간, 종료시간 저장
+    const timeOptions = generateTimeOptions(); // 30분 단위 시간 목록
+
+    const addSchedule = () => {
+        setSchedule([...schedule, { day: "월요일", startTime: "", endTime: "" }]);
+    };
+
+    const removeSchedule = (index) => {
+        setSchedule(schedule.filter((_, i) => i !== index));
+    };
+
+    const updateSchedule = (index, key, value) => {
+        const newSlots = [...schedule];
+        newSlots[index][key] = value;
+
+        // 종료시간이 시작시간보다 빠르면 자동 조정
+        if (key === "startTime" && newSlots[index].endTime <= value) {
+        const nextValidEndTime = getNextValidEndTime(value);
+        newSlots[index].endTime = nextValidEndTime;
+        }
+        setSchedule(newSlots);
+    };
+    // 시작 시간 이후 가장가까운 시간 선택
+    const getNextValidEndTime = (startTime) => {
+        const index = timeOptions.indexOf(startTime);
+        return timeOptions[index + 1] || startTime; // 다음 시간 선택, 없으면 유지
+    };
+
+    
     return (
         <>
             <Container>
                 <Subtitle>스터디 개설</Subtitle>
-
                 <IntroWrapper>
                     <IntroTitle>세션 명</IntroTitle>
                     <IntroInput
@@ -149,20 +240,49 @@ const StudyOpen = () => {
                         placeholder="예) JS"
                     />
                 </IntroWrapper>
-
                 <IntroWrapper>
-                    <IntroTitle>진행요일</IntroTitle>
-                    <ButtonContainer>
-                        {days.map((day) => (
-                            <DayButton
-                                key={day}
-                                isSelected={schedule.includes(day)}
-                                onClick={() => toggleDay(day)}
+                    <TimeSelectTitle>
+                        <IntroTitle>진행일시</IntroTitle>
+                    </TimeSelectTitle>
+                    {schedule.map((slot, index) => (
+                        <TimeBlock key={index}>
+                            <Select value={slot.day} onChange={(e) => updateSchedule(index, "day", e.target.value)}>
+                                {days.map((day) => (
+                                <option key={day} value={day}>
+                                    {day}
+                                </option>
+                                ))}
+                            </Select>
+
+                            <Select 
+                                value={slot.startTime} 
+                                onChange={(e) => updateSchedule(index, "startTime", e.target.value)}
                             >
-                                {day}
-                            </DayButton>
-                        ))}
-                    </ButtonContainer>
+                                <option value="" disabled>시작시간</option> 
+                                {timeOptions.map((time) => (
+                                    <option key={time} value={time}>
+                                        {time}
+                                    </option>
+                                ))}
+                            </Select>
+                            <Select 
+                                value={slot.endTime} 
+                                onChange={(e) => updateSchedule(index, "endTime", e.target.value)}
+                            >
+                                <option value="" disabled>종료시간</option> 
+                                {timeOptions
+                                    .filter((time) => time > slot.startTime) // 시작시간 이후의 값만 표시
+                                    .map((time) => (
+                                        <option key={time} value={time}>
+                                            {time}
+                                        </option>
+                                ))}
+                            </Select>
+                            <RemoveButton onClick={() => removeSchedule(index)}>-</RemoveButton>
+                        </TimeBlock>
+                        
+                    ))}
+                    <AddButton onClick={addSchedule}>추가</AddButton>
                 </IntroWrapper>
 
                 <IntroWrapper>
@@ -202,7 +322,6 @@ const StudyOpen = () => {
                         placeholder="예) 노트북 필수!"
                     />
                 </IntroWrapper>
-
                 <ApplicateButton>개설하기</ApplicateButton>
             </Container>
             <Footer />

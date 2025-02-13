@@ -1,37 +1,72 @@
 import styled from 'styled-components';
-import { LuConstruction } from "react-icons/lu";
-import Header from "../components/Header";
+import { HiChevronRight } from 'react-icons/hi';
 
 const Wrapper = styled.div`
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    margin-top : 60px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 0;
-    margin-top: 30px;
+    @media screen and (min-width : 700px) {
+      margin-top : 100px;
+    }
 `
 
-const Icon = styled(LuConstruction)`
-    color: white;
-    width: calc(30%);
-    height: auto;
-`
-
-const Text = styled.p`
-    color: white;
+const Title = styled.p`
+    color: #F5F7FF;
     font: bold 30px 'airal';
-    margin: 0;
-    margin-block: 20px;
+    margin: 40px 0 40px 0;
+    @media screen and (min-width : 700px) {
+      margin: 50px 0 40px 0;
+      font: bold 40px 'airal';
+    }
 `
+
+const Content = styled.button`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items : center;
+    width: 90%;
+    margin: 10px 0 ;
+    border-radius: 15px;
+    border: 1px solid #424755;
+    padding : 15px 20px;
+    background: #1B1B25;
+    color: #F5F7FF;
+    font: normal 14px 'arial';
+    transition: box-shadow 0.3s ease, transform 0.2s ease; /* 부드러운 전환 효과 */
+    &:hover {
+        cursor: pointer;
+        border: 1px solid #BCC0CF;
+        box-shadow: 0 0 10px rgba(171, 26, 101, 0.8); /* hover 시 희미하게 빛나는 효과 */
+        transform: scale(0.98); /* 살짝 확대 */
+        color: #BCC0CF;
+    }
+    @media screen and (min-width : 700px) {
+      width: 50%;
+      margin: 15px 0 ;
+    }
+`;
 
 const Management = () => {
     return(
         <>
             <Wrapper>
-                <Icon/>
-                <Text>잠시 공사중 !</Text>
+                <Title>Management</Title>
+                    <Content>
+                        유저관리
+                        <HiChevronRight />
+                    </Content>
+                    <Content>
+                        세션 신청 관리
+                        <HiChevronRight />
+                    </Content>
+                    <Content>
+                        회원 정보 업데이트
+                        <HiChevronRight />
+                    </Content>
             </Wrapper>
         </>
     );

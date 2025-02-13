@@ -13,11 +13,9 @@ const Slider = styled.div`
   width : 100%;
   height : 300px;
   overflow : hidden;
-  @media screen and (min-width : 768px) {
-    height : 450px;
-  }
+  height: ${(props) => (props.isMain ? "100vh" : "40vh")};
   @media screen and (min-width : 1024px) {
-    height : 500px;
+    height: ${(props) => (props.isMain ? "100vh" : "40vh")};
   }
     
 `;
@@ -60,30 +58,43 @@ const TitleWrap = styled.div`
   text-align : center;
   cursor : default;
   @media screen and (max-width : 768px) {
-      top : 60%;
-    }
+      top : 50%;
+  }
+  @media screen and (min-width : 1024px) {
+      top: ${(props) => (props.isMain ? "50%" : "60%")};
+  }
+
   h1{
     margin : 0;
     font-size : 50px;
     background-color : rgba(0,0,0,0);
     text-shadow : 1px 1px 5px rgba(0, 0, 0, 0.7);
+    white-space: pre-line;
     @media screen and (max-width : 768px) {
       font-size: 30px;
     }
+    @media screen and (min-width : 1024px) {
+      font-size: ${(props) => (props.isMain ? "80px" : "50px")};
+    }
   }
-  p{
+  h3{
     margin : 0;
     font-size : 16px;
     background-color : rgba(0,0,0,0);
     text-shadow : 1px 1px 5px rgba(0, 0, 0, 0.7);
+    margin-top : 10px;
     @media screen and (max-width : 768px) {
       font-size: 14px;
+    }
+    @media screen and (min-width : 1024px) {
+      font-size: 20px;
+      margin-top : 15px;
     }
   }
 `
 
 
-const ImgSlider = ({title, content=""})=>{
+const ImgSlider = ({title, content="", isMain =false})=>{
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -96,7 +107,7 @@ const ImgSlider = ({title, content=""})=>{
   })
 
   return(
-    <Slider>
+    <Slider isMain={isMain}>
       {images.map((image, index)=>(
         <Images
           key={index}
@@ -104,9 +115,9 @@ const ImgSlider = ({title, content=""})=>{
           style={{ backgroundImage: `url(${image})` }}
         />
       ))}
-      <TitleWrap>
+      <TitleWrap isMain = {isMain}>
         <h1>{title}</h1>
-        <p>{content}</p>
+        <h3>{content}</h3>
       </TitleWrap>
     </Slider>
 
