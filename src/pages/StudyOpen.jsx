@@ -362,7 +362,7 @@ const StudyOpen = () => {
                 </IntroWrapper>
 
                 <IntroWrapper>
-                    <IntroTitle>세션장</IntroTitle>
+                    <IntroTitle>팀장</IntroTitle>
                     <IntroInput
                         value={leader}
                         onChange={(e) => setLeader(e.target.value)}
