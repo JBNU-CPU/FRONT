@@ -165,7 +165,7 @@ const NotiContent = () => {
                 });
                 console.log("삭제 성공:", response);
                 alert("게시글이 삭제되었습니다.");
-                navigate("/notification");
+                navigate("/community");
             } catch (err) {
                 console.error("삭제 요청 오류:", err);
                 alert("게시글 삭제에 실패했습니다.");

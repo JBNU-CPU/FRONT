@@ -193,7 +193,7 @@ const NotiContent = () => {
                     title: editedTitle,
                     content: editedContent,
                 }));
-                navigate("/community");
+                navigate("/notification");
             } catch (err) {
                 console.error("수정 요청 오류:", err);
                 alert("게시글 수정에 실패했습니다.");
