@@ -101,17 +101,13 @@ const UserManage = () => {
     // 🔹 승인 처리 (PUT 요청)
     const handleApprove = async (id) => {
         try {
-            const response = await axios.put(
-                `${process.env.REACT_APP_API_URL}/admin/user/${id}?role=member`,
-                { withCredentials: true }
+            const response = await axios.put(`${process.env.REACT_APP_API_URL}/admin/user/${id}?role=member`,
+                { withCredentials: true, }
             );
 
             console.log(`유저 ${id} 승인 완료`, response.data);
+            setUsers(users.filter(user => user.id !== id));
 
-            // UI 업데이트: 승인된 유저의 role을 "ROLE_MEMBER"로 변경
-            setUsers(users.map(user => 
-                user.id === id ? { ...user, role: "ROLE_MEMBER" } : user
-            ));
         } catch (err) {
             console.error(`유저 ${id} 승인 중 오류 발생:`, err);
             alert("승인 요청 중 오류가 발생했습니다.");
