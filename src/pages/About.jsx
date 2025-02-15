@@ -9,6 +9,8 @@ import room2 from "../Picture/CPU_Room2.jpg";
 import map from "../Picture/map.png";
 import tree from "../Picture/tree.jpg";
 import logo from "../Picture/CPU_logo_full.jpeg";
+import miss from "../managerpic/miss.jpg";
+import img from '../managerpic/test.png';
 
 // 메인 컨테이너 스타일
 const Container = styled.div`
@@ -57,6 +59,7 @@ const Section = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-bottom: 100px;
 `;
 
 const Image = styled.img`
@@ -87,33 +90,32 @@ const SectionHeader = styled.h2`
   }
 `;
 
-const Table = styled.table`
-  border-collapse: collapse;
-  width: calc(60%);
-  margin-bottom: 20px;
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  &.wide{
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+  }
 `
 
-const TH = styled.th`
-  border: 1px solid black;
-  padding: 8px;
-  text-align: left;
-  text-align: center;
-  background-color: #c3c0c0;
-  color: black;
-  font: bold 14px 'arial';
+const Img = styled.img`
+  width: 150px;
+  height: 200px;
+  border-radius: 5px;
 `
-const TD = styled.td`
-  border: 1px solid black;
-  padding: 8px;
-  text-align: left;
-  text-align: center;
-  background-color: white;
-  color: black;
+
+const Name = styled.p`
+  color: white;
   font: bold 14px 'arial';
 `
 
 const H2 = styled.h2`
   font: bold 25px 'arial';
+  margin-top: 50px;
 `
 
 // 섹션 컴포넌트
@@ -143,100 +145,97 @@ const LocationSection = () => (
 
 const ManagementSection = () => (
   <Section>
-    <SectionHeader>운영진</SectionHeader>
-    <Image src={tree} alt="조직도" />
     <H2>회장단</H2>
-    <Table>
-        <tr>
-            <TH>직책</TH>
-            <TH>이름</TH>
-        </tr>
-        <tr>
-            <TD>회장</TD>
-            <TD>이다영</TD>
-        </tr>
-        <tr>
-            <TD>부회장</TD>
-            <TD>이진태</TD>
-        </tr>
-        <tr>
-            <TD>총무</TD>
-            <TD>박도현</TD>
-        </tr>
-    </Table>
-
+    <Wrapper>
+      <Img src={img}/>
+      <Name>회장 - 이다영</Name>
+    </Wrapper>
+    <Wrapper className='wide'>
+      <Wrapper>
+        <Img src={img}/>
+        <Name>부회장 - 이진태</Name>
+      </Wrapper>
+      <Wrapper>
+        <Img src={img}/>
+        <Name>총무 - 박도현</Name>
+      </Wrapper>
+    </Wrapper>
     <H2>학술부</H2>
-    <Table>
-        <tr>
-            <TH>직책</TH>
-            <TH>이름</TH>
-        </tr>
-        <tr>
-            <TD>부장</TD>
-            <TD>김동준</TD>
-        </tr>
-        <tr>
-            <TD>부원</TD>
-            <TD>안 현</TD>
-        </tr>
-        <tr>
-            <TD>부원</TD>
-            <TD></TD>
-        </tr>
-        <tr>
-            <TD>부원</TD>
-            <TD></TD>
-        </tr>
-        <tr>
-            <TD>부원</TD>
-            <TD></TD>
-        </tr>
-    </Table>
-
-    <H2>인사홍보부</H2>
-    <Table>
-        <tr>
-            <TH>직책</TH>
-            <TH>이름</TH>
-        </tr>
-        <tr>
-            <TD>부장</TD>
-            <TD>박태정</TD>
-        </tr>
-        <tr>
-            <TD>부원</TD>
-            <TD></TD>
-        </tr>
-        <tr>
-            <TD>부원</TD>
-            <TD></TD>
-        </tr>
-    </Table>
-
-    <H2>기획복지부</H2>
-    <Table>
-        <tr>
-            <TH>직책</TH>
-            <TH>이름</TH>
-        </tr>
-        <tr>
-            <TD>부장</TD>
-            <TD>정서현</TD>
-        </tr>
-        <tr>
-            <TD>부원</TD>
-            <TD>이동규</TD>
-        </tr>
-        <tr>
-            <TD>부원</TD>
-            <TD>신재희</TD>
-        </tr>
-        <tr>
-            <TD>부원</TD>
-            <TD></TD>
-        </tr>
-    </Table>
-
+    <Wrapper>
+      <Img src={img}/>
+      <Name>부장 - 김동준</Name>
+    </Wrapper>
+    <Wrapper className='wide'>
+      <Wrapper>
+        <Img src={img}/>
+        <Name>부원 - 안 현</Name>
+      </Wrapper>
+      <Wrapper>
+        <Img src={miss}/>
+        <Name>부원 - 모집중</Name>
+      </Wrapper>
+      <Wrapper>
+        <Img src={miss}/>
+        <Name>부원 - 모집중</Name>
+      </Wrapper>
+    </Wrapper>
+    <H2>기획부</H2>
+    <Wrapper>
+      <Img src={img}/>
+      <Name>부장 - 정서현</Name>
+    </Wrapper>
+    <Wrapper className='wide'>
+      <Wrapper>
+        <Img src={img}/>
+        <Name>부원 - 신재희</Name>
+      </Wrapper>
+      <Wrapper>
+        <Img src={img}/>
+        <Name>부원 - 이동규</Name>
+      </Wrapper>
+      <Wrapper>
+        <Img src={miss}/>
+        <Name>부원 - 모집중</Name>
+      </Wrapper>
+    </Wrapper>
+    <H2>복지부</H2>
+    <Wrapper>
+      <Img src={img}/>
+      <Name>부장 - 박태정</Name>
+    </Wrapper>
+    <Wrapper className='wide'>
+      <Wrapper>
+        <Img src={miss}/>
+        <Name>부원 - 모집중</Name>
+      </Wrapper>
+      <Wrapper>
+        <Img src={miss}/>
+        <Name>부원 - 모집중</Name>
+      </Wrapper>      
+      <Wrapper>
+        <Img src={miss}/>
+        <Name>부원 - 모집중</Name>
+      </Wrapper>
+    </Wrapper>
+    <H2>홍보부</H2>
+    <Wrapper>
+      <Img src={img}/>
+      <Name>부장 - 채민경</Name>
+    </Wrapper>
+    <Wrapper className='wide'>
+      <Wrapper>
+        <Img src={img}/>
+        <Name>부원 - 심은수</Name>
+      </Wrapper>
+      <Wrapper>
+        <Img src={miss}/>
+        <Name>부원 - 모집중</Name>
+      </Wrapper>
+      <Wrapper>
+        <Img src={miss}/>
+        <Name>부원 - 모집중</Name>
+      </Wrapper>
+    </Wrapper>
   </Section>
 );
 

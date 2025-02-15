@@ -143,7 +143,7 @@ const Studyinfo = () => {
     const handleApply = async() => {
         try{
             const response = await axios.post(
-                `https://api.jbnucpu.co.kr/study/${id}/apply`,
+                `https://api.jbnucpu.co.kr/study/apply/${id}`,
                 {withCredentials: true}
             );
             alert('스터디 신청이 완료되었습니다');
