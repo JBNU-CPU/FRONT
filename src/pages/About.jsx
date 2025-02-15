@@ -11,6 +11,8 @@ import tree from "../Picture/tree.jpg";
 import logo from "../Picture/CPU_logo_full.jpeg";
 import miss from "../managerpic/miss.jpg";
 import img from '../managerpic/test.png';
+import dj from '../managerpic/dj.png';
+import dh from '../managerpic/dh.webp';
 
 // 메인 컨테이너 스타일
 const Container = styled.div`
@@ -156,13 +158,13 @@ const ManagementSection = () => (
         <Name>부회장 - 이진태</Name>
       </Wrapper>
       <Wrapper>
-        <Img src={img}/>
+        <Img src={dh}/>
         <Name>총무 - 박도현</Name>
       </Wrapper>
     </Wrapper>
     <H2>학술부</H2>
     <Wrapper>
-      <Img src={img}/>
+      <Img src={dj}/>
       <Name>부장 - 김동준</Name>
     </Wrapper>
     <Wrapper className='wide'>

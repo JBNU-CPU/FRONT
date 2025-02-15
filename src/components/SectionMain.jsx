@@ -74,7 +74,7 @@ const SubmitButton = styled.button`
 
 const ContentWrapper = styled.div`
     width: calc(90%);
-    height: 100%;
+    height: auto;
     &:hover {
         cursor: pointer;
     }
@@ -85,7 +85,7 @@ const Content = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     width: calc(90);
-    height: 105px;
+    height: auto;
     border-radius: 15px;
     border: 1px solid #424755;
     padding: 0;
@@ -135,11 +135,7 @@ const Teacher = styled.p`
     background: none;
     margin: 0;
     margin-left: 35px;
-    padding: 0 5px;
-    &.wrapper{
-      margin: 0;
-      padding: 0 5px;
-    }
+    margin-bottom: 10px;
 `;
 
 const PaginationWrapper = styled.div`
@@ -174,8 +170,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 5px 0 0 35px;
-  height: 18px;
 `
 
 const SectionMain = () => {
@@ -274,16 +268,16 @@ const SectionMain = () => {
                 <StudyName>{item.studyName || "세션 이름 없음"}</StudyName>
                 <RecruitState>{item.state || "모집중"}</RecruitState>
               </Head>
-                <Teacher >{item.teacher || "세션장 정보 없음"}</Teacher>
+                <Teacher >세션장 : {item.teacher || "세션장 정보 없음"}</Teacher>
               <Wrapper>
-              <Teacher className="wrapper">
+              <Teacher>
                   {item.studyDays && item.studyDays.length > 0
-                      ? convertEnglishToKoreanDays(item.studyDays).join(", ")
+                      ? convertEnglishToKoreanDays(item.studyDays).join(" / ")
                       : "세션 일정 없음"}
               </Teacher>
               </Wrapper>
               <Wrapper>
-                <Teacher className="wrapper">{item.location}</Teacher>  
+                <Teacher>장소 : {item.location}</Teacher>  
               </Wrapper>
             </Content>
           </ContentWrapper>

@@ -207,7 +207,7 @@ const Studyinfo = () => {
                 <IntroWrapper>
                     <IntroTitle>진행요일</IntroTitle>
                     <IntroContent>{studyInfo?.studyDays 
-            ? convertEnglishToKoreanDays(studyInfo.studyDays).join(", ") 
+            ? convertEnglishToKoreanDays(studyInfo.studyDays).join("\n") 
             : "미정"}</IntroContent>
                 </IntroWrapper>
                 <IntroWrapper>
