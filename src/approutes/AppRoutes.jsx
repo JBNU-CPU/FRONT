@@ -78,7 +78,6 @@ const AppRoutes = () => {
             <Route path='/studyinfo/:id' element={<Studyinfo/>}/>
 
             {/* 테스트페이지 경로*/}
-            <Route path='/test' element={<Test/>}/>
             <Route path='/event' element={<Event/>}/>
 
         </Routes>
