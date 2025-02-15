@@ -21,11 +21,9 @@ import NotiContent from '../pages/NotiContent';
 import NotiWrite from '../pages/NotiWrite';
 import CommunityContent from '../pages/CommunityContent';
 import CommunityWrite from '../pages/CommunityWrite';
-import Test from '../pages/Test';
 import Studyinfo from '../pages/Studyinfo';
 import Sectioninfo from '../pages/Sectioninfo';
 import Projectinfo from '../pages/Projectinfo';
-import Event from '../pages/Event';
 import UserManage from '../pages/UserManage';
 import SectionManage from '../pages/SectionManage';
 import StudyManage from '../pages/StudyManage';
@@ -76,10 +74,6 @@ const AppRoutes = () => {
 
             <Route path='/studyopen' element={<StudyOpen/>}/>
             <Route path='/studyinfo/:id' element={<Studyinfo/>}/>
-
-            {/* 테스트페이지 경로*/}
-            <Route path='/event' element={<Event/>}/>
-
         </Routes>
     );
 };

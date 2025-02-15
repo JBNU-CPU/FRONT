@@ -197,6 +197,7 @@ const SectionMain = () => {
         );
         setStudyData(response.data.content || []); // content 속성에서 스터디 목록 가져오기
         setTotalPages(response.data.totalPages || 1);
+        console.log(response);
       } catch (error) {
         console.error("스터디 목록을 불러오는 중 오류 발생:", error);
       }
@@ -228,6 +229,34 @@ const SectionMain = () => {
     }
   };
 
+  const convertEnglishToKoreanDays = (studyDays) => {
+    if (!studyDays || !Array.isArray(studyDays)) return [];
+
+    const dayMapping = {
+        "MON": "월요일",
+        "TUE": "화요일",
+        "WED": "수요일",
+        "THU": "목요일",
+        "FRI": "금요일",
+        "SAT": "토요일",
+        "SUN": "일요일",
+    };
+
+    return studyDays.map((dayString) => {
+        // 불필요한 공백 제거 후 요일과 시간을 분리
+        const parts = dayString.trim().split(/\s+/);
+        if (parts.length < 2) return dayString; // 변환 실패 시 원본 유지
+
+        const engDay = parts[0]; // 영어 요일
+        const time = parts.slice(1).join(" "); // 시간 정보
+
+        const korDay = dayMapping[engDay] || engDay; // 한글 요일 변환
+
+        return `${korDay} ${time}`;
+    });
+  };
+
+
   return (
     <Container>
       <Title>세션</Title>
@@ -247,13 +276,14 @@ const SectionMain = () => {
               </Head>
                 <Teacher >{item.teacher || "세션장 정보 없음"}</Teacher>
               <Wrapper>
-                <Teacher className="wrapper">
+              <Teacher className="wrapper">
                   {item.studyDays && item.studyDays.length > 0
-                    ? ` ${item.studyDays.join(", ")}`
-                    : "세션 일정 없음"}
-                </Teacher>
-                <p style={{color:"white"}}>/</p>    
-                <Teacher className="wrapper">{item.location}</Teacher>
+                      ? convertEnglishToKoreanDays(item.studyDays).join(", ")
+                      : "세션 일정 없음"}
+              </Teacher>
+              </Wrapper>
+              <Wrapper>
+                <Teacher className="wrapper">{item.location}</Teacher>  
               </Wrapper>
             </Content>
           </ContentWrapper>

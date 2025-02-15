@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Footer from "../components/Footer";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     width: calc(100%);
@@ -187,6 +188,8 @@ const StudyOpen = () => {
     const [schedule, setSchedule] = useState([]); // 요일, 시작시간, 종료시간 저장
     const timeOptions = generateTimeOptions(); // 30분 단위 시간 목록
 
+    const navigate = useNavigate();
+
     const addSchedule = () => {
         setSchedule([...schedule, { day: "월요일", startTime: "", endTime: "" }]);
     };
@@ -239,7 +242,7 @@ const StudyOpen = () => {
             id: 0,
             memberId: 0,
             studyName: sectionName,
-            studyType: "section", // 필요에 따라 수정
+            studyType: "session", // 필요에 따라 수정
             maxMembers: parseInt(maxMembers, 10),
             studyDescription: activityIntro,
             techStack: techStack,
@@ -262,6 +265,7 @@ const StudyOpen = () => {
             
             console.log("스터디 개설 성공:", response.data);
             setSuccess("스터디가 성공적으로 개설되었습니다!");
+            navigate('/studymain');
         } catch (err) {
             console.error("스터디 개설 중 오류 발생:", err);
             setError("스터디 개설 중 오류가 발생했습니다.");

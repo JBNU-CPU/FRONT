@@ -4,6 +4,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import Footer from "../components/Footer";
 import AdminContext from "../AdminContext";
+import { useNavigate } from "react-router-dom";
+
 
 const Container = styled.div`
     width: 60%;
@@ -105,6 +107,8 @@ const Studyinfo = () => {
     
     const {isAdmin} = useContext(AdminContext);
 
+    const navigate = useNavigate();
+    
     useEffect(() => {
         const fetchStudyInfo = async () => {
             try {
@@ -130,6 +134,7 @@ const Studyinfo = () => {
                 withCredentials: true,
             });
             alert("스터디가 삭제되었습니다.");
+            navigate('/studymain');
         } catch (err) {
             alert("스터디 삭제 중 오류가 발생했습니다.");
         }
@@ -142,10 +147,37 @@ const Studyinfo = () => {
                 {withCredentials: true}
             );
             alert('스터디 신청이 완료되었습니다');
+            navigate('/studymain');
         }catch(err){
             alert('스터디 신청 중 오류 ㅂ라생')
         }
     }
+
+    const convertEnglishToKoreanDays = (studyDays) => {
+        if (!studyDays || !Array.isArray(studyDays)) return [];
+    
+        const dayMapping = {
+            "MON": "월요일",
+            "TUE": "화요일",
+            "WED": "수요일",
+            "THU": "목요일",
+            "FRI": "금요일",
+            "SAT": "토요일",
+            "SUN": "일요일",
+        };
+    
+        return studyDays.map((dayString) => {
+            const parts = dayString.split(" "); // 요일과 시간을 분리
+            if (parts.length < 2) return dayString; // 형식이 다르면 원본 유지
+    
+            const engDay = parts[0]; // 영어 요일
+            const time = parts.slice(1).join(" "); // 나머지 시간
+            const korDay = dayMapping[engDay] || engDay; // 한글 요일 변환
+    
+            return `${korDay} ${time}`;
+        });
+    };
+    
 
     if (loading) {
         return <p style={{ color: "white", textAlign: "center" }}>스터디 정보를 불러오는 중...</p>;
@@ -173,7 +205,9 @@ const Studyinfo = () => {
                 </IntroWrapper>
                 <IntroWrapper>
                     <IntroTitle>진행요일</IntroTitle>
-                    <IntroContent>{studyInfo?.studyDays || "미정"}</IntroContent>
+                    <IntroContent>{studyInfo?.studyDays 
+            ? convertEnglishToKoreanDays(studyInfo.studyDays).join(", ") 
+            : "미정"}</IntroContent>
                 </IntroWrapper>
                 <IntroWrapper>
                     <IntroTitle>진행장소</IntroTitle>
