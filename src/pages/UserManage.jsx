@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const Container = styled.div`
     width: 80%;
@@ -70,45 +71,81 @@ const PageButton = styled.button`
 `;
 
 const UserManage = () => {
-    // 더미 사용자 데이터 (20명 이상 추가)
-    const [users, setUsers] = useState([
-        { id: 1, studentId: "2021001", name: "김철수", department: "컴퓨터공학과", status: "대기" },
-        { id: 2, studentId: "2021002", name: "이영희", department: "전자공학과", status: "대기" },
-        { id: 3, studentId: "2021003", name: "박민수", department: "소프트웨어학과", status: "대기" },
-        { id: 4, studentId: "2021004", name: "홍길동", department: "기계공학과", status: "대기" },
-        { id: 5, studentId: "2021005", name: "정수진", department: "화학공학과", status: "대기" },
-        { id: 6, studentId: "2021006", name: "최준영", department: "산업공학과", status: "대기" },
-        { id: 7, studentId: "2021007", name: "한지민", department: "건축학과", status: "대기" },
-        { id: 8, studentId: "2021008", name: "이도현", department: "수학과", status: "대기" },
-        { id: 9, studentId: "2021009", name: "김민지", department: "영어영문학과", status: "대기" },
-        { id: 10, studentId: "2021010", name: "송지은", department: "국어국문학과", status: "대기" },
-        { id: 11, studentId: "2021011", name: "최민호", department: "경영학과", status: "대기" },
-        { id: 12, studentId: "2021012", name: "박서준", department: "경제학과", status: "대기" },
-        { id: 13, studentId: "2021013", name: "김지원", department: "법학과", status: "대기" },
-        { id: 14, studentId: "2021014", name: "오지훈", department: "사회학과", status: "대기" },
-        { id: 15, studentId: "2021015", name: "강유진", department: "심리학과", status: "대기" }
-    ]);
-
+    const [users, setUsers] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    // 승인 처리
-    const handleApprove = (id) => {
-        setUsers(users.map(user => 
-            user.id === id ? { ...user, status: "승인됨" } : user
-        ));
+    // 🔹 API 요청하여 사용자 데이터 가져오기
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/admin/user/guest`, {
+                    withCredentials: true, // 인증 정보 포함
+                });
+
+                console.log("서버 응답 데이터:", response.data);
+                setUsers(response.data.content || []); // API 응답에서 content 배열 가져오기
+            } catch (err) {
+                console.error("유저 데이터 불러오기 오류:", err);
+                setError("유저 데이터를 불러오는 중 오류가 발생했습니다.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUsers();
+    }, []);
+
+    // 🔹 승인 처리 (PUT 요청)
+    const handleApprove = async (id) => {
+        try {
+            const response = await axios.put(
+                `${process.env.REACT_APP_API_URL}/admin/user/${id}?role=member`,
+                { withCredentials: true }
+            );
+
+            console.log(`유저 ${id} 승인 완료`, response.data);
+
+            // UI 업데이트: 승인된 유저의 role을 "ROLE_MEMBER"로 변경
+            setUsers(users.map(user => 
+                user.id === id ? { ...user, role: "ROLE_MEMBER" } : user
+            ));
+        } catch (err) {
+            console.error(`유저 ${id} 승인 중 오류 발생:`, err);
+            alert("승인 요청 중 오류가 발생했습니다.");
+        }
     };
 
-    // 취소 (삭제) 처리
-    const handleReject = (id) => {
-        setUsers(users.filter(user => user.id !== id));
+    // 🔹 삭제 처리 (DELETE 요청)
+    const handleDelete = async (id) => {
+        if (!window.confirm("정말 삭제하시겠습니까?")) return;
+
+        try {
+            await axios.delete(`${process.env.REACT_APP_API_URL}/admin/user/${id}`, {
+                withCredentials: true,
+            });
+
+            console.log(`유저 ${id} 삭제 완료`);
+
+            // UI 업데이트: 삭제된 유저 제거
+            setUsers(users.filter(user => user.id !== id));
+        } catch (err) {
+            console.error(`유저 ${id} 삭제 중 오류 발생:`, err);
+            alert("삭제 요청 중 오류가 발생했습니다.");
+        }
     };
 
-    // 페이지네이션 계산
+    // 🔹 페이지네이션 계산
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = users.slice(indexOfFirstItem, indexOfLastItem);
     const totalPages = Math.ceil(users.length / itemsPerPage);
+
+    // 🔹 로딩 또는 에러 표시
+    if (loading) return <p style={{ textAlign: "center" }}>데이터 로딩 중...</p>;
+    if (error) return <p style={{ color: "red", textAlign: "center" }}>{error}</p>;
 
     return (
         <Container>
@@ -116,25 +153,23 @@ const UserManage = () => {
             <Table>
                 <thead>
                     <tr>
-                        <Th>학번</Th>
                         <Th>이름</Th>
-                        <Th>학과</Th>
-                        <Th>상태</Th>
+                        <Th>아이디</Th>
+                        <Th>역할</Th>
                         <Th>관리</Th>
                     </tr>
                 </thead>
                 <tbody>
                     {currentItems.map((user) => (
                         <tr key={user.id}>
-                            <Td>{user.studentId}</Td>
-                            <Td>{user.name}</Td>
-                            <Td>{user.department}</Td>
-                            <Td>{user.status}</Td>
+                            <Td>{user.personName || "이름 없음"}</Td>
+                            <Td>{user.username || "아이디 없음"}</Td>
+                            <Td>{user.role || "역할 없음"}</Td>
                             <Td>
-                                {user.status === "대기" && (
+                                {user.role === "ROLE_GUEST" && (
                                     <>
                                         <Button onClick={() => handleApprove(user.id)}>승인</Button>
-                                        <Button danger onClick={() => handleReject(user.id)}>취소</Button>
+                                        <Button danger onClick={() => handleDelete(user.id)}>삭제</Button>
                                     </>
                                 )}
                             </Td>

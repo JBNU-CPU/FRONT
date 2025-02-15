@@ -117,6 +117,7 @@ const Studyinfo = () => {
                 });
                 console.log('info');
                 console.log(userId, response.data.memberId);
+                console.log(response);
                 setStudyInfo(response.data);
             } catch (err) {
                 setError("스터디 정보를 불러오는 중 오류가 발생했습니다.");

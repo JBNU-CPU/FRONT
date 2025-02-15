@@ -175,9 +175,15 @@ const Login = () => {
                 } else {
                     setIsAdmin(false);
                 }
+
+                if (role === 'ROLE_GUEST'){
+                    setIsAuthenticated(false);
+                }else{
+                    setIsAuthenticated(true);
+                }
         
                 alert("로그인 되었습니다.");
-                setIsAuthenticated(true);
+
 
                 // 홈으로 이동
                 navigate("/");

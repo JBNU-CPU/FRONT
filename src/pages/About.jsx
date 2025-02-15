@@ -13,7 +13,7 @@ import miss from "../managerpic/miss.jpg";
 import img from '../managerpic/test.png';
 import dj from '../managerpic/dj.png';
 import dh from '../managerpic/dh.webp';
-
+import jh from '../managerpic/jh.jpeg';
 // 메인 컨테이너 스타일
 const Container = styled.div`
   padding: 20px;
@@ -188,7 +188,7 @@ const ManagementSection = () => (
     </Wrapper>
     <Wrapper className='wide'>
       <Wrapper>
-        <Img src={img}/>
+        <Img src={jh}/>
         <Name>부원 - 신재희</Name>
       </Wrapper>
       <Wrapper>
