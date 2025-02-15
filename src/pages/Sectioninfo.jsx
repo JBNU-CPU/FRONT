@@ -208,7 +208,7 @@ const Studyinfo = () => {
                 </IntroWrapper>
                 <IntroWrapper>
                     <IntroTitle>진행요일</IntroTitle>
-                    <IntroContent>{studyInfo?.studyDays 
+                    <IntroContent style={{ whiteSpace: "pre-line" }}>{studyInfo?.studyDays 
             ? convertEnglishToKoreanDays(studyInfo.studyDays).join("\n") 
             : "미정"}</IntroContent>
                 </IntroWrapper>
