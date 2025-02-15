@@ -197,6 +197,7 @@ const StudyMain = () => {
         );
         setStudyData(response.data.content || []); // content 속성에서 스터디 목록 가져오기
         setTotalPages(response.data.totalPages || 1);
+        console.log(response);
       } catch (error) {
         console.error("스터디 목록을 불러오는 중 오류 발생:", error);
       }
@@ -231,14 +232,15 @@ const StudyMain = () => {
     if (!studyDays || !Array.isArray(studyDays)) return [];
 
     const dayMapping = {
-        "MON": "월요일",
-        "TUE": "화요일",
-        "WED": "수요일",
-        "THU": "목요일",
-        "FRI": "금요일",
-        "SAT": "토요일",
-        "SUN": "일요일",
+      "Monday": "월요일",
+      "Tuesday": "화요일",
+      "Wednesday": "수요일",
+      "Thursday": "목요일",
+      "Friday": "금요일",
+      "Saturday": "토요일",
+      "Sunday": "일요일",
     };
+  
 
     return studyDays.map((dayString) => {
         // 불필요한 공백 제거 후 요일과 시간을 분리
