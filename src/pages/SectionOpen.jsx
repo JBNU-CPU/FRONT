@@ -249,6 +249,7 @@ const StudyOpen = () => {
             studyDays: convertDaysToEnglish(schedule),
             location: location,
             etc: etc,
+            leaderName:leader,
         };
 
         try {

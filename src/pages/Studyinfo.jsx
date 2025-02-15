@@ -164,6 +164,13 @@ const Studyinfo = () => {
             "Friday": "금요일",
             "Saturday": "토요일",
             "Sunday": "일요일",
+            "MON": "월요일",
+            "TUE": "화요일",
+            "WED": "수요일",
+            "THU": "목요일",
+            "FRI": "금요일",
+            "SAT": "토요일",
+            "SUN": "일요일",
         };
         
     
@@ -220,7 +227,7 @@ const Studyinfo = () => {
                 </IntroWrapper>
                 <IntroWrapper>
                     <IntroTitle>세션장</IntroTitle>
-                    <IntroContent>{studyInfo?.memberId ? `ID: ${studyInfo.memberId}` : "미정"}</IntroContent>
+                    <IntroContent>{studyInfo?.leaderName ? `${studyInfo.leaderName}` : "미정"}</IntroContent>
                 </IntroWrapper>
                 <IntroWrapper>
                     <IntroTitle>기타</IntroTitle>

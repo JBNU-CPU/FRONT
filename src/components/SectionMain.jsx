@@ -227,14 +227,21 @@ const SectionMain = () => {
     if (!studyDays || !Array.isArray(studyDays)) return [];
 
     const dayMapping = {
-        "MON": "월요일",
-        "TUE": "화요일",
-        "WED": "수요일",
-        "THU": "목요일",
-        "FRI": "금요일",
-        "SAT": "토요일",
-        "SUN": "일요일",
-    };
+      "Monday": "월요일",
+      "Tuesday": "화요일",
+      "Wednesday": "수요일",
+      "Thursday": "목요일",
+      "Friday": "금요일",
+      "Saturday": "토요일",
+      "Sunday": "일요일",
+      "MON": "월요일",
+      "TUE": "화요일",
+      "WED": "수요일",
+      "THU": "목요일",
+      "FRI": "금요일",
+      "SAT": "토요일",
+      "SUN": "일요일",
+  };
 
     return studyDays.map((dayString) => {
         // 불필요한 공백 제거 후 요일과 시간을 분리
@@ -268,7 +275,7 @@ const SectionMain = () => {
                 <StudyName>{item.studyName || "세션 이름 없음"}</StudyName>
                 <RecruitState>{item.state || "모집중"}</RecruitState>
               </Head>
-                <Teacher >세션장 : {item.teacher || "세션장 정보 없음"}</Teacher>
+                <Teacher >세션장 : {item.leaderName || "세션장 정보 없음"}</Teacher>
               <Wrapper>
               <Teacher>
                   {item.studyDays && item.studyDays.length > 0

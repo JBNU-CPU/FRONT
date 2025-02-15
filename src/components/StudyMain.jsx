@@ -233,7 +233,14 @@ const StudyMain = () => {
       "Friday": "금요일",
       "Saturday": "토요일",
       "Sunday": "일요일",
-    };
+      "MON": "월요일",
+      "TUE": "화요일",
+      "WED": "수요일",
+      "THU": "목요일",
+      "FRI": "금요일",
+      "SAT": "토요일",
+      "SUN": "일요일",
+  };
   
 
     return studyDays.map((dayString) => {
@@ -268,7 +275,7 @@ const StudyMain = () => {
                 <StudyName>{item.studyName || "스터디 이름 없음"}</StudyName>
                 <RecruitState>{item.state || "모집중"}</RecruitState>
               </Head>
-                <Teacher >팀장 : {item.teacher || "팀장 정보 없음"}</Teacher>
+                <Teacher >팀장 : {item.leaderName || "팀장 정보 없음"}</Teacher>
               <Wrapper>
                 <Teacher>
                     {item.studyDays && item.studyDays.length > 0

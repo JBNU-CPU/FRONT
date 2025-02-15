@@ -159,6 +159,13 @@ const Studyinfo = () => {
         if (!studyDays || !Array.isArray(studyDays)) return [];
     
         const dayMapping = {
+            "Monday": "월요일",
+            "Tuesday": "화요일",
+            "Wednesday": "수요일",
+            "Thursday": "목요일",
+            "Friday": "금요일",
+            "Saturday": "토요일",
+            "Sunday": "일요일",
             "MON": "월요일",
             "TUE": "화요일",
             "WED": "수요일",
@@ -222,7 +229,7 @@ const Studyinfo = () => {
                 </IntroWrapper>
                 <IntroWrapper>
                     <IntroTitle>세션장</IntroTitle>
-                    <IntroContent>{studyInfo?.memberId ? `ID: ${studyInfo.memberId}` : "미정"}</IntroContent>
+                    <IntroContent>{studyInfo?.leaderName ? `${studyInfo.leaderName}` : "미정"}</IntroContent>
                 </IntroWrapper>
                 <IntroWrapper>
                     <IntroTitle>기타</IntroTitle>
