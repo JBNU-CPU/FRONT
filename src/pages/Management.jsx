@@ -1,7 +1,8 @@
+import React, { useState } from "react";
 import styled from 'styled-components';
 import { HiChevronRight } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
-
+import UploadUser from "../components/UpLoadUser";
 const Wrapper = styled.div`
     width: 100%;
     margin-top : 60px;
@@ -53,6 +54,7 @@ const Content = styled.button`
 
 const Management = () => {
     const navigate = useNavigate();
+    const [isUpdating, setIsUpdating] = useState(false);
 
     return(
         <>
@@ -74,11 +76,12 @@ const Management = () => {
                         프로젝트 신청 관리
                         <HiChevronRight />
                     </Content>
-                    <Content>
+                    <Content onClick={() => setIsUpdating(true)}>
                         회원 정보 업데이트
                         <HiChevronRight />
                     </Content>
             </Wrapper>
+            {isUpdating && <UploadUser onClose={() => setIsUpdating(false)} />}
         </>
     );
 };

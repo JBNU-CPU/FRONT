@@ -43,11 +43,11 @@ const Container = styled.div`
     background: rgba(121, 120, 120, 0.1);
     border-radius: 20px;
     @media screen and (min-width : 700px) {
-      width : 80%;
+      width : 60%;
       min-height : 250px;
     }
     @media screen and (min-width : 1024px) {
-      width : 60%;
+      width : 50%;
       min-height : 300px;
     }
 
@@ -161,11 +161,52 @@ const Line = styled.div`
     background :#878C9E;
     margin: 5px 0 10px 0;
 `
+const StudyListContainer = styled.ul`
+    margin : 0;
+    background: none;
+    list-style : none;
+`;
+
+const StudyItem = styled.li`
+    background: none;
+    margin-bottom : 10px;
+    color : white;
+    
+`;
+
+const StudyButton = styled.button`
+    background: none;
+    color: #878C9E;
+    border: none;
+    padding : 5px 0;
+    cursor: pointer;
+    display : flex;
+    align-items : center;
+    font-size :15px;
+    &:hover {
+        color:  #F5F7FF;
+  }
+`;
+const NoStudyMessage = styled.p`
+  color: #888;
+`;
+const RightBtn = styled(FaChevronRight)`
+    margin-left : 10px;
+    background: none;
+`
 
 const Mypage = () => {
+    const navigate = useNavigate();
     const [personName, setPersonName] = useState("");
     const [nickName, setnickName] = useState("");
     const [email, setEmail] = useState("");
+
+    //임시 데이터!! 삭제 예정정
+    const [studies, setStudies] = useState([
+        { id: 1, studyName: "React 기본 스터디" },
+        { id: 2, studyName: "알고리즘 문제풀이" },
+        { id: 3, studyName: "CS 기초 학습" }
+    ]);
 
     useEffect(() => {
         // 데이터 가져오기
@@ -194,6 +235,12 @@ const Mypage = () => {
 
         fetchData();
     }, []);
+
+    //게시글로 이동
+    const handleStudyOpen =(id)=> {
+        navigate(`/studyinfo/${id}`);
+        alert(id)
+    }
 
     const handleWithdraw = async () => {
         if (window.confirm("정말로 탈퇴하시겠습니까?")) {
@@ -244,8 +291,22 @@ const Mypage = () => {
                     <SubtitleWrapper>
                         <Subtitle>개설/신청 스터디 목록</Subtitle>
                     </SubtitleWrapper>
-
                     <Line/>
+                    <InfoWrapper>
+                    {studies.length > 0 ? (
+                        <StudyListContainer>
+                        {studies.map((item) => (
+                            <StudyItem key={item.id}>
+                            <StudyButton onClick={() => handleStudyOpen(item.id)}>
+                                {item.studyName} <RightBtn/>
+                            </StudyButton>
+                            </StudyItem>
+                        ))}
+                        </StudyListContainer>
+                    ) : (
+                        <NoStudyMessage>개설/신청한 스터디가 없습니다</NoStudyMessage>
+                    )}
+                    </InfoWrapper>
                 </Container>
                 <Leave onClick={handleWithdraw}>회원탈퇴</Leave>
             </Wrapper>
