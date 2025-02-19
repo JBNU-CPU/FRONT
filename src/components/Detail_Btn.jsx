@@ -43,6 +43,7 @@ const Detail_Btn = ({navigation}) => {
 
     const onClick = () => {
         navigate(`/${navigation}`); // 누르면 이동할 url주소
+        window.scrollTo(0,0)
     }
 
     return (

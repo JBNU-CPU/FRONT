@@ -8,7 +8,7 @@ import map from "../Picture/map.png";
 import logo from "../Picture/CPU_logo_full.jpeg";
 import miss from "../managerpic/miss.jpg";
 import img from '../managerpic/test.png';
-import dj from '../managerpic/dj.jpeg';
+import dj from '../managerpic/dj.png';
 import dh from '../managerpic/dh.jpeg';
 import jh from '../managerpic/jh.jpeg';
 import dy from '../managerpic/dy.jpeg';
