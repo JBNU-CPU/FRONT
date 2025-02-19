@@ -5,7 +5,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Slider from "../components/ImgSlider";
 import { MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from "react-icons/md";
-import posts from '../posts/GalleryPosts';
+import posts from '../galleryPosts/Posts';
 
 const Wrap = styled.div`
 	width : calc(100%);
