@@ -138,7 +138,7 @@ const LocationSection = () => (
   <Section>
     <SectionHeader>동아리방 위치</SectionHeader>
     <Image src={map} alt="동아리방 위치" />
-    <Text>전북대학교 제2공학관 403호</Text>
+    <Text>전북대학교 제2학생회관 403호</Text>
     <SectionHeader>동아리방 내부</SectionHeader>
     <Image src={room1} alt="동아리방 내부" />
     <Image src={room2} alt="동아리 활동 모습" />

@@ -25,8 +25,8 @@ const Table = styled.table`
 const Th = styled.th`
     background: #ab1a65;
     color: white;
-    padding: 5px;
-    font: bold 14px 'arial';
+    padding: 10px;
+    font: bold 10px 'arial';
 
 `;
 
@@ -34,19 +34,18 @@ const Td = styled.td`
     padding: 5px;
     color: white;
     font: bold 14px 'arial';
-
 `;
 
 const Button = styled.button`
     background: ${(props) => (props.danger ? "#e74c3c" : "#2ecc71")};
     color: white;
     border: none;
-    padding: 8px 12px;
+    padding: 5px 10px;
     margin: 5px;
     border-radius: 5px;
-    cursor: pointer;
-    font: bold 14px 'arial';
+    font: bold 12px 'arial';
 
+    cursor: pointer;
     &:hover {
         opacity: 0.8;
     }
@@ -154,7 +153,7 @@ const UserManage = () => {
 
     return (
         <Container>
-            <Title>유저 관리</Title>
+            <Title>스터디 관리</Title>
             <Table>
                 <thead>
                     <tr>
