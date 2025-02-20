@@ -4,13 +4,13 @@ import axios from "axios";
 
 const Container = styled.div`
     width: 80%;
-    margin: 50px auto;
+    margin: 100px auto;
     text-align: center;
 `;
 
 const Title = styled.h2`
     margin-bottom: 20px;
-    color: #333;
+    color: white;
 `;
 
 const Table = styled.table`
@@ -23,17 +23,17 @@ const Table = styled.table`
 `;
 
 const Th = styled.th`
-    background: #4CAF50;
+    background: #ab1a65;
     color: white;
-    padding: 15px;
-    border-bottom: 2px solid #ddd;
+    padding: 5px;
+    font: bold 14px 'arial';
 `;
 
 const Td = styled.td`
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
+    padding: 5px;
     color: white;
-    font-size: 14px;
+    font: bold 14px 'arial';
+
 `;
 
 const Button = styled.button`
@@ -44,6 +44,8 @@ const Button = styled.button`
     margin: 5px;
     border-radius: 5px;
     cursor: pointer;
+    font: bold 14px 'arial';
+
     &:hover {
         opacity: 0.8;
     }
@@ -55,17 +57,20 @@ const PaginationWrapper = styled.div`
     display: flex;
     justify-content: center;
     gap: 10px;
+    
 `;
 
 const PageButton = styled.button`
-    background: ${(props) => (props.active ? "#4CAF50" : "#ddd")};
+    background: ${(props) => (props.active ? "#ab1a65" : "#ddd")};
     color: ${(props) => (props.active ? "white" : "black")};
     border: none;
     padding: 8px 12px;
     border-radius: 5px;
     cursor: pointer;
+    font: bold 14px 'arial';
+
     &:hover {
-        background: #4CAF50;
+        background: #ab1a65;
         color: white;
     }
 `;
