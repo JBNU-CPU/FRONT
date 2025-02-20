@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
     width: 60%;
-    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -91,10 +90,17 @@ const DeleteButton = styled.button`
     background: red;
     border: none;
     color: white;
+    margin-top: 50px;
     font: 500 15px 'arial';
     border-radius: 12px;
-    margin-left: 20px;
-    margin-top: 50px;
+    margin-bottom: 100px;
+`
+
+const Wrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
 `
 
 const Studyinfo = () => {
@@ -236,11 +242,29 @@ const Studyinfo = () => {
                     <IntroContent>{studyInfo?.etc || "없음"}</IntroContent>
                 </IntroWrapper>
                 <ButtonContainer>
-                {studyInfo && (((Number(userId) === studyInfo.memberId)||isAdmin) ? 
-                        (<DeleteButton onClick={handleDelete}>삭제하기</DeleteButton>) 
-                        : 
-                        (<ApplicateButton onClick={handleApply}>신청하기</ApplicateButton>)
-                    )}
+                {studyInfo && (
+                    <>
+                        {/* isAdmin인 경우 "삭제하기"와 "신청하기" 둘 다 표시 */}
+                        {isAdmin && (
+                            <>
+                                <Wrapper>
+                                    <DeleteButton onClick={handleDelete}>삭제하기</DeleteButton>
+                                    <ApplicateButton onClick={handleApply}>신청하기</ApplicateButton>
+                                </Wrapper>
+                            </>
+                        )}
+
+                        {/* 일반 사용자가 자신이 작성한 글을 볼 때 "삭제하기"만 표시 */}
+                        {!isAdmin && Number(userId) === studyInfo.memberId && (
+                            <DeleteButton onClick={handleDelete}>삭제하기</DeleteButton>
+                        )}
+
+                        {/* 일반 사용자가 글을 볼 때 (isAdmin이 아니고, 본인이 작성한 글이 아닐 경우) "신청하기"만 표시 */}
+                        {!isAdmin && Number(userId) !== studyInfo.memberId && (
+                            <ApplicateButton onClick={handleApply}>신청하기</ApplicateButton>
+                        )}
+                    </>
+                )}
                 </ButtonContainer> 
             </Container>
             <Footer />

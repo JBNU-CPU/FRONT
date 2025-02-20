@@ -102,9 +102,10 @@ const UserManage = () => {
     const handleApprove = async (id) => {
         try {
             const response = await axios.put(`${process.env.REACT_APP_API_URL}/admin/user/${id}?role=member`,
+                {},
                 { withCredentials: true, }
             );
-
+            console.log(response);
             console.log(`유저 ${id} 승인 완료`, response.data);
             setUsers(users.filter(user => user.id !== id));
 
@@ -113,6 +114,23 @@ const UserManage = () => {
             alert("승인 요청 중 오류가 발생했습니다.");
         }
     };
+
+    const AdminApprove = async (id) => {
+        try {
+            const response = await axios.put(`${process.env.REACT_APP_API_URL}/admin/user/${id}?role=admin`,
+                {},
+                { withCredentials: true, }
+            );
+            console.log(response);
+            console.log(`유저 ${id} 승인 완료`, response.data);
+            setUsers(users.filter(user => user.id !== id));
+
+        } catch (err) {
+            console.error(`유저 ${id} 승인 중 오류 발생:`, err);
+            alert("승인 요청 중 오류가 발생했습니다.");
+        }
+    };
+    
 
     // 🔹 삭제 처리 (DELETE 요청)
     const handleDelete = async (id) => {
@@ -164,7 +182,8 @@ const UserManage = () => {
                             <Td>
                                 {user.role === "ROLE_GUEST" && (
                                     <>
-                                        <Button onClick={() => handleApprove(user.id)}>승인</Button>
+                                        <Button onClick={() => handleApprove(user.id)}>일반 멤버 승인</Button>
+                                        <Button onClick={() => AdminApprove(user.id)}>관리자 승인</Button>
                                         <Button danger onClick={() => handleDelete(user.id)}>삭제</Button>
                                     </>
                                 )}

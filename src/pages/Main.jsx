@@ -154,7 +154,7 @@ const Main = () => {
           부원들의 코딩 역량 향상을 위한 세션,스터디,프로젝트를 운영하고
           있습니다.
         </p>
-        <Detail_Btn navigation="study" />
+        <Detail_Btn navigation="studymain" />
         <h1>Activity</h1>
         <img src={networkingimg} alt="study" />
         <p>
