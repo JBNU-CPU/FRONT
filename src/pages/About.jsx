@@ -1,27 +1,17 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import Header from "../components/Header";
 import Footer from "../components/Footer"; 
-import MainPitcture from './Pic/StudyMain.png'
 import Slider from "../components/ImgSlider";
 import room1 from "../Picture/CPU_Room.jpg";
 import room2 from "../Picture/CPU_Room2.jpg";
 import map from "../Picture/map.png";
-import tree from "../Picture/tree.jpg";
 import logo from "../Picture/CPU_logo_full.jpeg";
 import miss from "../managerpic/miss.jpg";
 import img from '../managerpic/test.png';
 import dj from '../managerpic/dj.png';
-import dh from '../managerpic/dh.webp';
+import dh from '../managerpic/dh.jpeg';
 import jh from '../managerpic/jh.jpeg';
-import { GoDotFill } from "react-icons/go";
-
-const Dot = styled(GoDotFill)`
-  color : #ab1a65;
-  align-self: flex-end;
-  width: 10px;
-  height:auto;
-`
+import dy from '../managerpic/dy.jpeg';
 
 // 메인 컨테이너 스타일
 const Container = styled.div`
@@ -121,8 +111,9 @@ const Wrapper = styled.div`
 `
 
 const Img = styled.img`
-  width: 150px;
-  height: 200px;
+  width: 100%;
+  max-width: 150px;
+  height: auto;
   border-radius: 5px;
 `
 
@@ -156,7 +147,7 @@ const LocationSection = () => (
   <Section>
     <SectionHeader>동아리방 위치</SectionHeader>
     <Image src={map} alt="동아리방 위치" />
-    <Text>전북대학교 제2공학관 403호</Text>
+    <Text>전북대학교 제2학생회관 403호</Text>
     <SectionHeader>동아리방 내부</SectionHeader>
     <Image src={room1} alt="동아리방 내부" />
     <Image src={room2} alt="동아리 활동 모습" />
@@ -167,7 +158,7 @@ const ManagementSection = () => (
   <Section>
     <H2>회장단<Dot/></H2>
     <Wrapper>
-      <Img src={img}/>
+      <Img src={dy}/>
       <Name>회장 - 이다영</Name>
     </Wrapper>
     <Wrapper className='wide'>
@@ -180,35 +171,39 @@ const ManagementSection = () => (
         <Name>총무 - 박도현</Name>
       </Wrapper>
     </Wrapper>
-    <H2>학술부<Dot/></H2>
-    <Wrapper>
-      <Img src={dj}/>
-      <Name>부장 - 김동준</Name>
-    </Wrapper>
+    <H2>학술부</H2>
     <Wrapper className='wide'>
+      <Wrapper>
+        <Img src={dj}/>
+        <Name>부장 - 김동준</Name>
+      </Wrapper>
       <Wrapper>
         <Img src={img}/>
         <Name>부원 - 안 현</Name>
       </Wrapper>
-      <Wrapper>
-        <Img src={miss}/>
-        <Name>부원 - 모집중</Name>
-      </Wrapper>
-      <Wrapper>
-        <Img src={miss}/>
-        <Name>부원 - 모집중</Name>
-      </Wrapper>
-    </Wrapper>
-    <H2>기획부<Dot/></H2>
-    <Wrapper>
-      <Img src={img}/>
-      <Name>부장 - 정서현</Name>
     </Wrapper>
     <Wrapper className='wide'>
+      <Wrapper>
+        <Img src={miss}/>
+        <Name>부원 - 모집중</Name>
+      </Wrapper>
+      <Wrapper>
+        <Img src={miss}/>
+        <Name>부원 - 모집중</Name>
+      </Wrapper>
+    </Wrapper>
+    <H2>기획부</H2>
+    <Wrapper className='wide'>
+      <Wrapper>
+        <Img src={img}/>
+        <Name>부장 - 정서현</Name>
+      </Wrapper>
       <Wrapper>
         <Img src={jh}/>
         <Name>부원 - 신재희</Name>
       </Wrapper>
+    </Wrapper>
+    <Wrapper className='wide'>
       <Wrapper>
         <Img src={img}/>
         <Name>부원 - 이동규</Name>
@@ -218,16 +213,18 @@ const ManagementSection = () => (
         <Name>부원 - 모집중</Name>
       </Wrapper>
     </Wrapper>
-    <H2>복지부<Dot/></H2>
-    <Wrapper>
-      <Img src={img}/>
-      <Name>부장 - 박태정</Name>
-    </Wrapper>
+    <H2>복지부</H2>
     <Wrapper className='wide'>
       <Wrapper>
-        <Img src={miss}/>
-        <Name>부원 - 모집중</Name>
+        <Img src={img}/>
+        <Name>부장 - 박태정</Name>
       </Wrapper>
+      <Wrapper>
+        <Img src={img}/>
+        <Name>부원 - 김유진</Name>
+      </Wrapper>
+    </Wrapper>
+    <Wrapper className='wide'>
       <Wrapper>
         <Img src={miss}/>
         <Name>부원 - 모집중</Name>
@@ -237,16 +234,18 @@ const ManagementSection = () => (
         <Name>부원 - 모집중</Name>
       </Wrapper>
     </Wrapper>
-    <H2>홍보부<Dot/></H2>
-    <Wrapper>
-      <Img src={img}/>
-      <Name>부장 - 채민경</Name>
-    </Wrapper>
+    <H2>홍보부</H2>
     <Wrapper className='wide'>
+      <Wrapper>
+        <Img src={img}/>
+        <Name>부장 - 채민경</Name>
+      </Wrapper>
       <Wrapper>
         <Img src={img}/>
         <Name>부원 - 심은수</Name>
       </Wrapper>
+    </Wrapper>
+    <Wrapper className='wide'>
       <Wrapper>
         <Img src={miss}/>
         <Name>부원 - 모집중</Name>

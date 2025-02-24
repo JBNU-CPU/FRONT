@@ -84,7 +84,7 @@ const Content = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    width: calc(90);
+    overflow: hidden;
     height: auto;
     border-radius: 15px;
     border: 1px solid #424755;
@@ -189,9 +189,10 @@ const SectionMain = () => {
             withCredentials: true,
           }
         );
-        setStudyData(response.data.content || []); // content 속성에서 스터디 목록 가져오기
+        const filteredData = (response.data.content || []).filter(item => item.isAccepted === true);
+
+        setStudyData(filteredData); // 필터링된 데이터만 저장
         setTotalPages(response.data.totalPages || 1);
-        console.log(response);
       } catch (error) {
         console.error("스터디 목록을 불러오는 중 오류 발생:", error);
       }
