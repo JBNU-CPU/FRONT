@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import Slider from "../components/ImgSlider";
 import { MdOutlineArrowForwardIos, MdOutlineArrowBackIos } from "react-icons/md";
 import posts from '../galleryPosts/Posts';
+import Pagination from '../components/Pagination'
 
 const Wrap = styled.div`
 	width : calc(100%);
@@ -93,67 +94,24 @@ const Text = styled.span`
 	}
 `;
 
-
-
-const PageIndex = styled.div`
-	display : flex;
-	align-items : center;
-	justify-content : center;
-	flex-direction : row;
-	margin : 10px;
-	p{
-		color : white;
-		cursor : default;
-	}
-`
-const PageBtn = styled.button`
-	margin: 0 5px;
-	background-color: rgba(0,0,0,0);
-	color: white;
-	border: none;
-	border-radius: 5px;
-	cursor: pointer;
-	display : flex;
-	justify-content : center;
-	text-align : center;
-	&:disabled {
-		cursor : default;
-	}
-`
-const ArrowForward = styled(MdOutlineArrowForwardIos)`
-  margin-left: 1px;
-  color: ${(props) => (props.disabled ? 'grey' : 'white')};
-`;
-const ArrowBack = styled(MdOutlineArrowBackIos)`
-    margin-left: 1px;
-    color: ${(props) => (props.disabled ? 'grey' : 'white')};
-`;
-
 const Gallery = () => {
 	const navigate = useNavigate();
-	const [currentPg, setCurrentPg] = useState(0); //현재 페이지
+	const [currentPg, setCurrentPg] = useState(1); //현재 페이지
 	const itemsPerPg = 9; // 페이지당 나타낼 게시물 수
 
 	const totalPg = Math.ceil(posts.length/itemsPerPg); // 전체 페이지 계산
 
-	const currentItem = posts.slice(currentPg*itemsPerPg, (currentPg+itemsPerPg)); // 현재 페이지에 나타낼 게시물
-
-	const nextPg = () =>{
-		if(currentPg<totalPg-1){
-			setCurrentPg(currentPg+1);
-		}
-	};
-
-	const prevPg = () =>{
-		if(currentPg>0){
-			setCurrentPg(currentPg-1);
-		}
-	};
+	const currentItem = posts.slice((currentPg-1)*itemsPerPg, (currentPg-1+itemsPerPg)); // 현재 페이지에 나타낼 게시물
 
 	//게시물 접근
 	const handleDetail =(id) =>{
 		navigate(`/galleryDetail/${id}`);
 	}
+	const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPg) {
+      setCurrentPg(page);
+    }
+  };
 
   return(
 		<>
@@ -169,11 +127,11 @@ const Gallery = () => {
 					</Button>
 				))}
     	</Wrap>
-			<PageIndex>
-					<PageBtn onClick={prevPg} disabled={currentPg===0}><ArrowBack disabled={currentPg===0}/></PageBtn>
-					<p style={{font:'bold 13px "arial"'}}>{currentPg+1} / {totalPg}</p>
-					<PageBtn onClick={nextPg} disabled={currentPg===totalPg-1}><ArrowForward disabled={currentPg===totalPg-1}/></PageBtn>
-				</PageIndex>
+			<Pagination 
+        currentPage={currentPg}
+        totalPages={totalPg}
+        handlePageChange={handlePageChange}
+      />
 			<Footer/>
 	</>
 	);

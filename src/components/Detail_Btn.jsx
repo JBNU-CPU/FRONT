@@ -25,6 +25,11 @@ const Button = styled.button`
             color: gray;
         }
     }
+    @media screen and (min-width: 768px) {
+        width: 90px;
+        height: 35px;
+        font: bold 14px 'arial';
+    } 
 `;
 
 

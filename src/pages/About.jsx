@@ -15,7 +15,7 @@ import dy from '../managerpic/dy.jpeg';
 
 // 메인 컨테이너 스타일
 const Container = styled.div`
-  padding: 20px;
+  padding: 0 20px;
   font-family: Arial, sans-serif;
   color: white;
   display: flex;
@@ -28,27 +28,29 @@ const TabContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
-  margin-bottom: 20px;
+  gap: 10px;
+  margin: 20px 0;
   width: 100%;
   text-align: center;
+  @media screen and (min-width : 768px) {
+    gap: 20px;
+  }
 `;
 
 const TabButton = styled.button`
   background: none;
   border: none;
   color: ${({ isActive }) => (isActive ? 'gray' : 'white')};
-  font-size: 18px;
   cursor: pointer;
-  font: bold 20px 'arial';
+  font: bold 14px 'arial';
   padding-bottom: 5px;
   border-bottom: 2px solid ${({ isActive }) => (isActive ? '#ab1a65' : 'transparent')};
   &:hover {
     border-bottom: 2px solid #ab1a65;
   }
-  @media screen and (max-width : 700px) {
-    font-size: 15px;
-    }
+  @media screen and (min-width : 768px) {
+    font: bold 18px 'arial';
+  }
 `;
 
 // 이미지와 텍스트 스타일
@@ -69,25 +71,30 @@ const Image = styled.img`
   border-radius: 5px;
   margin: 10px 0;
   &.logo{
-    @media screen and (max-width : 700px) {
+    width: calc(60%);
+    @media screen and (min-width : 768px) {
       width: calc(60%);
     }
   }
 `;
 
 const Text = styled.p`
-  font: bold 13px 'arial';
+  font: normal 13px 'arial';
   margin: 15px 0;
   text-align: center;
+  line-height: 1.5; 
+  @media screen and (min-width : 768px) {
+      font-size: 15px;
+  }
 `;
 
 const SectionHeader = styled.h2`
   align-items: center;
   text-align: center;
-  font: bold 30px 'arial';
+  font-size: 25px;
   margin-bottom: 20px;
-  @media screen and (max-width : 700px) {
-    font-size: 25px;
+  @media screen and (min-width : 768px) {
+    font: bold 30px 'arial';
   }
 `;
 
@@ -117,7 +124,9 @@ const Name = styled.p`
 
 const H2 = styled.h2`
   font: bold 25px 'arial';
-  margin-top: 50px;
+  margin-top: 30px;
+  padding: 2px;
+  display:flex;
 `
 
 // 섹션 컴포넌트
@@ -147,7 +156,7 @@ const LocationSection = () => (
 
 const ManagementSection = () => (
   <Section>
-    <H2>회장단</H2>
+    <H2>회장단<Dot/></H2>
     <Wrapper>
       <Img src={dy}/>
       <Name>회장 - 이다영</Name>
@@ -269,12 +278,12 @@ const App = () => {
   return (
     <>
       <Slider title="CPU" content="전북대학교 중앙 컴퓨터동아리  CPU"/>
-      <Container>
-        <TabContainer>
+      <TabContainer>
           <TabButton isActive={activeTab === 'about'} onClick={() => setActiveTab('about')}>소개</TabButton>
           <TabButton isActive={activeTab === 'location'} onClick={() => setActiveTab('location')}>동아리방</TabButton>
           <TabButton isActive={activeTab === 'management'} onClick={() => setActiveTab('management')}>운영진</TabButton>
-        </TabContainer>
+      </TabContainer>
+      <Container>
         {renderContent()}
       </Container>
       <Footer />

@@ -30,15 +30,21 @@ const MainWrap = styled.div`
     background-color: rgba(0, 0, 0, 0);
     color: #f5f7ff;
     font-size: 25px;
-    margin-top: 50px;
+    margin-top: 30px;
     margin-bottom: 0;
     border-bottom: 2px solid #ab1a65;
     padding: 0px 20px 10px 20px;
     &.bottom {
       border: none;
+      margin-top : 40px;
+      margin-bottom : 30px;
     }
     @media screen and (min-width: 768px) {
       font-size: 40px;
+    }
+    @media screen and (min-width: 1024px) {
+      font-size: 50px;
+      margin-top:50px;
     }
   }
   p {
@@ -49,14 +55,17 @@ const MainWrap = styled.div`
     margin: 0;
     text-align: center;
     padding-block: 10px;
-    &.font {
-      font: bold 13px "arial";
-    }
     @media screen and (min-width: 768px) {
       width: 90%;
       font: 400 15px "arial";
       line-height: 2;
     }
+    @media screen and (min-width: 1024px) {
+      width: 85%;
+      font: 400 16px "arial";
+      line-height: 2;
+      margin: 15px 0;
+    }  
   }
   img {
     width: 100%;
@@ -75,7 +84,6 @@ const Button = styled.button`
   border: none;
   background: #ab1a65;
   font: bold 12px "arial";
-  font-weight: 700;
   width: 100px;
   height: 35px;
   color: white;
@@ -87,6 +95,13 @@ const Button = styled.button`
     box-shadow: 0 0 15px rgba(171, 26, 101, 0.8);
     transform: scale(1.05);
   }
+  @media screen and (min-width: 1024px) {
+      width: 120px;
+      height : 45px;
+      font: bold 16px "arial";
+      margin-bottom : 100px;
+  }  
+  
 `;
 
 const ScrollToTopButton = styled.button`
@@ -169,7 +184,7 @@ const Main = () => {
         <Detail_Btn navigation="gallery" />
         <h1 className="bottom">CPU와 함께하고 싶다면</h1>
         <Button onClick={handleRecruit}>
-          <p className="font">지원하기</p>
+          지원하기
         </Button>
       </MainWrap>
       {isScrollVisible && (
