@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Spinner from '../components/Spinner';
 import Slider from '../components/ImgSlider';
-
+import Pagination from '../components/Pagination';
 // 전체 페이지를 감싸는 컨테이너
 const Container = styled.div`
   font-family: Arial, sans-serif;
@@ -115,10 +115,6 @@ const TableCell = styled.td`
   }
 `;
 
-const Pagination = styled.div`
-  text-align: center;
-  margin-top: 20px;
-`;
 
 const PageButton = styled.button`
   padding: 5px 10px;
@@ -255,6 +251,11 @@ const Community = () => {
       alert("비회원은 접근 불가합니다.");
     }
   };
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
 
   return (
     <Container>
@@ -302,16 +303,11 @@ const Community = () => {
               ))}
             </tbody>
           </Table>
-
-          <Pagination>
-            <PageButton onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
-              이전
-            </PageButton>
-            {currentPage} / {totalPages}
-            <PageButton onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
-              다음
-            </PageButton>
-          </Pagination>
+          <Pagination 
+            currentPage={currentPage}
+            totalPages={totalPages}
+            handlePageChange={handlePageChange}
+          />
         </>
       )}
 

@@ -10,6 +10,7 @@ import axios from 'axios';
 import Spinner from '../components/Spinner';
 import AdminContext from '../AdminContext';
 import Slider from '../components/ImgSlider';
+import Pagination from "../components/Pagination";
 
 // 전체 페이지를 감싸는 컨테이너
 const Container = styled.div`
@@ -20,54 +21,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const HeaderImg = styled.img`
-  width: 100%;
-  height: 300px;
-  opacity: 0.5;
-  @media screen and (min-width : 768px) {
-      height: 400px;
-  }
-`;
-
-const PictureWrapper = styled.div`
-  width: 100%;
-  height: 300px;
-  position: relative;
-  margin-bottom: 30px;
-  @media screen and (min-width : 768px) {
-      height: 400px;
-  }
-`;
-
-const Title = styled.h1`
-  text-align: center;
-  color: white;
-  position: absolute;
-  top: 100px;
-  left: 0;
-  right: 0;
-  background: none;
-  font-family: 'arial';
-  @media screen and (min-width : 768px) {
-      top: 140px;
-  }
-`;
-
-const Summary = styled.p`
-  color: white;
-  text-align: center;
-  position: absolute;
-  top: 190px;
-  left: 0;
-  right: 0;
-  background: none;
-  font-family: 'arial';
-  font-weight: 700;
-  @media screen and (min-width : 768px) {
-      top: 210px;
-  }
 `;
 
 const SearchSection = styled.div`
@@ -161,11 +114,6 @@ const TableCell = styled.td`
   @media screen and (min-width : 700px) {
     font: bold 14px 'arial';
   }
-`;
-
-const Pagination = styled.div`
-  text-align: center;
-  margin-top: 20px;
 `;
 
 const PageButton = styled.button`
@@ -267,6 +215,11 @@ const Community = () => {
     fetchPosts();
   }, [currentPage, postsPerPage]);
 
+  const handlePageChange = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
   const handleSearch = async () => {
     setIsLoading(true); // 로딩 시작
     console.log(`검색 유형: ${searchType}, 검색어: ${searchTerm}`);
@@ -351,16 +304,11 @@ const Community = () => {
               ))}
             </tbody>
           </Table>
-
-          <Pagination>
-            <PageButton onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
-              이전
-            </PageButton>
-            {currentPage} / {totalPages}
-            <PageButton onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPages}>
-              다음
-            </PageButton>
-          </Pagination>
+          <Pagination 
+            currentPage={currentPage}
+            totalPages={totalPages}
+            handlePageChange={handlePageChange}
+          />
         </>
       )}
 

@@ -96,20 +96,20 @@ const Text = styled.span`
 
 const Gallery = () => {
 	const navigate = useNavigate();
-	const [currentPg, setCurrentPg] = useState(1); //현재 페이지
-	const itemsPerPg = 9; // 페이지당 나타낼 게시물 수
+	const [currentPage, setCurrentPage] = useState(1); //현재 페이지
+	const itemsPerPage = 9; // 페이지당 나타낼 게시물 수
 
-	const totalPg = Math.ceil(posts.length/itemsPerPg); // 전체 페이지 계산
+	const totalPages = Math.ceil(posts.length/itemsPerPage); // 전체 페이지 계산
 
-	const currentItem = posts.slice((currentPg-1)*itemsPerPg, (currentPg-1+itemsPerPg)); // 현재 페이지에 나타낼 게시물
+	const currentItem = posts.slice((currentPage-1)*itemsPerPage, (currentPage-1+itemsPerPage)); // 현재 페이지에 나타낼 게시물
 
 	//게시물 접근
 	const handleDetail =(id) =>{
 		navigate(`/galleryDetail/${id}`);
 	}
 	const handlePageChange = (page) => {
-    if (page >= 1 && page <= totalPg) {
-      setCurrentPg(page);
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
     }
   };
 
@@ -128,8 +128,8 @@ const Gallery = () => {
 				))}
     	</Wrap>
 			<Pagination 
-        currentPage={currentPg}
-        totalPages={totalPg}
+        currentPage={currentPage}
+        totalPages={totalPages}
         handlePageChange={handlePageChange}
       />
 			<Footer/>
