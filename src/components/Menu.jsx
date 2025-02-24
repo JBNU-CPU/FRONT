@@ -273,6 +273,11 @@ const Menu = ({closeMenu}) => {
         closeMenu();
     };
 
+    const handleLogin = () => {
+        navigate('/login');
+        closeMenu();
+    }
+
     const handleLogout = async () => {
         try {
             const response = await axios.get(`${process.env.REACT_APP_API_URL}/logout`, {
@@ -374,12 +379,12 @@ const Menu = ({closeMenu}) => {
                     <>
                         <Mypage onClick={handlemypage}>마이페이지</Mypage>
                         <Login onClick={handleLogout}>
-                            <StyledLink to='/'>Log out</StyledLink>
+                            <StyledLink>Log out</StyledLink>
                         </Login>
                     </>
                 ) : (
-                    <Login>
-                        <StyledLink to='/login' onClick={() => closeMenu()}>Log in</StyledLink>
+                    <Login onClick={handleLogin}>
+                        <StyledLink>Log in</StyledLink>
                     </Login>
                 )}
             </LoginWrapper>
