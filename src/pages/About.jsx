@@ -156,7 +156,7 @@ const LocationSection = () => (
 
 const ManagementSection = () => (
   <Section>
-    <H2>회장단<Dot/></H2>
+    <H2>회장단</H2>
     <Wrapper>
       <Img src={dy}/>
       <Name>회장 - 이다영</Name>
